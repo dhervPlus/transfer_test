@@ -11,34 +11,77 @@ import UIKit
 class DestinationTableViewController: UITableViewController {
     
     //MARK: Properties
+    var destinations = [[Destination]]()
+    var sections: [String] = []
     
-    var destinations = [Destination]()
-
+    //    var completionHandler:(([Destination]) -> ())?
+    
+    
+    
+    //    func setDestinations(destinations: [Destination]){
+    //        print("reload", destinations)
+    //        self.destinations = destinations
+    //        print("reload", self.destinations)
+    //
+    //        DispatchQueue.main.async{
+    //            self.tableView.reloadData()
+    //        }
+    //
+    //
+    //
+    //    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // Load the sample data.
-        loadSampleDestinations()
+        
+        loadDestinations()
+        
     }
-
+    
+   
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return destinations.count
     }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
 
+        let label = UILabel()
+        label.frame = CGRect.init(x: 16, y: 0, width: headerView.frame.width, height: headerView.frame.height)
+        label.text = String(sections[section])
+        label.textColor = UIColor.black // my custom colour
+        if #available(iOS 13.0, *) {
+            headerView.backgroundColor = UIColor.systemGray5
+        } else {
+            // Fallback on earlier versions
+        }
+        headerView.addSubview(label)
+
+        return headerView
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+     
+        return destinations[section].count
+    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -50,82 +93,103 @@ class DestinationTableViewController: UITableViewController {
         }
         
         // Fetches the appropriate meal for the data source layout.
-        let destination = destinations[indexPath.row]
+        
+        let destination = destinations[indexPath.section][indexPath.row]
+        
         
         cell.destinationCellLabel.text = destination.label_japanese
-
-//         Configure the cell...
-
+        
+        //         Configure the cell...
+        
         return cell
     }
     
-
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+     if editingStyle == .delete {
+     // Delete the row from the data source
+     tableView.deleteRows(at: [indexPath], with: .fade)
+     } else if editingStyle == .insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     
     //MARK: Private Methods
-     
-    private func loadSampleDestinations() {
-        
-        guard let destination1 = Destination(
-            id: "",
-            node_id: "",
-            type_id: "",
-            label_japanese: "中央南口",
-            label_english: "",
-            label_korean: "",
-            label_chinese: "") else {
-                fatalError("Unable to instantiate destination1")
+    
+    
+    private func loadDestinations() {
+        Api.shared.get(path: "/loadmap/16"){(res) in
+            switch res {
+            case .failure(let err):
+                print(err)
+            case .success(let map_data):
+               
+               
+                self.getTypes(destinations: map_data.destinations)
+                
+            }
         }
         
-        destinations += [destination1]
-        
-       
-        
-      
     }
-
+    
+    private func getTypes(destinations: [Destination]) {
+      
+        let dest = Dictionary(grouping: destinations) {(element) -> String in
+            return element.type_label
+        }
+        
+        for (key, value) in dest {
+            print(value)
+                
+            self.sections.append(key)
+            self.destinations.append(value)
+                
+            
+        }
+        
+         
+        
+          
+        DispatchQueue.main.async {
+                           self.tableView.reloadData()
+                       }
+    }
+    
 }

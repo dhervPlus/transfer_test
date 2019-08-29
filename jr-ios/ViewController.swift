@@ -9,7 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    var destinations = [Destination]()
+    
+    
+    
     @IBOutlet weak var buttonLeftSettings: UIBarButtonItem!
     @IBOutlet weak var buttonRightSettings: UIBarButtonItem!
     
@@ -22,9 +26,7 @@ class ViewController: UIViewController {
         } else {
             // Fallback on earlier versions
         }
-    }
+    }    
     
-
-
 }
 
