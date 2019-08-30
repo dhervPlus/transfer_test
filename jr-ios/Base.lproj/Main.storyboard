@@ -61,19 +61,87 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdL-mi-JFv">
-                                <rect key="frame" x="0.0" y="88" width="414" height="21"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdL-mi-JFv">
+                                <rect key="frame" x="0.0" y="88" width="414" height="45"/>
+                                <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="lgt-T5-6aa"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Label">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" firstLineHeadIndent="16" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noD-5J-W5o">
+                                <rect key="frame" x="24" y="188" width="366" height="61"/>
+                                <string key="text">案内板にこのアイコンが表示されます。
+案内中はこのアイコンが表示されている矢印に従って歩いてください。</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
-                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" image="JR-icon3" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KtK-4u-Tr3">
+                                <rect key="frame" x="24" y="289" width="366" height="156"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ILb-dd-YW4">
+                                <rect key="frame" x="32" y="545" width="350" height="40"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q1t-F8-rt9">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="6TW-xH-lwI"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歩きスマホは危険です!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEb-n4-vgU">
+                                        <rect key="frame" x="40" y="0.0" width="270" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="21"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o4i-fK-7cx" userLabel="Image Warning Right">
+                                        <rect key="frame" x="310" y="0.0" width="40" height="40"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="FgK-WF-4Gr"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="BIh-4Q-dga"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="次の案内板に近づくと音や振動でお知らせいたします。" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3V7-Qo-X9H">
+                                <rect key="frame" x="24" y="665" width="366" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="KtK-4u-Tr3" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="8ss-Gq-zp9"/>
+                            <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="3V7-Qo-X9H" secondAttribute="trailing" constant="24" id="98I-FQ-j3Z"/>
+                            <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="KtK-4u-Tr3" secondAttribute="trailing" constant="24" id="Bpg-ta-a0L"/>
+                            <constraint firstItem="3V7-Qo-X9H" firstAttribute="top" secondItem="ILb-dd-YW4" secondAttribute="bottom" constant="80" id="E5T-bz-bDp"/>
                             <constraint firstItem="CdL-mi-JFv" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" id="GJq-4D-tKq"/>
+                            <constraint firstItem="3V7-Qo-X9H" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="Nrn-SY-Z2l"/>
+                            <constraint firstItem="noD-5J-W5o" firstAttribute="top" secondItem="CdL-mi-JFv" secondAttribute="bottom" constant="55" id="Twg-IR-Rmb"/>
+                            <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="noD-5J-W5o" secondAttribute="trailing" constant="24" id="ZGa-pV-mo8"/>
+                            <constraint firstItem="KtK-4u-Tr3" firstAttribute="top" secondItem="noD-5J-W5o" secondAttribute="bottom" constant="40" id="e2V-g4-b9Y"/>
                             <constraint firstItem="CdL-mi-JFv" firstAttribute="top" secondItem="iX8-00-DF8" secondAttribute="top" id="iGW-EK-03X"/>
+                            <constraint firstItem="ILb-dd-YW4" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="32" id="jJ8-kC-Mxn"/>
+                            <constraint firstItem="noD-5J-W5o" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="lKl-x4-hv5"/>
                             <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="CdL-mi-JFv" secondAttribute="trailing" id="lmB-GM-DxA"/>
+                            <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="ILb-dd-YW4" secondAttribute="trailing" constant="32" id="qxc-Jo-D6V"/>
+                            <constraint firstItem="iX8-00-DF8" firstAttribute="bottom" secondItem="KtK-4u-Tr3" secondAttribute="bottom" constant="368" id="rbr-r7-mrl"/>
+                            <constraint firstItem="ILb-dd-YW4" firstAttribute="top" secondItem="KtK-4u-Tr3" secondAttribute="bottom" constant="100" id="tkD-61-Kf8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iX8-00-DF8"/>
                     </view>
@@ -88,9 +156,12 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="ImageWarningLeft" destination="Q1t-F8-rt9" id="KHF-fk-CLs"/>
+                        <outlet property="ImageWarningRight" destination="o4i-fK-7cx" id="bdF-j7-gmR"/>
                         <outlet property="NavLeftItem" destination="5S2-fv-4jb" id="Xy2-Kq-DC4"/>
                         <outlet property="NavRightItem" destination="vD0-9w-m8o" id="RKx-Uh-fvQ"/>
                         <outlet property="TextLabel" destination="CdL-mi-JFv" id="dNQ-bi-iKz"/>
+                        <outlet property="mainImageView" destination="KtK-4u-Tr3" id="VT0-wA-14E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r9S-Wh-dke" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -198,6 +269,9 @@
             <point key="canvasLocation" x="2268" y="628"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="JR-icon3" width="140" height="61.5"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WUx-vy-aTm"/>
     </inferredMetricsTieBreakers>

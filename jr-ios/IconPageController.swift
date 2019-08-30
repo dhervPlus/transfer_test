@@ -16,17 +16,28 @@ class IconPageController: UIViewController {
     @IBOutlet weak var NavRightItem: UIBarButtonItem!
     @IBOutlet weak var NavLeftItem: UIBarButtonItem!
     
+    @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var TextLabel: UILabel!
     
+   
+    
+    
+    @IBOutlet weak var ImageWarningLeft: UIImageView!
+    @IBOutlet weak var ImageWarningRight: UIImageView!
     var myString:String = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        self.mainImageView.layer.masksToBounds = true
         NavLeftItem.title = "戻る"
         TextLabel.text = "目的地：\(myString)"
         
+       
+        
         if #available(iOS 13.0, *) {
+            ImageWarningLeft.image = UIImage(systemName: "exclamationmark.triangle.fill")
+             ImageWarningRight.image = UIImage(systemName: "exclamationmark.triangle.fill")
+    
             NavRightItem.image = UIImage(systemName: "gear")
                  
                } else {
