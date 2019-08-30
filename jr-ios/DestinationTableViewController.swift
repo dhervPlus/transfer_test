@@ -205,8 +205,8 @@ class DestinationTableViewController: UITableViewController {
     }
     
     private func openIconPage() {
-        
-        
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "IconPageController") as? IconPageController
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
 }
