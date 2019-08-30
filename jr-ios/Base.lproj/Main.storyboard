@@ -39,6 +39,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="destinationCellLabel" destination="gyg-qN-d0w" id="c4c-yz-Iug"/>
+                                    <segue destination="vtX-vl-L77" kind="show" identifier="Segue" id="OET-Ar-Ia3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -50,7 +51,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vkB-bc-yoN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1419" y="1190"/>
+            <point key="canvasLocation" x="1175" y="1379"/>
         </scene>
         <!--Icon Page Controller-->
         <scene sceneID="p6V-L8-5ka">
@@ -59,14 +60,28 @@
                     <view key="view" contentMode="scaleToFill" id="ssP-hv-x5P">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdL-mi-JFv">
+                                <rect key="frame" x="0.0" y="88" width="414" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="CdL-mi-JFv" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" id="GJq-4D-tKq"/>
+                            <constraint firstItem="CdL-mi-JFv" firstAttribute="top" secondItem="iX8-00-DF8" secondAttribute="top" id="iGW-EK-03X"/>
+                            <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="CdL-mi-JFv" secondAttribute="trailing" id="lmB-GM-DxA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="iX8-00-DF8"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="ルート案内中" id="cui-LP-MWB">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="5S2-fv-4jb">
                             <connections>
-                                <action selector="CancelAction:" destination="vtX-vl-L77" id="aIW-bZ-d1e"/>
+                                <action selector="cancel:" destination="vtX-vl-L77" id="MLX-6x-Dj2"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="vD0-9w-m8o"/>
@@ -75,11 +90,12 @@
                     <connections>
                         <outlet property="NavLeftItem" destination="5S2-fv-4jb" id="Xy2-Kq-DC4"/>
                         <outlet property="NavRightItem" destination="vD0-9w-m8o" id="RKx-Uh-fvQ"/>
+                        <outlet property="TextLabel" destination="CdL-mi-JFv" id="dNQ-bi-iKz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r9S-Wh-dke" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="187" y="1615"/>
+            <point key="canvasLocation" x="3975.36231884058" y="939.50892857142856"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -163,24 +179,26 @@
             </objects>
             <point key="canvasLocation" x="-761" y="884"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="edM-ch-osl">
+        <!--Icon Navigation Controller-->
+        <scene sceneID="kXy-A5-VNf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8KT-Tb-nPt" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="i4r-Jg-6rb" userLabel="Icon Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="guR-HB-S9m"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sbO-nC-3wy">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zJy-f1-3YX">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vtX-vl-L77" kind="relationship" relationship="rootViewController" id="J8D-Mz-abS"/>
+                        <segue destination="vtX-vl-L77" kind="relationship" relationship="rootViewController" id="WUx-vy-aTm"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wnR-qt-xeq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="50z-eh-nlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-762" y="1615"/>
+            <point key="canvasLocation" x="2268" y="628"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="WUx-vy-aTm"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -16,10 +16,15 @@ class IconPageController: UIViewController {
     @IBOutlet weak var NavRightItem: UIBarButtonItem!
     @IBOutlet weak var NavLeftItem: UIBarButtonItem!
     
+    @IBOutlet weak var TextLabel: UILabel!
+    
+    var myString:String = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         NavLeftItem.title = "戻る"
+        TextLabel.text = "目的地：\(myString)"
         
         if #available(iOS 13.0, *) {
             NavRightItem.image = UIImage(systemName: "gear")
@@ -35,10 +40,18 @@ class IconPageController: UIViewController {
 
     // MARK: - Navigation
 
-     
-    @IBAction func CancelAction(_ sender: UIBarButtonItem) {
-               self.navigationController?.popViewController(animated: true)
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+         if let owningNavigationController = navigationController{
+             owningNavigationController.popViewController(animated: true)
+         } else {
+             fatalError("The Icon Page Controller is not inside a navigation controller.")
+         }
     }
+    
+//    @IBAction func CancelAction(_ sender: UIBarButtonItem) {
+//         dismiss(animated: true, completion: nil)
+////               self.navigationController?.popViewController(animated: true)
+//    }
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.

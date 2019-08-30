@@ -13,6 +13,7 @@ class DestinationTableViewController: UITableViewController {
     //MARK: Properties
     var destinations = [[Destination]]()
     var sections: [String] = []
+    var thisString = String()
     
     //    var completionHandler:(([Destination]) -> ())?
     
@@ -153,24 +154,57 @@ class DestinationTableViewController: UITableViewController {
     
     //MARK: Events
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "Segue" {
+            return false
+        }
+        return true
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            print("section: \(indexPath.section)")
         print("row: \(destinations[indexPath.section][indexPath.row].label_japanese)")
         // OPEN ALERT
         
         let label = destinations[indexPath.section][indexPath.row].label_japanese
-        let alert = UIAlertController(title: "選択した場所を目的地に設定しますか？", message: label, preferredStyle: UIAlertController.Style.alert)
+        self.thisString = label
+        
+        self.alert(title: "選択した場所を目的地に設定しますか？", message: label, completion: { result in
+            if result {
+                if self.thisString != "" {
+                self.performSegue(withIdentifier: "Segue", sender: self)
+                }
+            }
+        })
+//        let alert = UIAlertController(title: "選択した場所を目的地に設定しますか？", message: label, preferredStyle: UIAlertController.Style.alert)
+//
+//        alert.addAction(UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.default, handler: { _ in
+//            return
+//        }))
+//        alert.addAction(UIAlertAction(title: "案内を開始",
+//                                      style: UIAlertAction.Style.default,
+//                                      handler: {(_: UIAlertAction!) in
+//                                        //Sign out action
+//                                        self.openIconPage(label: label)
+//        }))
+//        self.present(alert, animated: true, completion: nil)
+    }
+    
+ 
+    
+    func alert (title: String, message: String, completion:  @escaping ((Bool) -> Void)) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "案内を開始", style: .default, handler: { (action) in
+            alertController.dismiss(animated: true, completion: nil)
+            completion(true) // true signals "YES"
+        }))
 
-        alert.addAction(UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.default, handler: { _ in
-            return
+        alertController.addAction(UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.default, handler: { (action) in
+            alertController.dismiss(animated: true, completion: nil)
+            completion(false) // false singals "NO"
         }))
-        alert.addAction(UIAlertAction(title: "案内を開始",
-                                      style: UIAlertAction.Style.default,
-                                      handler: {(_: UIAlertAction!) in
-                                        //Sign out action
-                                        self.openIconPage()
-        }))
-        self.present(alert, animated: true, completion: nil)
+
+        self.present(alertController, animated: true, completion: nil)
     }
     
     //MARK: Private Methods
@@ -204,9 +238,22 @@ class DestinationTableViewController: UITableViewController {
         }
     }
     
-    private func openIconPage() {
-        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "IconPageController") as? IconPageController
-        self.navigationController?.pushViewController(vc!, animated: true)
+    private func openIconPage(label: String) {
+        self.thisString = label
+//        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "IconPageController") as? IconPageController
+//        self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
+//    override func unwind(for unwindSegue: UIStoryboardSegue, towards subsequentVC: UIViewController) {
+//        print(unwindSegue.destination)
+//        let iconController = unwindSegue.destination as! IconPageController
+//        iconController.myString = self.thisString
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print(self.thisString)
+        let iconController = segue.destination as! IconPageController
+        iconController.myString = self.thisString
     }
     
 }
