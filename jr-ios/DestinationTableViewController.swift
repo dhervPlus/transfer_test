@@ -151,6 +151,28 @@ class DestinationTableViewController: UITableViewController {
      */
     
     
+    //MARK: Events
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           print("section: \(indexPath.section)")
+        print("row: \(destinations[indexPath.section][indexPath.row].label_japanese)")
+        // OPEN ALERT
+        
+        let label = destinations[indexPath.section][indexPath.row].label_japanese
+        let alert = UIAlertController(title: "選択した場所を目的地に設定しますか？", message: label, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.default, handler: { _ in
+            return
+        }))
+        alert.addAction(UIAlertAction(title: "案内を開始",
+                                      style: UIAlertAction.Style.default,
+                                      handler: {(_: UIAlertAction!) in
+                                        //Sign out action
+                                        self.openIconPage()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     //MARK: Private Methods
     
     
@@ -160,10 +182,7 @@ class DestinationTableViewController: UITableViewController {
             case .failure(let err):
                 print(err)
             case .success(let map_data):
-               
-               
                 self.getTypes(destinations: map_data.destinations)
-                
             }
         }
         
@@ -176,20 +195,18 @@ class DestinationTableViewController: UITableViewController {
         }
         
         for (key, value) in dest {
-            print(value)
-                
             self.sections.append(key)
             self.destinations.append(value)
-                
-            
         }
-        
-         
-        
-          
+ 
         DispatchQueue.main.async {
-                           self.tableView.reloadData()
-                       }
+            self.tableView.reloadData()
+        }
+    }
+    
+    private func openIconPage() {
+        
+        
     }
     
 }
