@@ -94,7 +94,7 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q1t-F8-rt9">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="6TW-xH-lwI"/>
                                         </constraints>
@@ -102,12 +102,12 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歩きスマホは危険です!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEb-n4-vgU">
                                         <rect key="frame" x="40" y="0.0" width="270" height="40"/>
                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="21"/>
-                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o4i-fK-7cx" userLabel="Image Warning Right">
                                         <rect key="frame" x="310" y="0.0" width="40" height="40"/>
-                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="FgK-WF-4Gr"/>
                                         </constraints>
@@ -152,7 +152,11 @@
                                 <action selector="cancel:" destination="vtX-vl-L77" id="MLX-6x-Dj2"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="vD0-9w-m8o"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="vD0-9w-m8o">
+                            <connections>
+                                <segue destination="mXJ-wE-Itf" kind="show" id="wD4-ZF-1Y3"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -167,6 +171,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r9S-Wh-dke" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3975.36231884058" y="939.50892857142856"/>
+        </scene>
+        <!--Debug Screen Controller-->
+        <scene sceneID="qEG-XW-U2P">
+            <objects>
+                <viewController id="mXJ-wE-Itf" userLabel="Debug Screen Controller" customClass="DebugScreenViewController" customModule="jr_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="16O-Md-hzW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="nhc-oq-Teb"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="デバッグ" id="Ron-TP-bg3">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="JdJ-Fz-E9a">
+                            <connections>
+                                <action selector="cancel:" destination="mXJ-wE-Itf" id="tKa-hT-KBf"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="uRD-NC-f4r"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="NavLeftButton" destination="JdJ-Fz-E9a" id="Zd1-Ez-W9x"/>
+                        <outlet property="NavRightButton" destination="uRD-NC-f4r" id="nv5-KG-GEK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ViV-u3-IGR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6143.4782608695659" y="949.55357142857133"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -266,13 +297,33 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="50z-eh-nlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2268" y="628"/>
+            <point key="canvasLocation" x="2777" y="528"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="k5z-fj-QvP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S4G-RR-J0q" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Vee-yf-okV"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jHe-8J-DMF">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mXJ-wE-Itf" kind="relationship" relationship="rootViewController" id="Ucw-je-n5F"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Sa-rg-qk1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5238" y="490"/>
         </scene>
     </scenes>
     <resources>
         <image name="JR-icon3" width="140" height="61.5"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="wD4-ZF-1Y3"/>
         <segue reference="WUx-vy-aTm"/>
     </inferredMetricsTieBreakers>
 </document>
