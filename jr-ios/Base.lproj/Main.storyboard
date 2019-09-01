@@ -179,7 +179,51 @@
                     <view key="view" contentMode="scaleToFill" id="16O-Md-hzW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="th9-Wu-AZr">
+                                <rect key="frame" x="0.0" y="88" width="414" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASW-9M-94w">
+                                <rect key="frame" x="0.0" y="328" width="414" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="案内板表示情報" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4z-pH-hL6">
+                                <rect key="frame" x="0.0" y="349" width="414" height="21"/>
+                                <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yv5-vL-0Xn">
+                                <rect key="frame" x="0.0" y="109" width="414" height="240"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Yv5-vL-0Xn" secondAttribute="height" multiplier="69:40" id="N6d-gl-bzL"/>
+                                </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Yv5-vL-0Xn" firstAttribute="top" secondItem="th9-Wu-AZr" secondAttribute="bottom" id="5k4-F9-f4E"/>
+                            <constraint firstItem="Yv5-vL-0Xn" firstAttribute="centerX" secondItem="16O-Md-hzW" secondAttribute="centerX" id="62P-1A-Vt9"/>
+                            <constraint firstItem="Yv5-vL-0Xn" firstAttribute="leading" secondItem="ASW-9M-94w" secondAttribute="leading" id="Al0-XM-47E"/>
+                            <constraint firstItem="Yv5-vL-0Xn" firstAttribute="trailing" secondItem="nhc-oq-Teb" secondAttribute="trailing" id="Cdb-2h-JVd"/>
+                            <constraint firstItem="N4z-pH-hL6" firstAttribute="top" secondItem="Yv5-vL-0Xn" secondAttribute="bottom" id="DGs-EB-dSg"/>
+                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="N4z-pH-hL6" secondAttribute="trailing" id="Lx6-vp-50v"/>
+                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="ASW-9M-94w" secondAttribute="trailing" id="XzH-UN-Zvv"/>
+                            <constraint firstItem="th9-Wu-AZr" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="ZIN-Px-gTl"/>
+                            <constraint firstItem="th9-Wu-AZr" firstAttribute="top" secondItem="nhc-oq-Teb" secondAttribute="top" id="ggD-MS-AfA"/>
+                            <constraint firstItem="N4z-pH-hL6" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="huA-Y8-Ith"/>
+                            <constraint firstItem="N4z-pH-hL6" firstAttribute="top" secondItem="ASW-9M-94w" secondAttribute="bottom" id="jWB-6h-fku"/>
+                            <constraint firstItem="ASW-9M-94w" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="pDQ-ug-SZn"/>
+                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="th9-Wu-AZr" secondAttribute="trailing" id="t6n-zr-M2k"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="nhc-oq-Teb"/>
                     </view>
                     <navigationItem key="navigationItem" title="デバッグ" id="Ron-TP-bg3">
@@ -193,6 +237,9 @@
                     <connections>
                         <outlet property="NavLeftButton" destination="JdJ-Fz-E9a" id="Zd1-Ez-W9x"/>
                         <outlet property="NavRightButton" destination="uRD-NC-f4r" id="nv5-KG-GEK"/>
+                        <outlet property="destinationName" destination="ASW-9M-94w" id="BUW-gv-bTu"/>
+                        <outlet property="mapImage" destination="Yv5-vL-0Xn" id="Mvf-H8-OP6"/>
+                        <outlet property="mapName" destination="th9-Wu-AZr" id="6bh-kt-sic"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ViV-u3-IGR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

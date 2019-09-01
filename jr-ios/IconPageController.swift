@@ -19,11 +19,10 @@ class IconPageController: UIViewController {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var TextLabel: UILabel!
     
-   
-    
     
     @IBOutlet weak var ImageWarningLeft: UIImageView!
     @IBOutlet weak var ImageWarningRight: UIImageView!
+    
     var myString:String = String()
     
     override func viewDidLoad() {
@@ -64,9 +63,11 @@ class IconPageController: UIViewController {
 ////               self.navigationController?.popViewController(animated: true)
 //    }
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        print(self.myString)
+        let debugScreenController = segue.destination as! DebugScreenViewController
+        debugScreenController.myString = self.myString
     }
 
 
