@@ -206,6 +206,12 @@ class DebugScreenViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print(self.myString)
+        let pathTableView = segue.destination as! PathTableViewController
+        pathTableView.myString = self.myString
+    }
+    
 }
 
 

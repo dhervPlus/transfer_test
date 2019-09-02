@@ -130,3 +130,25 @@ class Destination: Decodable {
         self.type_label = type_label
     }
 }
+
+class Path {
+    
+    //MARK: Properties
+    
+    var id: Int
+    var icon: UIImage
+    var arrow: UIImage
+    var bg: UIImage
+    
+    
+    //MARK: Initialization
+    
+    init?(id: Int, icon: UIImage, arrow: UIImage, bg: UIImage) {
+        
+        // Initialize stored properties.
+        self.id = id
+        self.icon = icon
+        self.arrow = arrow
+        self.bg = bg
+    }
+}
