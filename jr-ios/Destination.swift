@@ -37,14 +37,24 @@ class MapData: Decodable {
 }
 
 class Node: Decodable {
+    var id: Int
     var x: Double
     var y: Double
-    init?(x: Double, y: Double) {
+    init?(id:Int, x: Double, y: Double) {
+        self.id = id
         self.x = x
         self.y = y
     }
 }
 class Edge: Decodable {
+    var id: Int
+    var node_start_id: Int
+    var node_end_id: Int
+    init?(id:Int, node_start_id:Int, node_end_id:Int) {
+        self.id = id
+        self.node_start_id = node_start_id
+        self.node_end_id = node_end_id
+    }
     
 }
 class GuidePlate: Decodable {

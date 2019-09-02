@@ -49,6 +49,7 @@ class DebugScreenViewController: UIViewController {
     var map: Map?
     var beacons = [Beacon]()
     var nodes = [Node]()
+    var edges = [Edge]()
     var mapImageData = Data()
     var myString:String = String()
     
@@ -88,6 +89,21 @@ class DebugScreenViewController: UIViewController {
     }
     
     
+    private func drawLineFromPoint(start : CGPoint, toPoint end:CGPoint, ofColor lineColor: UIColor, inView view:UIView) {
+
+        //design the path
+        let path = UIBezierPath()
+        path.move(to: start)
+        path.addLine(to: end)
+
+        //design path in layer
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.strokeColor = lineColor.cgColor
+        shapeLayer.lineWidth = 1.0
+
+        view.layer.addSublayer(shapeLayer)
+    }
 
     
     private func downloadImage(from url: URL) {
@@ -132,6 +148,21 @@ class DebugScreenViewController: UIViewController {
                     
                 }
                 
+                for i in self.edges {
+                    let start = self.nodes.first(where: { $0.id == i.node_start_id })
+                    let end = self.nodes.first(where: {
+                        $0.id == i.node_end_id
+                    })
+                    let start_x = Double(round(CGFloat(start!.x) * mapWidth)) + 10
+                    let start_y = Double(round(CGFloat(start!.y) * mapHeight)) + 10
+                    let end_x = Double(round(CGFloat(end!.x) * mapWidth)) + 10
+                    let end_y = Double(round(CGFloat(end!.y) * mapHeight)) + 10
+                    let start_point = CGPoint.init(x: start_x, y: start_y)
+                    let end_point = CGPoint.init(x:end_x, y:end_y)
+                    print(start_point, end_point)
+                    self.drawLineFromPoint(start: start_point, toPoint: end_point, ofColor: UIColor.red, inView: self.mapImage)
+                }
+                
                 for i in self.beacons {
                     
                     if #available(iOS 13.0, *) {
@@ -155,7 +186,7 @@ class DebugScreenViewController: UIViewController {
     
     
     private func loadMap() {
-        Api.shared.get(path: "/loadmap/26"){(res) in
+        Api.shared.get(path: "/loadmap/16"){(res) in
             switch res {
             case .failure(let err):
                 print(err)
@@ -168,6 +199,7 @@ class DebugScreenViewController: UIViewController {
                     self.mapName.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
                     self.beacons = map_data.beacons
                     self.nodes = map_data.nodes
+                    self.edges = map_data.edges
                     
                 }
             }
