@@ -8,6 +8,37 @@
 
 import UIKit
 
+extension CALayer {
+
+    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+
+        let border = CALayer()
+
+        switch edge {
+        case UIRectEdge.top:
+            border.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: thickness)
+            break
+        case UIRectEdge.bottom:
+            border.frame = CGRect(x: 0, y: self.frame.height - thickness, width: self.frame.width, height: thickness)
+            break
+        case UIRectEdge.left:
+            border.frame = CGRect(x: 0, y: 0, width: thickness, height: self.frame.height)
+            break
+        case UIRectEdge.right:
+            border.frame = CGRect(x: self.frame.width - thickness, y: 0, width: thickness, height: self.frame.height)
+            break
+        default:
+            break
+        }
+
+        border.backgroundColor = color.cgColor;
+
+        self.addSublayer(border)
+    }
+
+}
+
+
 class DebugScreenViewController: UIViewController {
     
     @IBOutlet weak var NavLeftButton: UIBarButtonItem!
@@ -30,7 +61,8 @@ class DebugScreenViewController: UIViewController {
         super.viewDidLoad()
         loadMap()
         
-        destinationName.text = self.myString
+        destinationName.text = "目的地：\(self.myString)"
+        destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
         NavLeftButton.title = "戻る"
         if #available(iOS 13.0, *) {
             NavRightButton.image = UIImage(systemName: "exclamationmark.triangle.fill")
@@ -121,8 +153,9 @@ class DebugScreenViewController: UIViewController {
         }}
     
     
+    
     private func loadMap() {
-        Api.shared.get(path: "/loadmap/16"){(res) in
+        Api.shared.get(path: "/loadmap/26"){(res) in
             switch res {
             case .failure(let err):
                 print(err)
@@ -131,7 +164,8 @@ class DebugScreenViewController: UIViewController {
                 self.map = map_data.map
                 self.downloadImage(from: map_data.map.image)
                 DispatchQueue.main.async {
-                    self.mapName.text = map_data.map.name
+                    self.mapName.text = "現在のフロア：\(map_data.map.name)"
+                    self.mapName.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
                     self.beacons = map_data.beacons
                     self.nodes = map_data.nodes
                     

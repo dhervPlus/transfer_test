@@ -211,7 +211,7 @@ class DestinationTableViewController: UITableViewController {
     
     
     private func loadDestinations() {
-        Api.shared.get(path: "/loadmap/16"){(res) in
+        Api.shared.get(path: "/loadmap/26"){(res) in
             switch res {
             case .failure(let err):
                 print(err)

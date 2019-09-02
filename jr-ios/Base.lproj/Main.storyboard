@@ -180,20 +180,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="th9-Wu-AZr">
+                                <rect key="frame" x="0.0" y="88" width="414" height="40.5"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Label">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" firstLineHeadIndent="20" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="258.5" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="36h-41-nMG">
-                                <rect key="frame" x="20" y="88" width="374" height="406"/>
+                                <rect key="frame" x="20" y="128.5" width="374" height="374"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="th9-Wu-AZr">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="Ewt-2d-o1o"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" translatesAutoresizingMaskIntoConstraints="NO" id="Gq2-Gj-f65">
-                                        <rect key="frame" x="0.0" y="32" width="374" height="374"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Gq2-Gj-f65" secondAttribute="height" multiplier="1:1" id="JiL-c7-6kk"/>
@@ -201,31 +204,92 @@
                                     </imageView>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASW-9M-94w">
-                                <rect key="frame" x="0.0" y="606" width="414" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASW-9M-94w">
+                                <rect key="frame" x="0.0" y="502.5" width="414" height="40.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40.5" id="kpD-rl-pat"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Label">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" firstLineHeadIndent="20" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="案内板表示情報" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4z-pH-hL6">
-                                <rect key="frame" x="0.0" y="626.5" width="414" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4z-pH-hL6">
+                                <rect key="frame" x="0.0" y="543" width="414" height="40.5"/>
                                 <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40.5" id="eBF-KG-WPd"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="案内板表示情報">
+                                        <attributes>
+                                            <font key="NSFont" size="17" name="HiraginoSans-W3"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" firstLineHeadIndent="20" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="28">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="56">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="84">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="112">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="140">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="168">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="196">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="224">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="252">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="280">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="308">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="336">
+                                                        <options/>
+                                                    </textTab>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="th9-Wu-AZr" secondAttribute="trailing" id="5z5-Ac-cTG"/>
                             <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="36h-41-nMG" secondAttribute="trailing" constant="20" id="7KG-dC-RxJ"/>
-                            <constraint firstItem="nhc-oq-Teb" firstAttribute="bottom" secondItem="N4z-pH-hL6" secondAttribute="bottom" constant="166" id="IWh-tn-6MO"/>
-                            <constraint firstItem="36h-41-nMG" firstAttribute="top" secondItem="nhc-oq-Teb" secondAttribute="top" id="KfX-7u-dpc"/>
+                            <constraint firstItem="th9-Wu-AZr" firstAttribute="top" secondItem="nhc-oq-Teb" secondAttribute="top" id="AOO-pt-3Pc"/>
                             <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="N4z-pH-hL6" secondAttribute="trailing" id="Lx6-vp-50v"/>
+                            <constraint firstItem="36h-41-nMG" firstAttribute="top" secondItem="th9-Wu-AZr" secondAttribute="bottom" id="VH0-2k-kGF"/>
+                            <constraint firstItem="th9-Wu-AZr" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="Wjz-UU-LCn"/>
                             <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="ASW-9M-94w" secondAttribute="trailing" id="XzH-UN-Zvv"/>
+                            <constraint firstItem="36h-41-nMG" firstAttribute="top" secondItem="nhc-oq-Teb" secondAttribute="top" constant="40.5" id="YH9-3m-u9h"/>
                             <constraint firstItem="36h-41-nMG" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" constant="20" id="feZ-Sd-hO8"/>
                             <constraint firstItem="N4z-pH-hL6" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="huA-Y8-Ith"/>
-                            <constraint firstItem="N4z-pH-hL6" firstAttribute="top" secondItem="ASW-9M-94w" secondAttribute="bottom" id="jWB-6h-fku"/>
+                            <constraint firstItem="ASW-9M-94w" firstAttribute="top" secondItem="36h-41-nMG" secondAttribute="bottom" id="m9b-xV-Dr2"/>
                             <constraint firstItem="ASW-9M-94w" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="pDQ-ug-SZn"/>
+                            <constraint firstItem="N4z-pH-hL6" firstAttribute="top" secondItem="ASW-9M-94w" secondAttribute="bottom" id="zge-0e-aZS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nhc-oq-Teb"/>
                     </view>
