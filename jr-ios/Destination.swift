@@ -37,7 +37,12 @@ class MapData: Decodable {
 }
 
 class Node: Decodable {
-    
+    var x: Double
+    var y: Double
+    init?(x: Double, y: Double) {
+        self.x = x
+        self.y = y
+    }
 }
 class Edge: Decodable {
     
@@ -46,8 +51,8 @@ class GuidePlate: Decodable {
     
 }
 class Beacon: Decodable {
-   var x: Int
-var y: Int
+    var x: Int
+    var y: Int
     init?(x: Int, y: Int) {
         self.x = x
         self.y = y

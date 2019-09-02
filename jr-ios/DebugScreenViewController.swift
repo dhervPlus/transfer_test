@@ -17,13 +17,15 @@ class DebugScreenViewController: UIViewController {
     
     var map: Map?
     var beacons = [Beacon]()
+    var nodes = [Node]()
     var mapImageData = Data()
     var myString:String = String()
     
     @IBOutlet weak var mapName: UILabel!
     @IBOutlet weak var destinationName: UILabel!
     
-    @IBOutlet weak var mapView: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadMap()
@@ -53,6 +55,9 @@ class DebugScreenViewController: UIViewController {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
     
+    
+
+    
     private func downloadImage(from url: URL) {
         print("Download Started")
         getData(from: url) { data, response, error in
@@ -62,7 +67,11 @@ class DebugScreenViewController: UIViewController {
             print("Download Finished")
             DispatchQueue.main.async() {
                 self.mapImage.image = UIImage(data: data)
-               
+                if #available(iOS 13.0, *) {
+                    print(self.mapImage.frame.size.width, (self.mapImage.image?.size.width)! / self.mapImage.frame.size.width)
+                } else {
+                    // Fallback on earlier versions
+                }
                 let mapWidth = self.mapImage.frame.width
                 
                 let mapHeight = self.mapImage.frame.height
@@ -73,6 +82,23 @@ class DebugScreenViewController: UIViewController {
                 
                 
                 let loco_height = (natural_height * 800.0) / natural_width
+                
+                for i in self.nodes {
+                    
+                    
+                    if #available(iOS 13.0, *) {
+                        let image = UIImage(systemName: "gear")
+                        let imageView = UIImageView(image: image!)
+                        let x = round(CGFloat(i.x) * mapWidth)
+                        let y = round(CGFloat(i.y) * mapHeight)
+                        print(x, y)
+                        imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
+                        self.mapImage.addSubview(imageView)
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                    
+                }
                 
                 for i in self.beacons {
                     
@@ -86,7 +112,7 @@ class DebugScreenViewController: UIViewController {
                         imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
                         imageView.tintColor = UIColor.red
                         self.mapImage.addSubview(imageView)
-//                        self.mapView.bringSubviewToFront(imageView)
+                        //                        self.mapView.bringSubviewToFront(imageView)
                     } else {
                         // Fallback on earlier versions
                     }
@@ -107,7 +133,7 @@ class DebugScreenViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.mapName.text = map_data.map.name
                     self.beacons = map_data.beacons
-                    
+                    self.nodes = map_data.nodes
                     
                 }
             }
