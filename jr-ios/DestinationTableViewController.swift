@@ -8,12 +8,20 @@
 
 import UIKit
 
-class DestinationTableViewController: UITableViewController {
+class DestinationTableViewController: UITableViewController, UISearchBarDelegate {
     
     //MARK: Properties
     var destinations = [[Destination]]()
+    var unordered_destinations = [Destination]()
+    var filterd_destinations = [[Destination]]()
     var sections: [String] = []
     var thisString = String()
+    var searchString = String()
+    
+    var searchActive : Bool = false
+    
+    @IBOutlet weak var searchBarTest: UISearchBar!
+    let searchController = UISearchController(searchResultsController: nil)
     
     //    var completionHandler:(([Destination]) -> ())?
     
@@ -31,28 +39,57 @@ class DestinationTableViewController: UITableViewController {
     //
     //
     //    }
+    @IBOutlet weak var buttonLeftSettings: UIBarButtonItem!
     
+    @IBOutlet weak var buttonRightSettings: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        // Setup the Search Controller
+        //        searchController.searchResultsUpdater = self
+        //        searchController.obscuresBackgroundDuringPresentation = false
+        //        searchController.searchBar.placeholder = "Search..."
+        //        searchController.searchBar = searchBarTest
+        //        definesPresentationContext = false
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        // Load the sample data.
-        
+        searchBarTest.delegate = self
+        // Do any additional setup after loading the view.
+        if #available(iOS 13.0, *) {
+            buttonRightSettings.image = UIImage(systemName: "gear")
+            buttonLeftSettings.image = UIImage(systemName: "a.square")
+        } else {
+            // Fallback on earlier versions
+        }
         loadDestinations()
         
     }
     
-   
+    
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
+        if searchActive {
+            return filterd_destinations.count
+        }
         return destinations.count
     }
     
@@ -62,7 +99,7 @@ class DestinationTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
-
+        
         let label = UILabel()
         label.frame = CGRect.init(x: 16, y: 0, width: headerView.frame.width, height: headerView.frame.height)
         label.text = String(sections[section])
@@ -73,13 +110,17 @@ class DestinationTableViewController: UITableViewController {
             // Fallback on earlier versions
         }
         headerView.addSubview(label)
-
+        
         return headerView
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-     
+        if searchActive {
+            print(section, filterd_destinations)
+            
+            return filterd_destinations[section].count
+        }
         return destinations[section].count
     }
     
@@ -95,8 +136,14 @@ class DestinationTableViewController: UITableViewController {
         
         // Fetches the appropriate meal for the data source layout.
         
-        let destination = destinations[indexPath.section][indexPath.row]
+        var destination: Destination
         
+        
+        if searchActive {
+            destination = filterd_destinations[indexPath.section][indexPath.row]
+        } else {
+            destination = destinations[indexPath.section][indexPath.row]
+        }
         
         cell.destinationCellLabel.text = destination.label_japanese
         
@@ -162,35 +209,28 @@ class DestinationTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           print("section: \(indexPath.section)")
-        print("row: \(destinations[indexPath.section][indexPath.row].label_japanese)")
-        // OPEN ALERT
         
-        let label = destinations[indexPath.section][indexPath.row].label_japanese
+        
+        var label = String()
+        // OPEN ALERT
+        if searchActive {
+            label = filterd_destinations[indexPath.section][indexPath.row].label_japanese
+        } else {
+            label = destinations[indexPath.section][indexPath.row].label_japanese
+        }
+        
         self.thisString = label
         
         self.alert(title: "選択した場所を目的地に設定しますか？", message: label, completion: { result in
             if result {
                 if self.thisString != "" {
-                self.performSegue(withIdentifier: "Segue", sender: self)
+                    self.performSegue(withIdentifier: "Segue", sender: self)
                 }
             }
         })
-//        let alert = UIAlertController(title: "選択した場所を目的地に設定しますか？", message: label, preferredStyle: UIAlertController.Style.alert)
-//
-//        alert.addAction(UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.default, handler: { _ in
-//            return
-//        }))
-//        alert.addAction(UIAlertAction(title: "案内を開始",
-//                                      style: UIAlertAction.Style.default,
-//                                      handler: {(_: UIAlertAction!) in
-//                                        //Sign out action
-//                                        self.openIconPage(label: label)
-//        }))
-//        self.present(alert, animated: true, completion: nil)
     }
     
- 
+    
     
     func alert (title: String, message: String, completion:  @escaping ((Bool) -> Void)) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -198,12 +238,12 @@ class DestinationTableViewController: UITableViewController {
             alertController.dismiss(animated: true, completion: nil)
             completion(true) // true signals "YES"
         }))
-
+        
         alertController.addAction(UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.default, handler: { (action) in
             alertController.dismiss(animated: true, completion: nil)
             completion(false) // false singals "NO"
         }))
-
+        
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -216,23 +256,37 @@ class DestinationTableViewController: UITableViewController {
             case .failure(let err):
                 print(err)
             case .success(let map_data):
+                self.unordered_destinations = map_data.destinations
+                
                 self.getTypes(destinations: map_data.destinations)
             }
         }
         
+        
     }
     
     private func getTypes(destinations: [Destination]) {
-      
+        
         let dest = Dictionary(grouping: destinations) {(element) -> String in
             return element.type_label
         }
         
+        var sections: [String] = []
+        var destinations = [[Destination]]()
+        
         for (key, value) in dest {
-            self.sections.append(key)
-            self.destinations.append(value)
+            sections.append(key)
+            destinations.append(value)
         }
- 
+        if searchActive {
+            print("SECTION", destinations)
+            self.sections = sections
+            self.filterd_destinations = destinations
+        } else {
+            self.sections = sections
+            self.destinations = destinations
+        }
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -240,20 +294,77 @@ class DestinationTableViewController: UITableViewController {
     
     private func openIconPage(label: String) {
         self.thisString = label
-//        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "IconPageController") as? IconPageController
-//        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
-//    override func unwind(for unwindSegue: UIStoryboardSegue, towards subsequentVC: UIViewController) {
-//        print(unwindSegue.destination)
-//        let iconController = unwindSegue.destination as! IconPageController
-//        iconController.myString = self.thisString
-//    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print(self.thisString)
         let iconController = segue.destination as! IconPageController
         iconController.myString = self.thisString
     }
     
+    // MARK: - Private instance methods
+    
+    func isFiltering() -> Bool {
+        
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+    func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        print("SEARCH", searchText)
+        let filtered = self.unordered_destinations.filter({( destination : Destination) -> Bool in
+            
+            return destination.label_japanese.lowercased().contains(searchText.lowercased())
+        })
+        
+        if searchText.count == 0 {
+            print("fdsaf")
+            searchActive = false;
+        } else {
+            searchActive = true;
+        }
+        
+        if searchText.count > 0  {
+            print("HERE")
+            self.getTypes(destinations: filtered)
+        }
+        
+        if searchText.count ==  0 {
+            self.getTypes(destinations: unordered_destinations)
+        }
+    }
+    
+    //    func filterContentForSearchText(_searchBar: UISearchBar, textDidChange searchText: String) {
+    //
+    //        print("SEARCH", searchText)
+    //        let filtered = self.unordered_destinations.filter({( destination : Destination) -> Bool in
+    //
+    //            return destination.label_japanese.lowercased().contains(searchText.lowercased())
+    //        })
+    //
+    //        if isFiltering() {
+    //            self.getTypes(destinations: filtered)
+    //        }
+    //
+    //        if searchBarIsEmpty() {
+    //            self.getTypes(destinations: unordered_destinations)
+    //        }
+    //
+    //
+    //    }
+    
+    
 }
+
+//extension DestinationTableViewController: UISearchResultsUpdating {
+//    // MARK: - UISearchResultsUpdating Delegate
+//    func updateSearchResults(for searchController: UISearchController) {
+//        // TODO
+//        filterContentForSearchText(searchController.searchBar.text!)
+//    }
+//}
+
