@@ -37,15 +37,36 @@ class MapData: Decodable {
 }
 
 class Node: Decodable {
-    
+    var id: Int
+    var x: Double
+    var y: Double
+    init?(id:Int, x: Double, y: Double) {
+        self.id = id
+        self.x = x
+        self.y = y
+    }
 }
 class Edge: Decodable {
+    var id: Int
+    var node_start_id: Int
+    var node_end_id: Int
+    init?(id:Int, node_start_id:Int, node_end_id:Int) {
+        self.id = id
+        self.node_start_id = node_start_id
+        self.node_end_id = node_end_id
+    }
     
 }
 class GuidePlate: Decodable {
     
 }
 class Beacon: Decodable {
+    var x: Int
+    var y: Int
+    init?(x: Int, y: Int) {
+        self.x = x
+        self.y = y
+    }
     
 }
 class Map: Decodable {
@@ -107,5 +128,27 @@ class Destination: Decodable {
         self.label_korean = label_korean
         self.label_chinese = label_chinese
         self.type_label = type_label
+    }
+}
+
+class Path {
+    
+    //MARK: Properties
+    
+    var id: Int
+    var icon: UIImage
+    var arrow: UIImage
+    var bg: UIImage
+    
+    
+    //MARK: Initialization
+    
+    init?(id: Int, icon: UIImage, arrow: UIImage, bg: UIImage) {
+        
+        // Initialize stored properties.
+        self.id = id
+        self.icon = icon
+        self.arrow = arrow
+        self.bg = bg
     }
 }
