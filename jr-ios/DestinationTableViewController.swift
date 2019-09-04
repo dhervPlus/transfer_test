@@ -57,29 +57,43 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     //MARK: private
     
     private func alertLanguage() {
-        print("alert")
+        // set the alert controller
         let alert = UIAlertController(title: "言語選択", message: "", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "日本語", style: .default, handler: { (_) in
-            print("You've pressed default")
-        }))
+        // set action for each language
+        let japanese_action = UIAlertAction(title: "日本語", style: .default, handler: { (_) in
+            print("japanese")
+        })
+        let english_action = UIAlertAction(title: "English", style: .default, handler: { (_) in
+            print("english")
+        })
+        let chinese_action = UIAlertAction(title: "中文", style: .default, handler: { (_) in
+            print("chinese")
+        })
+        let korean_action = UIAlertAction(title: "한국어", style: .default, handler: { (_) in
+            print("korean")
+        })
         
-        alert.addAction(UIAlertAction(title: "English", style: .default, handler: { (_) in
-            print("You've pressed cancel")
-        }))
+        // update default color to black
+        japanese_action.setValue(UIColor.black, forKey: "titleTextColor")
+        english_action.setValue(UIColor.black, forKey: "titleTextColor")
+        chinese_action.setValue(UIColor.black, forKey: "titleTextColor")
+        korean_action.setValue(UIColor.black, forKey: "titleTextColor")
         
-        alert.addAction(UIAlertAction(title: "中文", style: .default, handler: { (_) in
-            print("You've pressed the destructive")
-        }))
+        // add each action to the aler
+        alert.addAction(japanese_action)
         
-        alert.addAction(UIAlertAction(title: "한국어", style: .default, handler: { (_) in
-            print("You've pressed the destructive")
-        }))
+        alert.addAction(english_action)
+        
+        alert.addAction(chinese_action)
+        
+        alert.addAction(korean_action)
         
         alert.addAction(UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel , handler: {(_: UIAlertAction!) in
             //Sign out action
         }))
         
+        // show alert
         self.present(alert, animated: true, completion: nil)
         
     }
