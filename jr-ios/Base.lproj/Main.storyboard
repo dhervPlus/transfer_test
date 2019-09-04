@@ -56,7 +56,7 @@
                     <navigationItem key="navigationItem" title="目的地選択" id="oOV-9O-NCk">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="ZdD-9k-gXb">
                             <connections>
-                                <action selector="switchLanguage:" destination="QGe-AJ-Rra" id="5ep-Gr-rnm"/>
+                                <action selector="openLanguageAlert:" destination="QGe-AJ-Rra" id="0vA-2P-ZMh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
