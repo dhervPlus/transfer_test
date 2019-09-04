@@ -54,22 +54,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="目的地選択" id="oOV-9O-NCk">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="CIg-re-Bdf">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="ZdD-9k-gXb">
                             <connections>
-                                <action selector="buttonLeftSettings:" destination="klC-Lw-W4I" id="JaT-T8-qnY"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="c8K-8w-v6j">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="buttonRightSettings:" destination="klC-Lw-W4I" id="37f-FG-Gx0"/>
+                                <action selector="switchLanguage:" destination="QGe-AJ-Rra" id="5ep-Gr-rnm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="buttonLeftSettings" destination="CIg-re-Bdf" id="qea-9u-zYe"/>
-                        <outlet property="buttonRightSettings" destination="c8K-8w-v6j" id="RvF-9f-ZKi"/>
+                        <outlet property="buttonLeftSettings" destination="ZdD-9k-gXb" id="KvV-kO-Sw4"/>
                         <outlet property="tableSearch" destination="UPl-0Y-hQk" id="7Vp-TE-CZo"/>
                     </connections>
                 </tableViewController>
@@ -320,13 +312,8 @@
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="buttonLeftSettings" destination="CIg-re-Bdf" id="hPa-Vj-al8"/>
-                        <outlet property="buttonRightSettings" destination="c8K-8w-v6j" id="28x-8i-ppO"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <exit id="klC-Lw-W4I" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="186.95652173913044" y="883.92857142857144"/>
         </scene>

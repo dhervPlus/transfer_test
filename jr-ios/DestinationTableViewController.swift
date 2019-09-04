@@ -25,8 +25,9 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     let searchController = UISearchController(searchResultsController: nil)
     
     //MARK: IBOutlet
+    
     @IBOutlet weak var buttonLeftSettings: UIBarButtonItem!
-    @IBOutlet weak var buttonRightSettings: UIBarButtonItem!
+    //    @IBOutlet weak var buttonRightSettings: UIBarButtonItem!
     @IBOutlet weak var tableSearch: UISearchBar!
     
     override func viewDidLoad() {
@@ -36,7 +37,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         
         // Do any additional setup after loading the view.
         if #available(iOS 13.0, *) {
-            buttonRightSettings.image = UIImage(systemName: "gear")
+            //            buttonRightSettings.image = UIImage(systemName: "gear")
             buttonLeftSettings.image = UIImage(systemName: "a.square")
         } else {
             // Fallback on earlier versions
@@ -44,6 +45,42 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         
         // Load functions
         loadDestinations()
+        
+    }
+    
+    
+    
+    @IBAction func switchLanguage(_ sender: Any) {
+        self.alertLanguage()
+    }
+    
+    //MARK: private
+    
+    private func alertLanguage() {
+        print("alert")
+        let alert = UIAlertController(title: "言語選択", message: "", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "日本語", style: .default, handler: { (_) in
+            print("You've pressed default")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "English", style: .default, handler: { (_) in
+            print("You've pressed cancel")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "中文", style: .default, handler: { (_) in
+            print("You've pressed the destructive")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "한국어", style: .default, handler: { (_) in
+            print("You've pressed the destructive")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel , handler: {(_: UIAlertAction!) in
+            //Sign out action
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
         
     }
     
