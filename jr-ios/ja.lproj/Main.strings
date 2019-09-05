@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = "次の案内板に近づくと音や振動でお知らせいたします。"; ObjectID = "3V7-Qo-X9H"; */
+"3V7-Qo-X9H.text" = "次の案内板に近づくと音や振動でお知らせいたします。";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "4Zq-vV-kfa"; */
+"4Zq-vV-kfa.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "5S2-fv-4jb"; */
+"5S2-fv-4jb.title" = "Item";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Fo0-6y-e1A"; */
+"Fo0-6y-e1A.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "JdJ-Fz-E9a"; */
+"JdJ-Fz-E9a.title" = "Item";
+
+/* Class = "UINavigationItem"; title = "デバッグ"; ObjectID = "Ron-TP-bg3"; */
+"Ron-TP-bg3.title" = "デバッグ";
+
+/* Class = "UILabel"; text = "歩きスマホは危険です!"; ObjectID = "UEb-n4-vgU"; */
+"UEb-n4-vgU.text" = "歩きスマホは危険です!";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "ZdD-9k-gXb"; */
+"ZdD-9k-gXb.title" = "Item";
+
+/* Class = "UINavigationItem"; title = "ルート案内中"; ObjectID = "cui-LP-MWB"; */
+"cui-LP-MWB.title" = "ルート案内中";
+
+/* Class = "UILabel"; text = "案内板ID：0023"; ObjectID = "fhC-eJ-bzh"; */
+"fhC-eJ-bzh.text" = "案内板ID：0023";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "gyg-qN-d0w"; */
+"gyg-qN-d0w.text" = "Label";
+
+/* Class = "UILabel"; text = "案内板にこのアイコンが表示されます。\n案内中はこのアイコンが表示されている矢印に従って歩いてください。"; ObjectID = "noD-5J-W5o"; */
+"noD-5J-W5o.text" = "案内板にこのアイコンが表示されます。\n案内中はこのアイコンが表示されている矢印に従って歩いてください。";
+
+/* Class = "UINavigationItem"; title = "目的地選択"; ObjectID = "oOV-9O-NCk"; */
+"oOV-9O-NCk.title" = "目的地選択";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "uRD-NC-f4r"; */
+"uRD-NC-f4r.title" = "Item";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "vD0-9w-m8o"; */
+"vD0-9w-m8o.title" = "Item";
