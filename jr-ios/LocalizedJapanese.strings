@@ -36,3 +36,5 @@
 "Current Floor:" = "現在のフロア：";
 "Guide board display information" = "案内板表示情報";
 "Information board ID:" = "案内板ID：";
+"Emergency guide settings" = "非常時の案内設定";
+"Press the button to switch the screen to emergency mode." = "ボタンをおすと、画面が非常事態モードに切り替わります。";

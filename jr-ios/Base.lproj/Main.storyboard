@@ -258,7 +258,7 @@ Please walk along the arrow with this icon during guidance.</string>
                             <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IOe-Pp-RAO">
                                 <rect key="frame" x="0.0" y="496" width="414" height="355"/>
                                 <connections>
-                                    <segue destination="6dE-NN-wGi" kind="embed" id="SGh-op-UYd"/>
+                                    <segue destination="6dE-NN-wGi" kind="embed" identifier="seguetoPathView" id="SGh-op-UYd"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -290,7 +290,11 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <action selector="cancel:" destination="mXJ-wE-Itf" id="tKa-hT-KBf"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="uRD-NC-f4r"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="uRD-NC-f4r">
+                            <connections>
+                                <segue destination="vf5-aq-HBi" kind="show" id="ejO-oa-JkF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="NavLeftButton" destination="JdJ-Fz-E9a" id="Zd1-Ez-W9x"/>
@@ -381,6 +385,58 @@ Please walk along the arrow with this icon during guidance.</string>
             </objects>
             <point key="canvasLocation" x="6147.826086956522" y="489.50892857142856"/>
         </scene>
+        <!--Emergency Controller-->
+        <scene sceneID="61T-MB-XEi">
+            <objects>
+                <viewController id="vf5-aq-HBi" userLabel="Emergency Controller" customClass="EmergencyViewController" customModule="jr_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Fp-8u-e03">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOG-bK-DHc">
+                                <rect key="frame" x="40" y="40" width="334" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fyb-wg-aGU">
+                                <rect key="frame" x="40" y="100.5" width="334" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2td-c4-tEL">
+                                <rect key="frame" x="87" y="243" width="240" height="322"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="7Wm-K3-o4Z" firstAttribute="trailing" secondItem="Fyb-wg-aGU" secondAttribute="trailing" constant="40" id="9qU-c5-Xqe"/>
+                            <constraint firstItem="fOG-bK-DHc" firstAttribute="leading" secondItem="7Wm-K3-o4Z" secondAttribute="leading" constant="40" id="E0c-5y-GrY"/>
+                            <constraint firstItem="2td-c4-tEL" firstAttribute="centerX" secondItem="0Fp-8u-e03" secondAttribute="centerX" id="Kpe-36-Drf"/>
+                            <constraint firstItem="2td-c4-tEL" firstAttribute="centerY" secondItem="0Fp-8u-e03" secondAttribute="centerY" id="MLZ-Nu-VDg"/>
+                            <constraint firstItem="Fyb-wg-aGU" firstAttribute="leading" secondItem="7Wm-K3-o4Z" secondAttribute="leading" constant="40" id="WQP-Bw-Jkn"/>
+                            <constraint firstItem="2td-c4-tEL" firstAttribute="leading" secondItem="7Wm-K3-o4Z" secondAttribute="leading" constant="87" id="bhQ-bH-0d3"/>
+                            <constraint firstItem="7Wm-K3-o4Z" firstAttribute="trailing" secondItem="fOG-bK-DHc" secondAttribute="trailing" constant="40" id="og6-hW-G4J"/>
+                            <constraint firstItem="fOG-bK-DHc" firstAttribute="top" secondItem="7Wm-K3-o4Z" secondAttribute="top" constant="40" id="tm4-BV-BCJ"/>
+                            <constraint firstItem="7Wm-K3-o4Z" firstAttribute="trailing" secondItem="2td-c4-tEL" secondAttribute="trailing" constant="87" id="uXZ-cT-0rp"/>
+                            <constraint firstItem="2td-c4-tEL" firstAttribute="top" secondItem="Fyb-wg-aGU" secondAttribute="bottom" constant="122" id="yUZ-4Z-x6p"/>
+                            <constraint firstItem="Fyb-wg-aGU" firstAttribute="top" secondItem="fOG-bK-DHc" secondAttribute="bottom" constant="40" id="yo2-kG-9PO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7Wm-K3-o4Z"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jLK-Oa-Ba7"/>
+                    <connections>
+                        <outlet property="circleContainer" destination="2td-c4-tEL" id="oKk-5X-O1f"/>
+                        <outlet property="emergencyText" destination="Fyb-wg-aGU" id="lI7-ek-Wph"/>
+                        <outlet property="emergencyTitle" destination="fOG-bK-DHc" id="WWs-9W-AKS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zn7-e4-fzO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8085.507246376812" y="372.99107142857139"/>
+        </scene>
         <!--Path Table View Controller-->
         <scene sceneID="D7z-tv-nEp">
             <objects>
@@ -390,7 +446,7 @@ Please walk along the arrow with this icon during guidance.</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationLevel="20" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="PathTableViewCell" rowHeight="160" translatesAutoresizingMaskIntoConstraints="NO" id="EY9-Y3-yoy" customClass="PathTableViewCell" customModule="jr_ios" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationLevel="20" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="PathTableViewCell" rowHeight="160" translatesAutoresizingMaskIntoConstraints="NO" id="EY9-Y3-yoy" customClass="PathTableViewCell" customModule="jr_ios" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="160"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EY9-Y3-yoy" id="HIt-ZK-TBy" customClass="PathTableViewCell" customModule="jr_ios" customModuleProvider="target">
@@ -450,7 +506,7 @@ Please walk along the arrow with this icon during guidance.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qd1-uR-SVt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8234.782608695652" y="949.21875"/>
+            <point key="canvasLocation" x="8190" y="1121"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RcM-ta-Fm2">

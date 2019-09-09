@@ -9,11 +9,11 @@
 import UIKit
 
 extension CALayer {
-
+    
     func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
-
+        
         let border = CALayer()
-
+        
         switch edge {
         case UIRectEdge.top:
             border.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: thickness)
@@ -30,12 +30,12 @@ extension CALayer {
         default:
             break
         }
-
+        
         border.backgroundColor = color.cgColor;
-
+        
         self.addSublayer(border)
     }
-
+    
 }
 
 
@@ -69,9 +69,9 @@ class DebugScreenViewController: UIViewController {
         navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
         destinationName.text = "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)"
         guideBoard.text = NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug")
-//        destinationName.text = "目的地：\(self.myString)"
+        //        destinationName.text = "目的地：\(self.myString)"
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
-//        NavLeftButton.title = "戻る"
+        //        NavLeftButton.title = "戻る"
         if #available(iOS 13.0, *) {
             NavRightButton.image = UIImage(systemName: "exclamationmark.triangle.fill")
         } else {
@@ -96,21 +96,21 @@ class DebugScreenViewController: UIViewController {
     
     
     private func drawLineFromPoint(start : CGPoint, toPoint end:CGPoint, ofColor lineColor: UIColor, inView view:UIView) {
-
+        
         //design the path
         let path = UIBezierPath()
         path.move(to: start)
         path.addLine(to: end)
-
+        
         //design path in layer
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = lineColor.cgColor
         shapeLayer.lineWidth = 1.0
-
+        
         view.layer.addSublayer(shapeLayer)
     }
-
+    
     
     private func downloadImage(from url: URL) {
         print("Download Started")
@@ -214,9 +214,15 @@ class DebugScreenViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print(self.myString)
-        let pathTableView = segue.destination as! PathTableViewController
-        pathTableView.myString = self.myString
-        pathTableView.current_table = self.current_table
+        if segue.identifier == "seguetoPathView" {
+            let pathTableView = segue.destination as! PathTableViewController
+            pathTableView.myString = self.myString
+            pathTableView.current_table = self.current_table
+        } else {
+            let emergencyView = segue.destination as! EmergencyViewController
+            emergencyView.current_table = self.current_table
+        }
+        
     }
     
 }

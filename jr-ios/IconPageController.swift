@@ -10,9 +10,6 @@ import UIKit
 
 class IconPageController: UIViewController {
     
-    
-    
-    
     @IBOutlet weak var NavRightItem: UIBarButtonItem!
     @IBOutlet weak var NavLeftItem: UIBarButtonItem!
     
