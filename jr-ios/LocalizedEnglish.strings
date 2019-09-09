@@ -1,0 +1,38 @@
+/* 
+  LocalizedEnglish.strings
+  jr-ios
+
+  Created by damien on 2019/09/09.
+  Copyright © 2019 beacrew. All rights reserved.
+*/
+
+/* navigation-title */
+"Destinations" = "Destinations";
+"Routes" = "Routes";
+"Debug" = "Debug";
+
+/* navigation-item */
+"Back" = "Back";
+
+/* global */
+"Cancel" = "Cancel";
+"Start Guidance" = "Start Guidance";
+"Destination:" = "Destination:";
+
+/* alert */
+"Translation" = "Translation";
+"Do you want to set the selected location as the destination?" = "Do you want to set the selected location as the destination?";
+
+
+/* page-route */
+"This icon is displayed on the information board. Please walk along the arrow with this icon during guidance." = "This icon is displayed on the information board. Please walk along the arrow with this icon during guidance.";
+"Walking with a smartphone is dangerous!" = "Walking with a smartphone is dangerous!";
+"As you approach the next guide, you will be notified by sound and vibration." = "As you approach the next guide, you will be notified by sound and vibration.";
+
+
+/* page-debug */
+"Current Floor:" = "Current Floor:";
+"Guide board display information" = "Guide board display information";
+"Information board ID:" = "Information board ID:";
+
+

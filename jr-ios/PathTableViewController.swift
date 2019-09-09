@@ -12,11 +12,15 @@ class PathTableViewController: UITableViewController {
     
     var paths = [Path]()
     var myString:String = String()
+    var current_table = String()
 
+//    @IBOutlet weak var informationBoard: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+//       
+        
         loadSamplePaths()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -44,15 +48,15 @@ class PathTableViewController: UITableViewController {
         let arrow = UIImage(named: "Vector")
         
         guard let path1 = Path(id: 1, icon: icon!, arrow: arrow!, bg: bg!) else {
-            fatalError("Unable to instantiate meal1")
+            fatalError("Unable to instantiate path1")
         }
         
         guard let path2 = Path(id: 2, icon: icon!, arrow: arrow!, bg: bg!) else {
-            fatalError("Unable to instantiate meal2")
+            fatalError("Unable to instantiate path2")
         }
         
         guard let path3 = Path(id: 3, icon: icon!, arrow: arrow!, bg: bg!) else {
-            fatalError("Unable to instantiate meal2")
+            fatalError("Unable to instantiate path3")
         }
         
         paths += [path1, path2, path3]
@@ -68,7 +72,7 @@ class PathTableViewController: UITableViewController {
         let cellIdentifier = "PathTableViewCell"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)  as? PathTableViewCell else {
-            fatalError("The dequeued cell is not an instance of MealTableViewCell.")
+            fatalError("The dequeued cell is not an instance of PathTableViewCell.")
         }
 
         // Configure the cell...
@@ -80,6 +84,7 @@ class PathTableViewController: UITableViewController {
         cell.iconImage.image = path.icon
         cell.labelTitle.text = self.myString
         cell.cellText.text = "50m先階段を降りて左に曲がる。"
+        cell.informationBoard.text = NSLocalizedString("Information board ID:", tableName: current_table, comment: "page-debug")
 
         return cell
     }

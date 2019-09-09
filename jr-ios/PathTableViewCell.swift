@@ -16,10 +16,14 @@ class PathTableViewCell: UITableViewCell {
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var cellText: UILabel!
     @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var informationBoard: UILabel!
+    
+    var current_table = String()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+       
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -17,22 +17,39 @@ class IconPageController: UIViewController {
     @IBOutlet weak var NavLeftItem: UIBarButtonItem!
     
     @IBOutlet weak var mainImageView: UIImageView!
-    @IBOutlet weak var TextLabel: UILabel!
-    
+        
     
     @IBOutlet weak var ImageWarningLeft: UIImageView!
     @IBOutlet weak var ImageWarningRight: UIImageView!
     
+    @IBOutlet weak var navigation: UINavigationItem!
+    
+    @IBOutlet weak var subtitle: UILabel!
+    @IBOutlet weak var firstParagraph: UILabel!
+    @IBOutlet weak var secondParagraph: UILabel!
+    @IBOutlet weak var dangerMessage: UILabel!
+    
+    
+    var language_current = Language.english
+    var current_table = String()
     var myString:String = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        self.mainImageView.layer.masksToBounds = true
-        NavLeftItem.title = "戻る"
-        TextLabel.text = "目的地：\(myString)"
+        
+        // NAV
+        navigation.title = NSLocalizedString("Routes", tableName: self.getTableName(), comment: "navigation-title")
+        NavLeftItem.title = NSLocalizedString("Back", tableName: self.getTableName(), comment: "navigation-item")
+        
+        // PAGE
+        subtitle.text = "\(NSLocalizedString("Destination:", tableName: self.getTableName(), comment: "global")) \(myString)"
+        
+        firstParagraph.text = NSLocalizedString("This icon is displayed on the information board. Please walk along the arrow with this icon during guidance.", tableName: self.getTableName(), comment: "page-route")
+        secondParagraph.text = NSLocalizedString("As you approach the next guide, you will be notified by sound and vibration.",  tableName: self.getTableName(), comment: "page-route")
+        dangerMessage.text = NSLocalizedString("Walking with a smartphone is dangerous!", tableName: self.getTableName(), comment: "page-route")
         
         
-        
+        // ICONS
         if #available(iOS 13.0, *) {
             ImageWarningLeft.image = UIImage(systemName: "exclamationmark.triangle.fill")
             ImageWarningRight.image = UIImage(systemName: "exclamationmark.triangle.fill")
@@ -44,6 +61,19 @@ class IconPageController: UIViewController {
         }
         
         // Do any additional setup after loading the view.
+    }
+    
+    func getTableName() -> String {
+        switch language_current {
+           case .english:
+               return "LocalizedEnglish"
+           case .chinese:
+               return "LocalizedChinese"
+           case .korean:
+               return "LocalizedKorean"
+           default:
+               return "LocalizedJapanese"
+           }
     }
     
     
@@ -68,6 +98,7 @@ class IconPageController: UIViewController {
         print(self.myString)
         let debugScreenController = segue.destination as! DebugScreenViewController
         debugScreenController.myString = self.myString
+        debugScreenController.current_table = self.current_table
     }
     
     
