@@ -1,0 +1,59 @@
+
+/* Class = "UILabel"; text = "As you approach the next guide, you will be notified by sound and vibration."; ObjectID = "3V7-Qo-X9H"; */
+"3V7-Qo-X9H.text" = "As you approach the next guide, you will be notified by sound and vibration.";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "4Zq-vV-kfa"; */
+"4Zq-vV-kfa.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "5S2-fv-4jb"; */
+"5S2-fv-4jb.title" = "Back";
+
+/* Class = "UILabel"; text = "Destination:"; ObjectID = "ASW-9M-94w"; */
+"ASW-9M-94w.text" = "Destination:";
+
+/* Class = "UILabel"; text = "Destination:"; ObjectID = "CdL-mi-JFv"; */
+"CdL-mi-JFv.text" = "Destination:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Fo0-6y-e1A"; */
+"Fo0-6y-e1A.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "JdJ-Fz-E9a"; */
+"JdJ-Fz-E9a.title" = "Back";
+
+/* Class = "UILabel"; text = "Guide board display information"; ObjectID = "N4z-pH-hL6"; */
+"N4z-pH-hL6.text" = "Guide board display information";
+
+/* Class = "UINavigationItem"; title = "Debug"; ObjectID = "Ron-TP-bg3"; */
+"Ron-TP-bg3.title" = "Debug";
+
+/* Class = "UILabel"; text = "Walking with a smartphone is dangerous!"; ObjectID = "UEb-n4-vgU"; */
+"UEb-n4-vgU.text" = "Walking with a smartphone is dangerous!";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "ZdD-9k-gXb"; */
+"ZdD-9k-gXb.title" = "Item";
+
+/* Class = "UINavigationItem"; title = "Route"; ObjectID = "cui-LP-MWB"; */
+"cui-LP-MWB.title" = "Route";
+
+/* Class = "UILabel"; text = "Information board ID:"; ObjectID = "fhC-eJ-bzh"; */
+"fhC-eJ-bzh.text" = "Information board ID:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "gyg-qN-d0w"; */
+"gyg-qN-d0w.text" = "Label";
+
+/* Class = "UILabel"; text = "This icon is displayed on the information board.\nPlease walk along the arrow with this icon during guidance."; ObjectID = "noD-5J-W5o"; */
+"noD-5J-W5o.text" = "This icon is displayed on the information board.\nPlease walk along the arrow with this icon during guidance.";
+
+/* Class = "UINavigationItem"; title = "Destinations"; ObjectID = "oOV-9O-NCk"; */
+"oOV-9O-NCk.title" = "Destinations";
+
+/* Class = "UILabel"; text = "Current Floor:"; ObjectID = "th9-Wu-AZr"; */
+"th9-Wu-AZr.text" = "Current Floor:";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "uRD-NC-f4r"; */
+"uRD-NC-f4r.title" = "Item";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "vD0-9w-m8o"; */
+"vD0-9w-m8o.title" = "Item";
+
+

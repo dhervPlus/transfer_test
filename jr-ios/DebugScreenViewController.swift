@@ -52,19 +52,26 @@ class DebugScreenViewController: UIViewController {
     var edges = [Edge]()
     var mapImageData = Data()
     var myString:String = String()
+    var current_table = String()
     
     @IBOutlet weak var mapName: UILabel!
     @IBOutlet weak var destinationName: UILabel!
-    
-    
+    @IBOutlet weak var navigation: UINavigationItem!
+    @IBOutlet weak var guideBoard: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         loadMap()
         
-        destinationName.text = "目的地：\(self.myString)"
+        
+        NavLeftButton.title = NSLocalizedString("Back", tableName: current_table, comment: "navigation-item")
+        navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
+        destinationName.text = "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)"
+        guideBoard.text = NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug")
+//        destinationName.text = "目的地：\(self.myString)"
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
-        NavLeftButton.title = "戻る"
+//        NavLeftButton.title = "戻る"
         if #available(iOS 13.0, *) {
             NavRightButton.image = UIImage(systemName: "exclamationmark.triangle.fill")
         } else {
@@ -75,8 +82,7 @@ class DebugScreenViewController: UIViewController {
     
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        if let owningNavigationController = navigationController{
-            owningNavigationController.popViewController(animated: true)
+        if let owningNavigationController = navigationController{owningNavigationController.popViewController(animated: true)
         } else {
             fatalError("The Icon Page Controller is not inside a navigation controller.")
         }
@@ -195,7 +201,7 @@ class DebugScreenViewController: UIViewController {
                 self.map = map_data.map
                 self.downloadImage(from: map_data.map.image)
                 DispatchQueue.main.async {
-                    self.mapName.text = "現在のフロア：\(map_data.map.name)"
+                    self.mapName.text = "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)"
                     self.mapName.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
                     self.beacons = map_data.beacons
                     self.nodes = map_data.nodes
@@ -210,6 +216,7 @@ class DebugScreenViewController: UIViewController {
         print(self.myString)
         let pathTableView = segue.destination as! PathTableViewController
         pathTableView.myString = self.myString
+        pathTableView.current_table = self.current_table
     }
     
 }

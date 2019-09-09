@@ -17,26 +17,36 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     var destinations_initial = [Destination]()
     var destinations_filtered = [[Destination]]()
     // table
-    var sections: [String] = []
     var selectedCellLabel = String()
     // search
     var searchString = String()
     var searchActive : Bool = false
+    var searchFocus : Bool = false
     let searchController = UISearchController(searchResultsController: nil)
     
+    var language_current = Language.english
+    
+    var current_table = String();
+    
+ 
+    
+//    let defaultLocalizer = AMPLocalizeUtils.defaultLocalizer
     //MARK: IBOutlet
+    
     @IBOutlet weak var buttonLeftSettings: UIBarButtonItem!
-    @IBOutlet weak var buttonRightSettings: UIBarButtonItem!
+    //    @IBOutlet weak var buttonRightSettings: UIBarButtonItem!
     @IBOutlet weak var tableSearch: UISearchBar!
+       @IBOutlet weak var navigation: UINavigationItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(), comment: "navigation-title")
         tableSearch.delegate = self
         
         // Do any additional setup after loading the view.
         if #available(iOS 13.0, *) {
-            buttonRightSettings.image = UIImage(systemName: "gear")
+            //            buttonRightSettings.image = UIImage(systemName: "gear")
             buttonLeftSettings.image = UIImage(systemName: "a.square")
         } else {
             // Fallback on earlier versions
@@ -44,6 +54,88 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         
         // Load functions
         loadDestinations()
+        
+    }
+    
+    
+    
+    private func switchLanguage(language: String) {
+        switch language {
+        case "japanese":
+            self.language_current = .japanese
+//            defaultLocalizer.setSelectedLanguage(lang: "ja")
+            
+        case "english":
+            self.language_current = .english
+//            defaultLocalizer.setSelectedLanguage(lang: "en")
+            
+        case "chinese":
+            self.language_current = .chinese
+//            defaultLocalizer.setSelectedLanguage(lang: "ch")
+            
+        case "korean":
+            self.language_current = .korean
+//            defaultLocalizer.setSelectedLanguage(lang: "ko")
+            
+        default:
+            self.language_current = .japanese
+            
+        }
+        navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(),comment: "navigation-title")
+    }
+    
+    
+    @IBAction func openLanguageAlert(_ sender: Any) {
+        self.alertLanguage()
+    }
+    
+    
+    //MARK: private
+    
+    private func alertLanguage() {
+        // set the alert controller
+        let alert = UIAlertController(title:  NSLocalizedString("translation", tableName: "Main", comment: "alert"), message: "", preferredStyle: .alert)
+        
+        // set action for each language
+        let japanese_action = UIAlertAction(title: "日本語", style: .default, handler: { (_) in
+            self.switchLanguage(language: "japanese")
+               self.tableView.reloadData()
+        })
+     
+        let english_action = UIAlertAction(title: "English", style: .default, handler: { (_) in
+            self.switchLanguage(language:"english")
+            self.tableView.reloadData()
+        })
+        let chinese_action = UIAlertAction(title: "中文", style: .default, handler: { (_) in
+            self.switchLanguage(language:"chinese")
+            self.tableView.reloadData()
+        })
+        let korean_action = UIAlertAction(title: "한국어", style: .default, handler: { (_) in
+            self.switchLanguage(language:"korean")
+            self.tableView.reloadData()
+        })
+        
+        // update default color to black
+        japanese_action.setValue(UIColor.black, forKey: "titleTextColor")
+        english_action.setValue(UIColor.black, forKey: "titleTextColor")
+        chinese_action.setValue(UIColor.black, forKey: "titleTextColor")
+        korean_action.setValue(UIColor.black, forKey: "titleTextColor")
+        
+        // add each action to the aler
+        alert.addAction(japanese_action)
+        
+        alert.addAction(english_action)
+        
+        alert.addAction(chinese_action)
+        
+        alert.addAction(korean_action)
+        
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", tableName: "Main", comment: "global"), style: UIAlertAction.Style.cancel , handler: {(_: UIAlertAction!) in
+            //Sign out action
+        }))
+        
+        // show alert
+        self.present(alert, animated: true, completion: nil)
         
     }
     
@@ -65,7 +157,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         
         let label = UILabel()
         label.frame = CGRect.init(x: 16, y: 0, width: headerView.frame.width, height: headerView.frame.height)
-        label.text = String(sections[section])
+        label.text = String(self.getCurrentLanguageTypeLabel(element: destinations[section][0]))
         label.textColor = UIColor.black // my custom colour
         
         if #available(iOS 13.0, *) {
@@ -101,7 +193,9 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
             destination = destinations[indexPath.section][indexPath.row]
         }
         
-        cell.destinationCellLabel.text = destination.label_japanese
+        let text = self.getCurrentLanguageLabel(destination: destination)
+        
+        cell.destinationCellLabel.text = text
         
         return cell
     }
@@ -110,14 +204,14 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         var label = String()
         
         if searchActive {
-            label = destinations_filtered[indexPath.section][indexPath.row].label_japanese
+            label = self.getCurrentLanguageLabel(destination: destinations_filtered[indexPath.section][indexPath.row])
         } else {
-            label = destinations[indexPath.section][indexPath.row].label_japanese
+            label = self.getCurrentLanguageLabel(destination: destinations[indexPath.section][indexPath.row])
         }
         
         self.selectedCellLabel = label
         
-        self.alert(title: "選択した場所を目的地に設定しますか？", message: label, completion: { result in
+        self.alert(title: NSLocalizedString("Do you want to set the selected location as the destination?", tableName: self.getTableName(), comment: "alert"), message: label, completion: { result in
             if result {
                 if self.selectedCellLabel != "" {
                     self.performSegue(withIdentifier: "Segue", sender: self)
@@ -127,8 +221,49 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     
+    private func getCurrentLanguageTypeLabel(element: Destination) -> String {
+        switch language_current {
+        case .english:
+            return element.type_label_english
+        case .chinese:
+            return element.type_label_chinese
+        case .korean:
+            return element.type_label_korean
+        default:
+            return element.type_label_japanese
+        }
+    }
+    
+    private func getCurrentLanguageLabel(destination: Destination) -> String {
+        switch language_current {
+        case .english:
+            return destination.label_english
+        case .chinese:
+            return destination.label_chinese
+        case .korean:
+            return destination.label_korean
+        default:
+            return destination.label_japanese
+        }
+    }
+    
     //MARK: Alert
     
+    
+    func getTableName() -> String {
+        switch language_current {
+           case .english:
+            self.current_table = "LocalizedEnglish"
+               return "LocalizedEnglish"
+           case .chinese:
+               return "LocalizedChinese"
+           case .korean:
+               return "LocalizedKorean"
+           default:
+            self.current_table = "LocalizedJapanese"
+               return "LocalizedJapanese"
+           }
+    }
     
     /**
      Display confirmation alert after clicking table cell
@@ -139,12 +274,12 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     func alert (title: String, message: String, completion:  @escaping ((Bool) -> Void)) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alertController.addAction(UIAlertAction(title: "案内を開始", style: .default, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("start guidance", tableName: self.getTableName(), comment: "global"), style: .default, handler: { (action) in
             alertController.dismiss(animated: true, completion: nil)
             completion(true) // true signals "YES"
         }))
         
-        alertController.addAction(UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.default, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", tableName: self.getTableName(), comment: "global"), style: UIAlertAction.Style.default, handler: { (action) in
             alertController.dismiss(animated: true, completion: nil)
             completion(false) // false singals "NO"
         }))
@@ -181,22 +316,19 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     private func getTypes(destinations: [Destination]) {
         
-        let dest = Dictionary(grouping: destinations) {(element) -> String in
-            return element.type_label
+        let dest = Dictionary(grouping: destinations) {(element) -> Int in
+            return element.type_id
         }
         
-        var sections: [String] = []
         var destinations = [[Destination]]()
         
-        for (key, value) in dest {
-            sections.append(key)
+        for (_, value) in dest {
             destinations.append(value)
         }
+        
         if searchActive {
-            self.sections = sections
             self.destinations_filtered = destinations
         } else {
-            self.sections = sections
             self.destinations = destinations
         }
         
@@ -243,6 +375,8 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let iconController = segue.destination as! IconPageController
         iconController.myString = self.selectedCellLabel
+        iconController.language_current = self.language_current
+        iconController.current_table = self.current_table
     }
     
     
@@ -250,11 +384,11 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchActive = true;
+        searchFocus = true;
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchActive = false;
+        searchFocus = false;
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -269,12 +403,12 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     /**
      Filter destinations depending on the current search text in the search bar
      - parameter searchText: string in search bar
-     - returns: [Destination]
+     - returns: [Destination] filtered by type_label or label
      */
     
     func searchFilter(searchText: String) -> [Destination] {
         return self.destinations_initial.filter({( destination : Destination) -> Bool in
-            return destination.label_japanese.lowercased().contains(searchText.lowercased())
+            return self.getCurrentLanguageLabel(destination: destination).lowercased().contains(searchText.lowercased()) || self.getCurrentLanguageTypeLabel(element: destination).lowercased().contains(searchText.lowercased())
         })
     }
     
@@ -289,16 +423,14 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
      */
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        let filtered = self.searchFilter(searchText: searchText)
-        
         if searchText.count == 0 {
             searchActive = false;
         } else {
             searchActive = true;
         }
         
-        if searchActive {
+        if searchText.count > 0 && searchFocus {
+            let filtered = self.searchFilter(searchText: searchText)
             return self.getTypes(destinations: filtered)
         } else {
             return self.getTypes(destinations: destinations_initial)

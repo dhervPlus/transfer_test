@@ -14,7 +14,11 @@
 		6D027E7E230FAF7C00A9B412 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D027E7C230FAF7C00A9B412 /* LaunchScreen.storyboard */; };
 		6D027E89230FAF7C00A9B412 /* jr_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D027E88230FAF7C00A9B412 /* jr_iosTests.swift */; };
 		6D027E94230FAF7C00A9B412 /* jr_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D027E93230FAF7C00A9B412 /* jr_iosUITests.swift */; };
-		6D75CFCA231E0F9500B84ADE /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D75CFC9231E0F9500B84ADE /* SearchController.swift */; };
+		6D03240B231F99A500531279 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D03240A231F99A500531279 /* Language.swift */; };
+		6D0324212325C53E00531279 /* LocalizedJapanese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D0324202325C53E00531279 /* LocalizedJapanese.strings */; };
+		6D0324232325C64900531279 /* LocalizedEnglish.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D0324222325C64900531279 /* LocalizedEnglish.strings */; };
+		6D0324252325C65700531279 /* LocalizedChinese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D0324242325C65700531279 /* LocalizedChinese.strings */; };
+		6D0324272325C66000531279 /* LocalizedKorean.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D0324262325C66000531279 /* LocalizedKorean.strings */; };
 		6D9B5355231CE84600FC2D54 /* PathTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9B5354231CE84600FC2D54 /* PathTableViewController.swift */; };
 		6D9B5357231CE89A00FC2D54 /* PathTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9B5356231CE89A00FC2D54 /* PathTableViewCell.swift */; };
 		6DEF880C230FDA1100D5FF9A /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF880B230FDA1100D5FF9A /* Destination.swift */; };
@@ -57,7 +61,11 @@
 		6D027E8F230FAF7C00A9B412 /* jr-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jr-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D027E93230FAF7C00A9B412 /* jr_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jr_iosUITests.swift; sourceTree = "<group>"; };
 		6D027E95230FAF7C00A9B412 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6D75CFC9231E0F9500B84ADE /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		6D03240A231F99A500531279 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		6D0324202325C53E00531279 /* LocalizedJapanese.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizedJapanese.strings; sourceTree = "<group>"; };
+		6D0324222325C64900531279 /* LocalizedEnglish.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizedEnglish.strings; sourceTree = "<group>"; };
+		6D0324242325C65700531279 /* LocalizedChinese.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizedChinese.strings; sourceTree = "<group>"; };
+		6D0324262325C66000531279 /* LocalizedKorean.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizedKorean.strings; sourceTree = "<group>"; };
 		6D9B5354231CE84600FC2D54 /* PathTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTableViewController.swift; sourceTree = "<group>"; };
 		6D9B5356231CE89A00FC2D54 /* PathTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTableViewCell.swift; sourceTree = "<group>"; };
 		6DEF880B230FDA1100D5FF9A /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
@@ -121,14 +129,18 @@
 				6D027E73230FAF7B00A9B412 /* AppDelegate.swift */,
 				6DEF88172319ECD000D5FF9A /* DebugScreenViewController.swift */,
 				6DEF880D230FDFD000D5FF9A /* DestinationTableViewCell.swift */,
+				6D03240A231F99A500531279 /* Language.swift */,
 				6DEF880F2310A12500D5FF9A /* DestinationTableViewController.swift */,
 				6DEF880B230FDA1100D5FF9A /* Destination.swift */,
 				6DEF88152318C76800D5FF9A /* IconPageController.swift */,
+				6D0324222325C64900531279 /* LocalizedEnglish.strings */,
+				6D0324242325C65700531279 /* LocalizedChinese.strings */,
+				6D0324262325C66000531279 /* LocalizedKorean.strings */,
+				6D0324202325C53E00531279 /* LocalizedJapanese.strings */,
 				6D027E77230FAF7B00A9B412 /* Main.storyboard */,
 				6DEF88132318C1F900D5FF9A /* NavigationController.swift */,
 				6D9B5354231CE84600FC2D54 /* PathTableViewController.swift */,
 				6D9B5356231CE89A00FC2D54 /* PathTableViewCell.swift */,
-				6D75CFC9231E0F9500B84ADE /* SearchController.swift */,
 				6D027E75230FAF7B00A9B412 /* ViewController.swift */,
 				6D027E7A230FAF7C00A9B412 /* Assets.xcassets */,
 				6D027E7C230FAF7C00A9B412 /* LaunchScreen.storyboard */,
@@ -261,7 +273,11 @@
 			files = (
 				6D027E7E230FAF7C00A9B412 /* LaunchScreen.storyboard in Resources */,
 				6D027E7B230FAF7C00A9B412 /* Assets.xcassets in Resources */,
+				6D0324272325C66000531279 /* LocalizedKorean.strings in Resources */,
+				6D0324252325C65700531279 /* LocalizedChinese.strings in Resources */,
 				6D027E79230FAF7B00A9B412 /* Main.storyboard in Resources */,
+				6D0324232325C64900531279 /* LocalizedEnglish.strings in Resources */,
+				6D0324212325C53E00531279 /* LocalizedJapanese.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,9 +309,9 @@
 				6DEF880E230FDFD000D5FF9A /* DestinationTableViewCell.swift in Sources */,
 				6DEF88182319ECD000D5FF9A /* DebugScreenViewController.swift in Sources */,
 				6DEF880C230FDA1100D5FF9A /* Destination.swift in Sources */,
-				6D75CFCA231E0F9500B84ADE /* SearchController.swift in Sources */,
 				6D9B5355231CE84600FC2D54 /* PathTableViewController.swift in Sources */,
 				6DEF88162318C76800D5FF9A /* IconPageController.swift in Sources */,
+				6D03240B231F99A500531279 /* Language.swift in Sources */,
 				6DEF88142318C1F900D5FF9A /* NavigationController.swift in Sources */,
 				6DEF88102310A12500D5FF9A /* DestinationTableViewController.swift in Sources */,
 			);
@@ -356,6 +372,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -417,6 +434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

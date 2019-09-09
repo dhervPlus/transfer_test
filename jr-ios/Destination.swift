@@ -112,12 +112,16 @@ class Destination: Decodable {
     var label_english: String
     var label_korean: String
     var label_chinese: String
-    var type_label: String
-    
+    var type_label_japanese: String
+    var type_label_english: String
+    var type_label_chinese: String
+    var type_label_korean: String
     
     //MARK: Initialization
     
-    init?(id: Int, node_id: Int, type_id: Int, label_japanese: String, label_english: String, label_korean: String, label_chinese: String, type_label: String) {
+    init?(id: Int, node_id: Int, type_id: Int, label_japanese: String, label_english: String, label_korean: String, label_chinese: String, type_label_japanese: String, type_label_english: String,
+     type_label_chinese: String,
+    type_label_korean: String) {
         
         // Initialize stored properties.
         self.id = id
@@ -127,7 +131,10 @@ class Destination: Decodable {
         self.label_english = label_english
         self.label_korean = label_korean
         self.label_chinese = label_chinese
-        self.type_label = type_label
+        self.type_label_japanese = type_label_japanese
+        self.type_label_english = type_label_english
+        self.type_label_chinese = type_label_chinese
+        self.type_label_korean = type_label_korean
     }
 }
 
@@ -152,3 +159,4 @@ class Path {
         self.bg = bg
     }
 }
+

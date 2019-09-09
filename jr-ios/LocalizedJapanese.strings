@@ -1,0 +1,38 @@
+/* 
+  LocalizedJapanese.strings
+  jr-ios
+
+  Created by damien on 2019/09/09.
+  Copyright © 2019 beacrew. All rights reserved.
+*/
+
+
+
+/* navigation-title */
+"Destinations" = "目的地選択";
+"Routes" = "ルート案内中";
+"Debug" = "デバッグ";
+
+/* navigation-item */
+"Back" = "戻る";
+
+/* global */
+"cancel" = "キャンセル";
+"start guidance" = "案内を開始";
+"Destination:" = "目的地：";
+
+/* alert */
+"translation" = "言語選択";
+"Do you want to set the selected location as the destination?" = "選択した場所を目的地に設定しますか？";
+
+
+/* page-route */
+"This icon is displayed on the information board. Please walk along the arrow with this icon during guidance." = "案内板にこのアイコンが表示されます。案内中はこのアイコンが表示されている矢印に従って歩いてください。";
+"Walking with a smartphone is dangerous!" = "歩きスマホは危険です！";
+"As you approach the next guide, you will be notified by sound and vibration." = "次の案内板に近づくと音や振動でお知らせいたします。";
+
+
+/* page-debug */
+"Current Floor:" = "現在のフロア：";
+"Guide board display information" = "案内板表示情報";
+"Information board ID:" = "案内板ID：";
