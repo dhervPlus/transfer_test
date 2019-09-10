@@ -9,12 +9,13 @@
 import UIKit
 
 class EmergencyViewController: UIViewController {
-
-    @IBOutlet weak var circleContainer: UIView!
+    
+    @IBOutlet weak var circleContainer: UIButton!
     @IBOutlet weak var emergencyTitle: UILabel!
     @IBOutlet weak var emergencyText: UILabel!
     
     var current_table = String();
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +26,12 @@ class EmergencyViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func drawCircle() {
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: 100, y: 100), radius: CGFloat(80), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
-
+    private func drawCircle() {
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: 120, y: 120), radius: CGFloat(80), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
+        
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = circlePath.cgPath
-
+        
         //change the fill color
         shapeLayer.fillColor = UIColor.red.cgColor
         //you can change the stroke color
@@ -45,17 +46,54 @@ class EmergencyViewController: UIViewController {
         circleContainer.layer.shadowRadius = 2
         
         circleContainer.layer.addSublayer(shapeLayer)
+        
+        //       emergencyButton.backgroundColor = .clear
+        //        emergencyButton.layer.cornerRadius = 0.5 * emergencyButton.bounds.size.width
+        //        emergencyButton.clipsToBounds = true
+        //        emergencyButton.layer.borderWidth = 5
+        //        emergencyButton.layer.borderColor = UIColor.white.cgColor
+        ////        emergencyButton.backgroundColor = UIColor.red
+        //        emergencyButton.layer.backgroundColor = UIColor.red.cgColor
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func postEmergency(_ sender: UIButton) {
+        print("EMERGENCY")
+        circleContainer.layer.shadowColor = UIColor.black.cgColor
+        circleContainer.layer.shadowOpacity = 0
+        circleContainer.layer.shadowOffset = .zero
+        circleContainer.layer.shadowRadius = 0
+        
     }
-    */
-
+    
+    @IBAction func postEmergencyFinish(_ sender: UIButton) {
+        circleContainer.layer.shadowColor = UIColor.black.cgColor
+        circleContainer.layer.shadowOpacity = 10
+        circleContainer.layer.shadowOffset = .zero
+        circleContainer.layer.shadowRadius = 2
+    }
+    
+    
+    @IBAction func postEmergencyFinishOut(_ sender: UIButton) {
+        
+        circleContainer.layer.shadowColor = UIColor.black.cgColor
+        circleContainer.layer.shadowOpacity = 10
+        circleContainer.layer.shadowOffset = .zero
+        circleContainer.layer.shadowRadius = 2
+    }
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    @IBAction func test(_ sender: Any) {
+        print("test")
+    }
+    
 }

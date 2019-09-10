@@ -394,26 +394,35 @@ Please walk along the arrow with this icon during guidance.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOG-bK-DHc">
-                                <rect key="frame" x="40" y="40" width="334" height="20.5"/>
+                                <rect key="frame" x="40" y="40" width="334" height="61.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fyb-wg-aGU">
-                                <rect key="frame" x="40" y="100.5" width="334" height="20.5"/>
+                                <rect key="frame" x="40" y="141.5" width="334" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2td-c4-tEL">
-                                <rect key="frame" x="87" y="243" width="240" height="322"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2td-c4-tEL" customClass="UIButton">
+                                <rect key="frame" x="87" y="284" width="240" height="240"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="pTD-sN-Vzs"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="postEmergency:" destination="vf5-aq-HBi" eventType="touchDown" id="dl3-Hp-Rd7"/>
+                                    <action selector="postEmergencyFinish:" destination="vf5-aq-HBi" eventType="touchUpInside" id="T5v-9Q-WP8"/>
+                                    <action selector="postEmergencyFinishOut:" destination="vf5-aq-HBi" eventType="touchUpOutside" id="wcj-2H-cpH"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="7Wm-K3-o4Z" firstAttribute="trailing" secondItem="Fyb-wg-aGU" secondAttribute="trailing" constant="40" id="9qU-c5-Xqe"/>
                             <constraint firstItem="fOG-bK-DHc" firstAttribute="leading" secondItem="7Wm-K3-o4Z" secondAttribute="leading" constant="40" id="E0c-5y-GrY"/>
+                            <constraint firstItem="2td-c4-tEL" firstAttribute="centerX" secondItem="0Fp-8u-e03" secondAttribute="centerX" id="JV0-Nl-IOG"/>
                             <constraint firstItem="2td-c4-tEL" firstAttribute="centerX" secondItem="0Fp-8u-e03" secondAttribute="centerX" id="Kpe-36-Drf"/>
                             <constraint firstItem="2td-c4-tEL" firstAttribute="centerY" secondItem="0Fp-8u-e03" secondAttribute="centerY" id="MLZ-Nu-VDg"/>
                             <constraint firstItem="Fyb-wg-aGU" firstAttribute="leading" secondItem="7Wm-K3-o4Z" secondAttribute="leading" constant="40" id="WQP-Bw-Jkn"/>
