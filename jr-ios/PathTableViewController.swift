@@ -58,7 +58,7 @@ class PathTableViewController: UITableViewController {
         guard let path3 = Path(id: 3, icon: icon!, arrow: arrow!, bg: bg!) else {
             fatalError("Unable to instantiate path3")
         }
-        
+    
         paths += [path1, path2, path3]
     }
     
