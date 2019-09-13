@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import BeacrewLoco
 
-class DestinationTableViewController: UITableViewController, UISearchBarDelegate {
+
+class DestinationTableViewController: UITableViewController, UISearchBarDelegate, BCLManagerDelegate {
     
     //MARK: Variables
     
@@ -28,58 +30,73 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     var current_table = String();
     
- 
-    
-//    let defaultLocalizer = AMPLocalizeUtils.defaultLocalizer
     //MARK: IBOutlet
     
+    
     @IBOutlet weak var buttonLeftSettings: UIBarButtonItem!
-    //    @IBOutlet weak var buttonRightSettings: UIBarButtonItem!
     @IBOutlet weak var tableSearch: UISearchBar!
-       @IBOutlet weak var navigation: UINavigationItem!
+    @IBOutlet weak var navigation: UINavigationItem!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        BCLManager.shared()?.delegate = self
+        
         navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(), comment: "navigation-title")
         tableSearch.delegate = self
-        
-        // Do any additional setup after loading the view.
-        if #available(iOS 13.0, *) {
-            //            buttonRightSettings.image = UIImage(systemName: "gear")
-            buttonLeftSettings.image = UIImage(systemName: "a.square")
-        } else {
-            // Fallback on earlier versions
-        }
         
         // Load functions
         loadDestinations()
         
     }
     
+    func didActionCalled(_ action: BCLAction!, type: String!, source: Any!) {
+                var mdic: [AnyHashable : Any] = [:]
+                for param in action.params {
+                    mdic[param.key] = param.value
+                }
+                let kind = mdic["kind"] as? String
+                if (kind == "web") {
+                    let page = mdic["page"] as? String
+                    print("page", page!)
+                } else if (kind == "push") {
+                    let message = mdic["message"] as? String
+                    print("message", message!)
+                }
+    }
+    
+    func didRangeBeacons(_ beacons: [BCLBeacon]!) {
+        print("beacons", beacons!)
+    }
+    
+    func didEnter(_ region: BCLRegion!) {
+        print("region", region!)
+    }
+    
+    func didFailWithError(_ error: BCLError!) {
+        print("error", error!, error.message ?? "message", "code", error.code)
+    }
+    
+    
+    func didChangeStatus(_ status: BCLState) {
+        print("status", status)
+    }
     
     
     private func switchLanguage(language: String) {
         switch language {
         case "japanese":
             self.language_current = .japanese
-//            defaultLocalizer.setSelectedLanguage(lang: "ja")
-            
         case "english":
             self.language_current = .english
-//            defaultLocalizer.setSelectedLanguage(lang: "en")
-            
         case "chinese":
             self.language_current = .chinese
-//            defaultLocalizer.setSelectedLanguage(lang: "ch")
-            
         case "korean":
             self.language_current = .korean
-//            defaultLocalizer.setSelectedLanguage(lang: "ko")
-            
         default:
             self.language_current = .japanese
-            
         }
         navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(),comment: "navigation-title")
     }
@@ -99,9 +116,9 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         // set action for each language
         let japanese_action = UIAlertAction(title: "日本語", style: .default, handler: { (_) in
             self.switchLanguage(language: "japanese")
-               self.tableView.reloadData()
+            self.tableView.reloadData()
         })
-     
+        
         let english_action = UIAlertAction(title: "English", style: .default, handler: { (_) in
             self.switchLanguage(language:"english")
             self.tableView.reloadData()
@@ -252,17 +269,17 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     func getTableName() -> String {
         switch language_current {
-           case .english:
+        case .english:
             self.current_table = "LocalizedEnglish"
-               return "LocalizedEnglish"
-           case .chinese:
-               return "LocalizedChinese"
-           case .korean:
-               return "LocalizedKorean"
-           default:
+            return "LocalizedEnglish"
+        case .chinese:
+            return "LocalizedChinese"
+        case .korean:
+            return "LocalizedKorean"
+        default:
             self.current_table = "LocalizedJapanese"
-               return "LocalizedJapanese"
-           }
+            return "LocalizedJapanese"
+        }
     }
     
     /**

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13BCBD3A75FD0EC8FE7771AF /* Pods_jr_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 582FE6E6459FD9A52241E551 /* Pods_jr_ios.framework */; };
 		6D027E74230FAF7B00A9B412 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D027E73230FAF7B00A9B412 /* AppDelegate.swift */; };
 		6D027E76230FAF7B00A9B412 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D027E75230FAF7B00A9B412 /* ViewController.swift */; };
 		6D027E79230FAF7B00A9B412 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D027E77230FAF7B00A9B412 /* Main.storyboard */; };
@@ -49,7 +50,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6D027E70230FAF7B00A9B412 /* jr-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "jr-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E08582B38E1AC925EF3DDED /* Pods-jr-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jr-ios.debug.xcconfig"; path = "Target Support Files/Pods-jr-ios/Pods-jr-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		582FE6E6459FD9A52241E551 /* Pods_jr_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_jr_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D027E70230FAF7B00A9B412 /* naviboard-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "naviboard-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D027E73230FAF7B00A9B412 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D027E75230FAF7B00A9B412 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6D027E78230FAF7B00A9B412 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,11 +75,12 @@
 		6D9B5356231CE89A00FC2D54 /* PathTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTableViewCell.swift; sourceTree = "<group>"; };
 		6DEF880B230FDA1100D5FF9A /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		6DEF880D230FDFD000D5FF9A /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
-		6DEF880F2310A12500D5FF9A /* DestinationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationTableViewController.swift; sourceTree = "<group>"; };
+		6DEF880F2310A12500D5FF9A /* DestinationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6DEF88112310B5D100D5FF9A /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		6DEF88132318C1F900D5FF9A /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		6DEF88152318C76800D5FF9A /* IconPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPageController.swift; sourceTree = "<group>"; };
 		6DEF88172319ECD000D5FF9A /* DebugScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugScreenViewController.swift; sourceTree = "<group>"; };
+		E822B5901C74EF0C2B758BE1 /* Pods-jr-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jr-ios.release.xcconfig"; path = "Target Support Files/Pods-jr-ios/Pods-jr-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13BCBD3A75FD0EC8FE7771AF /* Pods_jr_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +109,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43FE6820BC869DD79EBE1F6B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1E08582B38E1AC925EF3DDED /* Pods-jr-ios.debug.xcconfig */,
+				E822B5901C74EF0C2B758BE1 /* Pods-jr-ios.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		6D027E67230FAF7B00A9B412 = {
 			isa = PBXGroup;
 			children = (
@@ -111,13 +125,15 @@
 				6D027E87230FAF7C00A9B412 /* jr-iosTests */,
 				6D027E92230FAF7C00A9B412 /* jr-iosUITests */,
 				6D027E71230FAF7B00A9B412 /* Products */,
+				43FE6820BC869DD79EBE1F6B /* Pods */,
+				FCD3D341567A3467E4B5D179 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		6D027E71230FAF7B00A9B412 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6D027E70230FAF7B00A9B412 /* jr-ios.app */,
+				6D027E70230FAF7B00A9B412 /* naviboard-ios.app */,
 				6D027E84230FAF7C00A9B412 /* jr-iosTests.xctest */,
 				6D027E8F230FAF7C00A9B412 /* jr-iosUITests.xctest */,
 			);
@@ -170,6 +186,14 @@
 			path = "jr-iosUITests";
 			sourceTree = "<group>";
 		};
+		FCD3D341567A3467E4B5D179 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				582FE6E6459FD9A52241E551 /* Pods_jr_ios.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -177,9 +201,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6D027E98230FAF7C00A9B412 /* Build configuration list for PBXNativeTarget "jr-ios" */;
 			buildPhases = (
+				3182AAA567E03FA59D94B316 /* [CP] Check Pods Manifest.lock */,
 				6D027E6C230FAF7B00A9B412 /* Sources */,
 				6D027E6D230FAF7B00A9B412 /* Frameworks */,
 				6D027E6E230FAF7B00A9B412 /* Resources */,
+				21237D22562A821BB1C693BC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -187,7 +213,7 @@
 			);
 			name = "jr-ios";
 			productName = "jr-ios";
-			productReference = 6D027E70230FAF7B00A9B412 /* jr-ios.app */;
+			productReference = 6D027E70230FAF7B00A9B412 /* naviboard-ios.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6D027E83230FAF7C00A9B412 /* jr-iosTests */ = {
@@ -299,6 +325,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		21237D22562A821BB1C693BC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-jr-ios/Pods-jr-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-jr-ios/Pods-jr-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jr-ios/Pods-jr-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3182AAA567E03FA59D94B316 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-jr-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6D027E6C230FAF7B00A9B412 /* Sources */ = {
@@ -492,17 +560,19 @@
 		};
 		6D027E99230FAF7C00A9B412 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E08582B38E1AC925EF3DDED /* Pods-jr-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9WFT49JH7V;
 				INFOPLIST_FILE = "jr-ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jr-ios";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.beacrew.naviboard.dev;
+				PRODUCT_NAME = "naviboard-ios";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -510,17 +580,19 @@
 		};
 		6D027E9A230FAF7C00A9B412 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E822B5901C74EF0C2B758BE1 /* Pods-jr-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9WFT49JH7V;
 				INFOPLIST_FILE = "jr-ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jr-ios";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.beacrew.naviboard.dev;
+				PRODUCT_NAME = "naviboard-ios";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
