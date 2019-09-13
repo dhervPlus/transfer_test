@@ -47,6 +47,24 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(), comment: "navigation-title")
         tableSearch.delegate = self
         
+        tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: self.getTableName(), comment: "navigation-search");
+        tableSearch.backgroundColor = UIColor.white
+        searchController.searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 8.0, vertical: 0.0)
+        
+        for s in tableSearch.subviews[0].subviews {
+            if s is UITextField {
+                s.layer.borderWidth = 1.0
+                s.layer.cornerRadius = 4.0
+                s.layer.borderColor = UIColor(red:0.00, green:0.40, blue:0.69, alpha:1.0).cgColor
+                
+            }
+        }
+        
+//        tableSearch.searchTextField.layer.borderWidth = 3.0
+        
+//        tableSearch.searchTextField.layer.borderColor = UIColor(red:0.00, green:0.40, blue:0.69, alpha:1.0).cgColor
+        
+        
         // Load functions
         loadDestinations()
         
@@ -176,12 +194,12 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         label.frame = CGRect.init(x: 16, y: 0, width: headerView.frame.width, height: headerView.frame.height)
         label.text = String(self.getCurrentLanguageTypeLabel(element: destinations[section][0]))
         label.textColor = UIColor.black // my custom colour
-        
-        if #available(iOS 13.0, *) {
-            headerView.backgroundColor = UIColor.systemGray5
-        } else {
-            // Fallback on earlier versions
-        }
+        headerView.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0)
+//        if #available(iOS 13.0, *) {
+//            headerView.backgroundColor = UIColor.systemGray5
+//        } else {
+//            // Fallback on earlier versions
+//        }
         
         headerView.addSubview(label)
         

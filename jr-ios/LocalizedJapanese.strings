@@ -16,6 +16,9 @@
 /* navigation-item */
 "Back" = "戻る";
 
+/* navigation-search */
+"Enter a destination..." = "目的地を入力...";
+
 /* global */
 "cancel" = "キャンセル";
 "start guidance" = "案内を開始";

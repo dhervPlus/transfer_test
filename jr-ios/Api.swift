@@ -11,7 +11,7 @@ import Foundation
 class Api {
     
     public var map: MapData?
-    static let shared = Api(baseUrl: String("http://localhost:81/api"))
+    static let shared = Api(baseUrl: String("http://10.0.0.18:81/api"))
     
     var baseUrl: String
     
@@ -36,7 +36,6 @@ class Api {
                 
                 let map_data = try JSONDecoder().decode(MapData.self, from: data)
                 self.map = map_data
-                print(map_data.destinations)
                 
                 
                 completion(.success(map_data))

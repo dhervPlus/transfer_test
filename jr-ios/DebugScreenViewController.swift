@@ -69,15 +69,9 @@ class DebugScreenViewController: UIViewController {
         navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
         destinationName.text = "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)"
         guideBoard.text = NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug")
-        //        destinationName.text = "目的地：\(self.myString)"
+        
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
-        //        NavLeftButton.title = "戻る"
-        if #available(iOS 13.0, *) {
-            NavRightButton.image = UIImage(systemName: "exclamationmark.triangle.fill")
-        } else {
-            // Fallback on earlier versions
-        }
-        // Do any additional setup after loading the view.
+    
     }
     
     
@@ -106,7 +100,7 @@ class DebugScreenViewController: UIViewController {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = lineColor.cgColor
-        shapeLayer.lineWidth = 1.0
+        shapeLayer.lineWidth = 3.0
         
         view.layer.addSublayer(shapeLayer)
     }
@@ -140,17 +134,16 @@ class DebugScreenViewController: UIViewController {
                 for i in self.nodes {
                     
                     
-                    if #available(iOS 13.0, *) {
-                        let image = UIImage(systemName: "gear")
+
+                        let image = UIImage(named: "node")
                         let imageView = UIImageView(image: image!)
                         let x = round(CGFloat(i.x) * mapWidth)
                         let y = round(CGFloat(i.y) * mapHeight)
-                        print(x, y)
+                        
                         imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
+                    imageView.layer.zPosition = 1
                         self.mapImage.addSubview(imageView)
-                    } else {
-                        // Fallback on earlier versions
-                    }
+
                     
                 }
                 
@@ -166,25 +159,23 @@ class DebugScreenViewController: UIViewController {
                     let start_point = CGPoint.init(x: start_x, y: start_y)
                     let end_point = CGPoint.init(x:end_x, y:end_y)
                     print(start_point, end_point)
-                    self.drawLineFromPoint(start: start_point, toPoint: end_point, ofColor: UIColor.red, inView: self.mapImage)
+                    self.drawLineFromPoint(start: start_point, toPoint: end_point, ofColor: UIColor(red:0.94, green:0.78, blue:0.36, alpha:1.0), inView: self.mapImage)
                 }
                 
                 for i in self.beacons {
                     
-                    if #available(iOS 13.0, *) {
-                        let image = UIImage(systemName: "circle.grid.hex")
+
+                        let image = UIImage(named: "target")
                         
                         let imageView = UIImageView(image: image!)
                         let x = round((CGFloat(i.x) * mapWidth) / 800.0) - 10
                         let y = round((CGFloat(i.y) * mapHeight) / loco_height) - 10
                         
                         imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
-                        imageView.tintColor = UIColor.red
+                        
+                    imageView.layer.zPosition = 2
                         self.mapImage.addSubview(imageView)
-                        //                        self.mapView.bringSubviewToFront(imageView)
-                    } else {
-                        // Fallback on earlier versions
-                    }
+                 
                 }
             }
         }}
