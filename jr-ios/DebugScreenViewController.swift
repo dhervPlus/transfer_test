@@ -67,8 +67,8 @@ class DebugScreenViewController: UIViewController {
         
         NavLeftButton.title = NSLocalizedString("Back", tableName: current_table, comment: "navigation-item")
         navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
-        destinationName.text = "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)"
-        guideBoard.text = NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug")
+        destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)")
+        guideBoard.attributedText = self.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
         
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
     
@@ -83,6 +83,19 @@ class DebugScreenViewController: UIViewController {
     }
     
     //MARK: Private Methods
+    
+    private func indent(string: String) -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.firstLineHeadIndent = 20
+        let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
+
+        return NSMutableAttributedString(
+                                 string: string ,
+                                 attributes: attributes)
+        
+
+        
+    }
     
     private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
@@ -192,7 +205,7 @@ class DebugScreenViewController: UIViewController {
                 self.map = map_data.map
                 self.downloadImage(from: map_data.map.image)
                 DispatchQueue.main.async {
-                    self.mapName.text = "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)"
+                    self.mapName.attributedText = self.indent(string: "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)")
                     self.mapName.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
                     self.beacons = map_data.beacons
                     self.nodes = map_data.nodes

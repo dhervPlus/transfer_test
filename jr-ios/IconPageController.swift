@@ -39,7 +39,20 @@ class IconPageController: UIViewController {
         NavLeftItem.title = NSLocalizedString("Back", tableName: self.getTableName(), comment: "navigation-item")
         
         // PAGE
-        subtitle.text = "\(NSLocalizedString("Destination:", tableName: self.getTableName(), comment: "global")) \(myString)"
+        
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.firstLineHeadIndent = 20
+        let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
+
+        let myMutableString = NSMutableAttributedString(
+                                 string: "\(NSLocalizedString("Destination:", tableName: self.getTableName(), comment: "global")) \(myString)",
+                                 attributes: attributes)
+        
+
+        subtitle.attributedText = myMutableString
+        
+        
         
         firstParagraph.text = NSLocalizedString("This icon is displayed on the information board. Please walk along the arrow with this icon during guidance.", tableName: self.getTableName(), comment: "page-route")
         secondParagraph.text = NSLocalizedString("As you approach the next guide, you will be notified by sound and vibration.",  tableName: self.getTableName(), comment: "page-route")

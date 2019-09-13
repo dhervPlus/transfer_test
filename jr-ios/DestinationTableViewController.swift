@@ -49,7 +49,6 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         
         tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: self.getTableName(), comment: "navigation-search");
         tableSearch.backgroundColor = UIColor.white
-        searchController.searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 8.0, vertical: 0.0)
         
         for s in tableSearch.subviews[0].subviews {
             if s is UITextField {
