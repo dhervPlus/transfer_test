@@ -71,7 +71,7 @@ class DebugScreenViewController: UIViewController {
         guideBoard.attributedText = self.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
         
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
-    
+        
     }
     
     
@@ -88,12 +88,12 @@ class DebugScreenViewController: UIViewController {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.firstLineHeadIndent = 20
         let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
-
-        return NSMutableAttributedString(
-                                 string: string ,
-                                 attributes: attributes)
         
-
+        return NSMutableAttributedString(
+            string: string ,
+            attributes: attributes)
+        
+        
         
     }
     
@@ -128,11 +128,11 @@ class DebugScreenViewController: UIViewController {
             print("Download Finished")
             DispatchQueue.main.async() {
                 self.mapImage.image = UIImage(data: data)
-                if #available(iOS 13.0, *) {
-                    print(self.mapImage.frame.size.width, (self.mapImage.image?.size.width)! / self.mapImage.frame.size.width)
-                } else {
-                    // Fallback on earlier versions
-                }
+                //                if #available(iOS 13.0, *) {
+                //                    print(self.mapImage.frame.size.width, (self.mapImage.image?.size.width)! / self.mapImage.frame.size.width)
+                //                } else {
+                //                    // Fallback on earlier versions
+                //                }
                 let mapWidth = self.mapImage.frame.width
                 
                 let mapHeight = self.mapImage.frame.height
@@ -141,22 +141,36 @@ class DebugScreenViewController: UIViewController {
                 
                 let natural_width = self.mapImage.image!.size.width
                 
+//
+                let iphonePosition = Cursor(x: 0.55, y: 0.33)
+                let cursor = UIImage(named: "cursor")
+                let imageView = UIImageView(image: cursor!)
+                let x = round(CGFloat(iphonePosition!.x) * mapWidth)
+                let y = round(CGFloat(iphonePosition!.y) * mapHeight)
+                
+                print("here", x, y)
+
+                imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+                imageView.layer.zPosition = 5
+                self.mapImage.addSubview(imageView)
                 
                 let loco_height = (natural_height * 800.0) / natural_width
                 
                 for i in self.nodes {
                     
                     
-
-                        let image = UIImage(named: "node")
-                        let imageView = UIImageView(image: image!)
-                        let x = round(CGFloat(i.x) * mapWidth)
-                        let y = round(CGFloat(i.y) * mapHeight)
-                        
-                        imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
+                    
+                    let image = UIImage(named: "node")
+                    let imageView = UIImageView(image: image!)
+                    print("node", i.x, i.y)
+                    let x = round(CGFloat(i.x) * mapWidth)
+                    let y = round(CGFloat(i.y) * mapHeight)
+                   
+                    
+                    imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
                     imageView.layer.zPosition = 1
-                        self.mapImage.addSubview(imageView)
-
+                    self.mapImage.addSubview(imageView)
+                    
                     
                 }
                 
@@ -177,18 +191,18 @@ class DebugScreenViewController: UIViewController {
                 
                 for i in self.beacons {
                     
-
-                        let image = UIImage(named: "target")
-                        
-                        let imageView = UIImageView(image: image!)
-                        let x = round((CGFloat(i.x) * mapWidth) / 800.0) - 10
-                        let y = round((CGFloat(i.y) * mapHeight) / loco_height) - 10
-                        
-                        imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
-                        
+                    
+                    let image = UIImage(named: "target")
+                    
+                    let imageView = UIImageView(image: image!)
+                    let x = round((CGFloat(i.x) * mapWidth) / 800.0) - 10
+                    let y = round((CGFloat(i.y) * mapHeight) / loco_height) - 10
+                    
+                    imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
+                    
                     imageView.layer.zPosition = 2
-                        self.mapImage.addSubview(imageView)
-                 
+                    self.mapImage.addSubview(imageView)
+                    
                 }
             }
         }}

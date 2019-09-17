@@ -113,7 +113,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emergency-red" translatesAutoresizingMaskIntoConstraints="NO" id="Q1t-F8-rt9">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="6TW-xH-lwI"/>
                                         </constraints>
@@ -121,12 +121,12 @@ Please walk along the arrow with this icon during guidance.</string>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walking with a smartphone is dangerous!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEb-n4-vgU">
                                         <rect key="frame" x="40" y="0.0" width="231" height="40"/>
                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="16"/>
-                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emergency-red" translatesAutoresizingMaskIntoConstraints="NO" id="o4i-fK-7cx" userLabel="Image Warning Right">
                                         <rect key="frame" x="271" y="0.0" width="40" height="40"/>
-                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="FgK-WF-4Gr"/>
                                         </constraints>
@@ -208,20 +208,8 @@ Please walk along the arrow with this icon during guidance.</string>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="258.5" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="36h-41-nMG">
-                                <rect key="frame" x="20" y="40.666666666666657" width="335" height="335"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" translatesAutoresizingMaskIntoConstraints="NO" id="Gq2-Gj-f65">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="335"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Gq2-Gj-f65" secondAttribute="height" multiplier="1:1" id="JiL-c7-6kk"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASW-9M-94w">
-                                <rect key="frame" x="0.0" y="375.66666666666669" width="375" height="40.333333333333314"/>
+                                <rect key="frame" x="0.0" y="290.66666666666669" width="375" height="40.333333333333314"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40.5" id="kpD-rl-pat"/>
                                 </constraints>
@@ -236,7 +224,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guide board display information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4z-pH-hL6">
-                                <rect key="frame" x="0.0" y="416" width="375" height="40.666666666666686"/>
+                                <rect key="frame" x="0.0" y="331" width="375" height="40.666666666666686"/>
                                 <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40.5" id="eBF-KG-WPd"/>
@@ -246,11 +234,29 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IOe-Pp-RAO">
-                                <rect key="frame" x="0.0" y="496" width="414" height="355"/>
+                                <rect key="frame" x="0.0" y="369" width="414" height="482"/>
                                 <connections>
                                     <segue destination="6dE-NN-wGi" kind="embed" identifier="seguetoPathView" id="SGh-op-UYd"/>
                                 </connections>
                             </containerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="258.5" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="36h-41-nMG">
+                                <rect key="frame" x="20" y="40.666666666666657" width="335" height="249.99999999999997"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" translatesAutoresizingMaskIntoConstraints="NO" id="Gq2-Gj-f65">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="250"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Gq2-Gj-f65" secondAttribute="height" multiplier="1:1" id="JiL-c7-6kk"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="3hm-H0-M8a"/>
+                                    <constraint firstAttribute="width" secondItem="36h-41-nMG" secondAttribute="height" multiplier="335:249" id="ALy-eS-hZe"/>
+                                    <constraint firstAttribute="height" constant="250" id="DbV-Xt-eDz"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="HCH-Cq-3r1"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -298,7 +304,7 @@ Please walk along the arrow with this icon during guidance.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ViV-u3-IGR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7053.6231884057979" y="949.55357142857133"/>
+            <point key="canvasLocation" x="7053.6000000000004" y="949.50738916256159"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -397,7 +403,7 @@ Please walk along the arrow with this icon during guidance.</string>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2td-c4-tEL" customClass="UIButton">
                                 <rect key="frame" x="87" y="242" width="201" height="240"/>
-                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="pTD-sN-Vzs"/>
                                 </constraints>
@@ -440,7 +446,7 @@ Please walk along the arrow with this icon during guidance.</string>
             <objects>
                 <viewController id="6dE-NN-wGi" customClass="PathTableViewController" customModule="naviboard_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9Yr-kc-kkc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="355"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="482"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
