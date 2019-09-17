@@ -14,18 +14,13 @@ class IconPageController: UIViewController {
     @IBOutlet weak var NavLeftItem: UIBarButtonItem!
     
     @IBOutlet weak var mainImageView: UIImageView!
-        
-    
-    @IBOutlet weak var ImageWarningLeft: UIImageView!
-    @IBOutlet weak var ImageWarningRight: UIImageView!
-    
     @IBOutlet weak var navigation: UINavigationItem!
     
     @IBOutlet weak var subtitle: UILabel!
+    
     @IBOutlet weak var firstParagraph: UILabel!
     @IBOutlet weak var secondParagraph: UILabel!
     @IBOutlet weak var dangerMessage: UILabel!
-    
     
     var language_current = Language.english
     var current_table = String()
@@ -51,24 +46,13 @@ class IconPageController: UIViewController {
         
 
         subtitle.attributedText = myMutableString
-        
+        subtitle.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
         
         
         firstParagraph.text = NSLocalizedString("This icon is displayed on the information board. Please walk along the arrow with this icon during guidance.", tableName: self.getTableName(), comment: "page-route")
         secondParagraph.text = NSLocalizedString("As you approach the next guide, you will be notified by sound and vibration.",  tableName: self.getTableName(), comment: "page-route")
         dangerMessage.text = NSLocalizedString("Walking with a smartphone is dangerous!", tableName: self.getTableName(), comment: "page-route")
         
-        
-        // ICONS
-        if #available(iOS 13.0, *) {
-            ImageWarningLeft.image = UIImage(systemName: "exclamationmark.triangle.fill")
-            ImageWarningRight.image = UIImage(systemName: "exclamationmark.triangle.fill")
-            
-            NavRightItem.image = UIImage(systemName: "gear")
-            
-        } else {
-            // Fallback on earlier versions
-        }
         
         // Do any additional setup after loading the view.
     }
@@ -97,12 +81,6 @@ class IconPageController: UIViewController {
             fatalError("The Icon Page Controller is not inside a navigation controller.")
         }
     }
-    
-    //    @IBAction func CancelAction(_ sender: UIBarButtonItem) {
-    //         dismiss(animated: true, completion: nil)
-    ////               self.navigationController?.popViewController(animated: true)
-    //    }
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print(self.myString)

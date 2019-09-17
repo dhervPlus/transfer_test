@@ -68,6 +68,7 @@ class DebugScreenViewController: UIViewController {
         NavLeftButton.title = NSLocalizedString("Back", tableName: current_table, comment: "navigation-item")
         navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
         destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)")
+        guideBoard.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
         guideBoard.attributedText = self.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
         
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
