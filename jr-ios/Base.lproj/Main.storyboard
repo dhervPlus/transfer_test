@@ -92,24 +92,42 @@
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noD-5J-W5o">
-                                <rect key="frame" x="24" y="95" width="327" height="86.333333333333314"/>
+                                <rect key="frame" x="24" y="80" width="327" height="58"/>
                                 <string key="text">This icon is displayed on the information board.
 Please walk along the arrow with this icon during guidance.</string>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" image="JR-icon3" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KtK-4u-Tr3">
-                                <rect key="frame" x="24" y="221.33333333333331" width="327" height="61.666666666666686"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="As you approach the next guide, you will be notified by sound and vibration." textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3V7-Qo-X9H">
-                                <rect key="frame" x="24" y="463" width="327" height="42.333333333333314"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <rect key="frame" x="24" y="446.66666666666663" width="327" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="tIv-AD-bR2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QV4-Ee-IqM">
+                                <rect key="frame" x="24" y="178" width="327" height="116"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userIcon" translatesAutoresizingMaskIntoConstraints="NO" id="OKR-30-Pkk">
+                                        <rect key="frame" x="113.66666666666666" y="8" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="3U3-IP-al0"/>
+                                            <constraint firstAttribute="width" constant="100" id="bXR-EF-bxq"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="OKR-30-Pkk" firstAttribute="centerX" secondItem="QV4-Ee-IqM" secondAttribute="centerX" id="aZN-gA-5tX"/>
+                                    <constraint firstItem="OKR-30-Pkk" firstAttribute="top" secondItem="QV4-Ee-IqM" secondAttribute="topMargin" id="hgs-dg-ooH"/>
+                                    <constraint firstItem="OKR-30-Pkk" firstAttribute="centerY" secondItem="QV4-Ee-IqM" secondAttribute="centerY" id="qHc-GS-s16"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ILb-dd-YW4">
-                                <rect key="frame" x="32" y="353" width="311" height="40"/>
+                                <rect key="frame" x="32" y="354" width="311" height="40"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emergency-red" translatesAutoresizingMaskIntoConstraints="NO" id="Q1t-F8-rt9">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -139,21 +157,21 @@ Please walk along the arrow with this icon during guidance.</string>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="KtK-4u-Tr3" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="8ss-Gq-zp9"/>
+                            <constraint firstItem="QV4-Ee-IqM" firstAttribute="top" secondItem="noD-5J-W5o" secondAttribute="bottom" constant="40" id="3CM-7j-ios"/>
                             <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="3V7-Qo-X9H" secondAttribute="trailing" constant="24" id="98I-FQ-j3Z"/>
-                            <constraint firstItem="noD-5J-W5o" firstAttribute="top" secondItem="CdL-mi-JFv" secondAttribute="bottom" constant="55" id="Aog-BJ-5O6"/>
-                            <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="KtK-4u-Tr3" secondAttribute="trailing" constant="24" id="Bpg-ta-a0L"/>
+                            <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="QV4-Ee-IqM" secondAttribute="trailing" constant="24" id="FjA-MN-orG"/>
                             <constraint firstItem="CdL-mi-JFv" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" id="GJq-4D-tKq"/>
+                            <constraint firstItem="ILb-dd-YW4" firstAttribute="top" secondItem="QV4-Ee-IqM" secondAttribute="bottom" constant="60" id="LtD-g1-0cN"/>
                             <constraint firstItem="3V7-Qo-X9H" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="Nrn-SY-Z2l"/>
-                            <constraint firstItem="3V7-Qo-X9H" firstAttribute="top" secondItem="ILb-dd-YW4" secondAttribute="bottom" constant="70" id="UK1-9S-Yph"/>
+                            <constraint firstItem="3V7-Qo-X9H" firstAttribute="top" secondItem="ILb-dd-YW4" secondAttribute="bottom" constant="52.666666666666629" id="UK1-9S-Yph"/>
                             <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="noD-5J-W5o" secondAttribute="trailing" constant="24" id="ZGa-pV-mo8"/>
                             <constraint firstItem="CdL-mi-JFv" firstAttribute="top" secondItem="iX8-00-DF8" secondAttribute="top" id="iGW-EK-03X"/>
+                            <constraint firstItem="noD-5J-W5o" firstAttribute="top" secondItem="CdL-mi-JFv" secondAttribute="bottom" constant="40" id="j57-qC-0K8"/>
                             <constraint firstItem="ILb-dd-YW4" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="32" id="jJ8-kC-Mxn"/>
-                            <constraint firstItem="ILb-dd-YW4" firstAttribute="top" secondItem="KtK-4u-Tr3" secondAttribute="bottom" constant="70" id="jde-v9-BEv"/>
                             <constraint firstItem="noD-5J-W5o" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="lKl-x4-hv5"/>
                             <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="CdL-mi-JFv" secondAttribute="trailing" id="lmB-GM-DxA"/>
                             <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="ILb-dd-YW4" secondAttribute="trailing" constant="32" id="qxc-Jo-D6V"/>
-                            <constraint firstItem="KtK-4u-Tr3" firstAttribute="top" secondItem="noD-5J-W5o" secondAttribute="bottom" constant="40" id="rXq-Bp-mEd"/>
+                            <constraint firstItem="QV4-Ee-IqM" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="u2l-p2-1ne"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iX8-00-DF8"/>
                     </view>
@@ -176,7 +194,7 @@ Please walk along the arrow with this icon during guidance.</string>
                         <outlet property="NavRightItem" destination="vD0-9w-m8o" id="RKx-Uh-fvQ"/>
                         <outlet property="dangerMessage" destination="UEb-n4-vgU" id="lA2-D7-Am5"/>
                         <outlet property="firstParagraph" destination="noD-5J-W5o" id="G37-YS-6pL"/>
-                        <outlet property="mainImageView" destination="KtK-4u-Tr3" id="VT0-wA-14E"/>
+                        <outlet property="imageContainer" destination="QV4-Ee-IqM" id="w77-Uc-5dz"/>
                         <outlet property="navigation" destination="cui-LP-MWB" id="pwC-i9-Z9U"/>
                         <outlet property="secondParagraph" destination="3V7-Qo-X9H" id="crR-8M-F6U"/>
                         <outlet property="subtitle" destination="CdL-mi-JFv" id="lGh-3O-YbR"/>
@@ -184,7 +202,7 @@ Please walk along the arrow with this icon during guidance.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r9S-Wh-dke" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4885.507246376812" y="939.50892857142856"/>
+            <point key="canvasLocation" x="4884" y="939.16256157635473"/>
         </scene>
         <!--Debug Screen Controller-->
         <scene sceneID="qEG-XW-U2P">
@@ -204,7 +222,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASW-9M-94w">
-                                <rect key="frame" x="0.0" y="340" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="350" width="375" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Pfy-lu-Awh"/>
                                 </constraints>
@@ -213,7 +231,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guide board display information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4z-pH-hL6">
-                                <rect key="frame" x="0.0" y="380" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="390" width="375" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="i8Q-pw-dxB"/>
                                 </constraints>
@@ -222,26 +240,24 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IOe-Pp-RAO">
-                                <rect key="frame" x="0.0" y="420" width="375" height="304"/>
+                                <rect key="frame" x="0.0" y="430" width="375" height="294"/>
                                 <connections>
                                     <segue destination="6dE-NN-wGi" kind="embed" identifier="seguetoPathView" id="SGh-op-UYd"/>
                                 </connections>
                             </containerView>
                             <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="258.5" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="36h-41-nMG">
-                                <rect key="frame" x="37.666666666666657" y="40" width="300" height="300"/>
+                                <rect key="frame" x="32.666666666666657" y="40" width="310" height="310"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" translatesAutoresizingMaskIntoConstraints="NO" id="Gq2-Gj-f65">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="310" height="310"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="Gq2-Gj-f65" secondAttribute="height" multiplier="1:1" id="COm-FE-1dW"/>
+                                            <constraint firstAttribute="width" secondItem="Gq2-Gj-f65" secondAttribute="height" multiplier="1:1" id="bAw-CH-ZSk"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="3cX-gr-iYL"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="290" id="fAb-QL-lI2"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="290" id="fMI-Yd-vFr"/>
-                                    <constraint firstAttribute="width" secondItem="36h-41-nMG" secondAttribute="height" multiplier="1:1" id="gRQ-I2-Hqo"/>
+                                    <constraint firstAttribute="width" constant="310" id="cHF-jV-1fW"/>
+                                    <constraint firstAttribute="height" constant="310" id="p3R-L8-hRt"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -415,7 +431,7 @@ Please walk along the arrow with this icon during guidance.</string>
             <objects>
                 <viewController id="6dE-NN-wGi" customClass="PathTableViewController" customModule="naviboard_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9Yr-kc-kkc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="304"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="294"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
@@ -483,11 +499,11 @@ Please walk along the arrow with this icon during guidance.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="JR-icon3" width="140" height="61.5"/>
         <image name="emergency-red" width="25" height="23"/>
         <image name="emergency-white" width="24" height="24"/>
         <image name="language" width="26" height="26"/>
         <image name="settings" width="24" height="24"/>
+        <image name="userIcon" width="530" height="539"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wD4-ZF-1Y3"/>

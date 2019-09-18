@@ -22,6 +22,8 @@ class IconPageController: UIViewController {
     @IBOutlet weak var secondParagraph: UILabel!
     @IBOutlet weak var dangerMessage: UILabel!
     
+    
+    @IBOutlet weak var imageContainer: UIView!
     var language_current = Language.english
     var current_table = String()
     var myString:String = String()
@@ -47,7 +49,10 @@ class IconPageController: UIViewController {
 
         subtitle.attributedText = myMutableString
         subtitle.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
-        
+        imageContainer.layer.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0).cgColor
+        imageContainer.layer.borderWidth = 1
+        imageContainer.layer.borderColor = UIColor(red:0.77, green:0.77, blue:0.77, alpha:1.0).cgColor
+        imageContainer.layer.cornerRadius = 4
         
         firstParagraph.text = NSLocalizedString("This icon is displayed on the information board. Please walk along the arrow with this icon during guidance.", tableName: self.getTableName(), comment: "page-route")
         secondParagraph.text = NSLocalizedString("As you approach the next guide, you will be notified by sound and vibration.",  tableName: self.getTableName(), comment: "page-route")
