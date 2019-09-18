@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BeacrewLoco
 
 extension CALayer {
     
@@ -39,7 +40,7 @@ extension CALayer {
 }
 
 
-class DebugScreenViewController: UIViewController {
+class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     
     @IBOutlet weak var NavLeftButton: UIBarButtonItem!
     @IBOutlet weak var NavRightButton: UIBarButtonItem!
@@ -53,6 +54,7 @@ class DebugScreenViewController: UIViewController {
     var mapImageData = Data()
     var myString:String = String()
     var current_table = String()
+    var cursor: Cursor = Cursor(x:0, y:0)!
     
     @IBOutlet weak var mapName: UILabel!
     @IBOutlet weak var destinationName: UILabel!
@@ -71,14 +73,58 @@ class DebugScreenViewController: UIViewController {
         guideBoard.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
         guideBoard.attributedText = self.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
         
+        destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
+        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-                destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
-
+        //MARK: Beacrew Manager
+        
+        BCLManager.shared()?.delegate = self
+        
+        
         
     }
+    
+    
+    func didActionCalled(_ action: BCLAction!, type: String!, source: Any!) {
+        var mdic: [AnyHashable : Any] = [:]
+        for param in action.params {
+            mdic[param.key] = param.value
+        }
+        let kind = mdic["kind"] as? String
+        if (kind == "web") {
+            let page = mdic["page"] as? String
+            print("page", page!)
+        } else if (kind == "push") {
+            let message = mdic["message"] as? String
+            print("message", message!)
+        }
+    }
+    
+    func didRangeBeacons(_ beacons: [BCLBeacon]!) {
+        for beacon in beacons {
+            print(beacon.x, beacon.y, beacon.rssi)
+            //            DispatchQueue.main.async() {
+            self.setCursorPosition(x:0.65, y:0.43)
+            //            }
+        }
+    }
+    
+    func didEnter(_ region: BCLRegion!) {
+        print("region", region!)
+    }
+    
+    func didFailWithError(_ error: BCLError!) {
+        print("error", error!, error.message ?? "message", "code", error.code)
+    }
+    
+    
+    func didChangeStatus(_ status: BCLState) {
+        print("status", status)
+    }
+    
     
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -124,6 +170,48 @@ class DebugScreenViewController: UIViewController {
         view.layer.addSublayer(shapeLayer)
     }
     
+    private func setCursorPosition(x: Double, y: Double) {
+        
+        if let viewWithTag = self.view.viewWithTag(100) {
+            
+            UIView.animate(withDuration: 0.25, animations: {
+                viewWithTag.alpha = 1
+                
+            })
+            
+            let x = round(CGFloat(x) * self.mapImage.frame.width)
+            let y = round(CGFloat(y) * self.mapImage.frame.height)
+            viewWithTag.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+            
+            UIView.animate(withDuration: 0.25, animations: {
+                viewWithTag.alpha = 1
+                
+            })
+            
+            
+        }else{
+            let cursor = UIImage(named: "cursor")
+            let imageView = UIImageView(image: cursor!)
+            imageView.tag = 100
+            let x = round(CGFloat(x) * self.mapImage.frame.width)
+            let y = round(CGFloat(y) * self.mapImage.frame.height)
+            imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+            imageView.layer.zPosition = 5
+            imageView.alpha = 0
+            self.mapImage.addSubview(imageView)
+            
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                imageView.alpha = 1
+                
+            })
+            
+            
+        }
+        
+        
+    }
+    
     
     private func downloadImage(from url: URL) {
         print("Download Started")
@@ -134,7 +222,7 @@ class DebugScreenViewController: UIViewController {
             print("Download Finished")
             DispatchQueue.main.async() {
                 self.mapImage.image = UIImage(data: data)
-              
+                
                 let mapWidth = self.mapImage.frame.width
                 
                 let mapHeight = self.mapImage.frame.height
@@ -143,18 +231,8 @@ class DebugScreenViewController: UIViewController {
                 
                 let natural_width = self.mapImage.image!.size.width
                 
-
-                let iphonePosition = Cursor(x: 0.55, y: 0.33)
-                let cursor = UIImage(named: "cursor")
-                let imageView = UIImageView(image: cursor!)
-                let x = round(CGFloat(iphonePosition!.x) * mapWidth)
-                let y = round(CGFloat(iphonePosition!.y) * mapHeight)
+                self.setCursorPosition(x:0.6, y:0.4)
                 
-                print("here", x, y)
-
-                imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
-                imageView.layer.zPosition = 5
-                self.mapImage.addSubview(imageView)
                 
                 let loco_height = (natural_height * 800.0) / natural_width
                 
@@ -167,7 +245,7 @@ class DebugScreenViewController: UIViewController {
                     print("node", i.x, i.y)
                     let x = round(CGFloat(i.x) * mapWidth)
                     let y = round(CGFloat(i.y) * mapHeight)
-                   
+                    
                     
                     imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
                     imageView.layer.zPosition = 1

@@ -42,9 +42,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //MARK: Beacrew Manager
-        
-        BCLManager.shared()?.delegate = self
+       
     
         
         //MARK: UI Setup
@@ -70,40 +68,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         
     }
     
-    func didActionCalled(_ action: BCLAction!, type: String!, source: Any!) {
-        var mdic: [AnyHashable : Any] = [:]
-        for param in action.params {
-            mdic[param.key] = param.value
-        }
-        let kind = mdic["kind"] as? String
-        if (kind == "web") {
-            let page = mdic["page"] as? String
-            print("page", page!)
-        } else if (kind == "push") {
-            let message = mdic["message"] as? String
-            print("message", message!)
-        }
-    }
-    
-    func didRangeBeacons(_ beacons: [BCLBeacon]!) {
-        for beacon in beacons {
-            print(beacon.x, beacon.y, beacon.rssi)
-        }
-    }
-    
-    func didEnter(_ region: BCLRegion!) {
-        print("region", region!)
-    }
-    
-    func didFailWithError(_ error: BCLError!) {
-        print("error", error!, error.message ?? "message", "code", error.code)
-    }
-    
-    
-    func didChangeStatus(_ status: BCLState) {
-        print("status", status)
-    }
-    
+
     
     private func switchLanguage(language: String) {
         switch language {
