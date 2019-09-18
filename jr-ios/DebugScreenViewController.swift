@@ -71,7 +71,12 @@ class DebugScreenViewController: UIViewController {
         guideBoard.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
         guideBoard.attributedText = self.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
         
-        destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+                destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
+
         
     }
     
@@ -129,11 +134,7 @@ class DebugScreenViewController: UIViewController {
             print("Download Finished")
             DispatchQueue.main.async() {
                 self.mapImage.image = UIImage(data: data)
-                //                if #available(iOS 13.0, *) {
-                //                    print(self.mapImage.frame.size.width, (self.mapImage.image?.size.width)! / self.mapImage.frame.size.width)
-                //                } else {
-                //                    // Fallback on earlier versions
-                //                }
+              
                 let mapWidth = self.mapImage.frame.width
                 
                 let mapHeight = self.mapImage.frame.height
@@ -142,7 +143,7 @@ class DebugScreenViewController: UIViewController {
                 
                 let natural_width = self.mapImage.image!.size.width
                 
-//
+
                 let iphonePosition = Cursor(x: 0.55, y: 0.33)
                 let cursor = UIImage(named: "cursor")
                 let imageView = UIImageView(image: cursor!)
