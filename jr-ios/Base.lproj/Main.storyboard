@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XlV-sP-DDO">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
@@ -16,9 +16,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="UPl-0Y-hQk">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" text="" id="UPl-0Y-hQk">
+                            <rect key="frame" x="0.0" y="0.0" width="453" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <edgeInsets key="layoutMargins" top="16" left="16" bottom="8" right="8"/>
+                            <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
@@ -30,8 +32,8 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyg-qN-d0w">
-                                            <rect key="frame" x="20" y="13" width="374" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="20" y="16" width="374" height="18"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -68,7 +70,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vkB-bc-yoN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2176.8115942028985" y="883.92857142857144"/>
+            <point key="canvasLocation" x="3553" y="939"/>
         </scene>
         <!--Icon Page Controller-->
         <scene sceneID="p6V-L8-5ka">
@@ -78,42 +80,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdL-mi-JFv">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
-                                <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdL-mi-JFv">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="lgt-T5-6aa"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="NjL-pQ-b4k"/>
+                                    <constraint firstAttribute="height" constant="40" id="lc0-t3-Jay"/>
                                 </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Destination:">
-                                        <attributes>
-                                            <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" firstLineHeadIndent="20" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <nil key="textColor"/>
+                                <color key="highlightedColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noD-5J-W5o">
-                                <rect key="frame" x="24" y="100" width="366" height="61"/>
+                                <rect key="frame" x="24" y="80" width="366" height="58"/>
                                 <string key="text">This icon is displayed on the information board.
 Please walk along the arrow with this icon during guidance.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" image="JR-icon3" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KtK-4u-Tr3">
-                                <rect key="frame" x="24" y="201" width="366" height="61.5"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="As you approach the next guide, you will be notified by sound and vibration." textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3V7-Qo-X9H">
-                                <rect key="frame" x="24" y="442.5" width="366" height="41"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="24" y="446.66666666666663" width="366" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="tIv-AD-bR2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QV4-Ee-IqM">
+                                <rect key="frame" x="24" y="178" width="366" height="116"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userIcon" translatesAutoresizingMaskIntoConstraints="NO" id="OKR-30-Pkk">
+                                        <rect key="frame" x="133" y="8" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="3U3-IP-al0"/>
+                                            <constraint firstAttribute="width" constant="100" id="bXR-EF-bxq"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="OKR-30-Pkk" firstAttribute="centerX" secondItem="QV4-Ee-IqM" secondAttribute="centerX" id="aZN-gA-5tX"/>
+                                    <constraint firstItem="OKR-30-Pkk" firstAttribute="top" secondItem="QV4-Ee-IqM" secondAttribute="topMargin" id="hgs-dg-ooH"/>
+                                    <constraint firstItem="OKR-30-Pkk" firstAttribute="centerY" secondItem="QV4-Ee-IqM" secondAttribute="centerY" id="qHc-GS-s16"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ILb-dd-YW4">
-                                <rect key="frame" x="32" y="332.5" width="350" height="40"/>
+                                <rect key="frame" x="32" y="354" width="350" height="40"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emergency-red" translatesAutoresizingMaskIntoConstraints="NO" id="Q1t-F8-rt9">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -140,32 +154,24 @@ Please walk along the arrow with this icon during guidance.</string>
                                     <constraint firstAttribute="height" constant="40" id="BIh-4Q-dga"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DrA-fM-wks">
-                                <rect key="frame" x="79" y="167" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fileName" value="test"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="SVGName" value="test"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="KtK-4u-Tr3" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="8ss-Gq-zp9"/>
+                            <constraint firstItem="QV4-Ee-IqM" firstAttribute="top" secondItem="noD-5J-W5o" secondAttribute="bottom" constant="40" id="3CM-7j-ios"/>
                             <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="3V7-Qo-X9H" secondAttribute="trailing" constant="24" id="98I-FQ-j3Z"/>
-                            <constraint firstItem="noD-5J-W5o" firstAttribute="top" secondItem="CdL-mi-JFv" secondAttribute="bottom" constant="55" id="Aog-BJ-5O6"/>
-                            <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="KtK-4u-Tr3" secondAttribute="trailing" constant="24" id="Bpg-ta-a0L"/>
+                            <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="QV4-Ee-IqM" secondAttribute="trailing" constant="24" id="FjA-MN-orG"/>
                             <constraint firstItem="CdL-mi-JFv" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" id="GJq-4D-tKq"/>
+                            <constraint firstItem="ILb-dd-YW4" firstAttribute="top" secondItem="QV4-Ee-IqM" secondAttribute="bottom" constant="60" id="LtD-g1-0cN"/>
                             <constraint firstItem="3V7-Qo-X9H" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="Nrn-SY-Z2l"/>
-                            <constraint firstItem="3V7-Qo-X9H" firstAttribute="top" secondItem="ILb-dd-YW4" secondAttribute="bottom" constant="70" id="UK1-9S-Yph"/>
+                            <constraint firstItem="3V7-Qo-X9H" firstAttribute="top" secondItem="ILb-dd-YW4" secondAttribute="bottom" constant="52.666666666666629" id="UK1-9S-Yph"/>
                             <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="noD-5J-W5o" secondAttribute="trailing" constant="24" id="ZGa-pV-mo8"/>
                             <constraint firstItem="CdL-mi-JFv" firstAttribute="top" secondItem="iX8-00-DF8" secondAttribute="top" id="iGW-EK-03X"/>
+                            <constraint firstItem="noD-5J-W5o" firstAttribute="top" secondItem="CdL-mi-JFv" secondAttribute="bottom" constant="40" id="j57-qC-0K8"/>
                             <constraint firstItem="ILb-dd-YW4" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="32" id="jJ8-kC-Mxn"/>
-                            <constraint firstItem="ILb-dd-YW4" firstAttribute="top" secondItem="KtK-4u-Tr3" secondAttribute="bottom" constant="70" id="jde-v9-BEv"/>
                             <constraint firstItem="noD-5J-W5o" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="lKl-x4-hv5"/>
                             <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="CdL-mi-JFv" secondAttribute="trailing" id="lmB-GM-DxA"/>
                             <constraint firstItem="iX8-00-DF8" firstAttribute="trailing" secondItem="ILb-dd-YW4" secondAttribute="trailing" constant="32" id="qxc-Jo-D6V"/>
-                            <constraint firstItem="KtK-4u-Tr3" firstAttribute="top" secondItem="noD-5J-W5o" secondAttribute="bottom" constant="40" id="rXq-Bp-mEd"/>
+                            <constraint firstItem="QV4-Ee-IqM" firstAttribute="leading" secondItem="iX8-00-DF8" secondAttribute="leading" constant="24" id="u2l-p2-1ne"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iX8-00-DF8"/>
                     </view>
@@ -184,22 +190,19 @@ Please walk along the arrow with this icon during guidance.</string>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="ImageWarningLeft" destination="Q1t-F8-rt9" id="KHF-fk-CLs"/>
-                        <outlet property="ImageWarningRight" destination="o4i-fK-7cx" id="bdF-j7-gmR"/>
                         <outlet property="NavLeftItem" destination="5S2-fv-4jb" id="Xy2-Kq-DC4"/>
                         <outlet property="NavRightItem" destination="vD0-9w-m8o" id="RKx-Uh-fvQ"/>
                         <outlet property="dangerMessage" destination="UEb-n4-vgU" id="lA2-D7-Am5"/>
                         <outlet property="firstParagraph" destination="noD-5J-W5o" id="G37-YS-6pL"/>
-                        <outlet property="mainImageView" destination="KtK-4u-Tr3" id="VT0-wA-14E"/>
+                        <outlet property="imageContainer" destination="QV4-Ee-IqM" id="w77-Uc-5dz"/>
                         <outlet property="navigation" destination="cui-LP-MWB" id="pwC-i9-Z9U"/>
                         <outlet property="secondParagraph" destination="3V7-Qo-X9H" id="crR-8M-F6U"/>
                         <outlet property="subtitle" destination="CdL-mi-JFv" id="lGh-3O-YbR"/>
-                        <outlet property="test" destination="DrA-fM-wks" id="Qdk-dc-ysf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r9S-Wh-dke" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4885.507246376812" y="939.50892857142856"/>
+            <point key="canvasLocation" x="4884" y="939.16256157635473"/>
         </scene>
         <!--Debug Screen Controller-->
         <scene sceneID="qEG-XW-U2P">
@@ -209,87 +212,72 @@ Please walk along the arrow with this icon during guidance.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="th9-Wu-AZr">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="40.5"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Current Floor:">
-                                        <attributes>
-                                            <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" firstLineHeadIndent="20" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="258.5" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="36h-41-nMG">
-                                <rect key="frame" x="20" y="40.5" width="374" height="374"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" translatesAutoresizingMaskIntoConstraints="NO" id="Gq2-Gj-f65">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Gq2-Gj-f65" secondAttribute="height" multiplier="1:1" id="JiL-c7-6kk"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                            </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASW-9M-94w">
-                                <rect key="frame" x="0.0" y="414.5" width="414" height="40.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Floor:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="th9-Wu-AZr">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40.5" id="kpD-rl-pat"/>
+                                    <constraint firstAttribute="height" constant="40" id="cgA-h2-dfI"/>
                                 </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Destination:">
-                                        <attributes>
-                                            <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" firstLineHeadIndent="20" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4z-pH-hL6">
-                                <rect key="frame" x="0.0" y="455" width="414" height="40.5"/>
-                                <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASW-9M-94w">
+                                <rect key="frame" x="0.0" y="350" width="414" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40.5" id="eBF-KG-WPd"/>
+                                    <constraint firstAttribute="height" constant="40" id="HbQ-Gc-YqB"/>
                                 </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Guide board display information">
-                                        <attributes>
-                                            <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" firstLineHeadIndent="20" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IOe-Pp-RAO">
-                                <rect key="frame" x="0.0" y="496" width="414" height="355"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guide board display information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4z-pH-hL6">
+                                <rect key="frame" x="0.0" y="390" width="414" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="i8Q-pw-dxB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IOe-Pp-RAO">
+                                <rect key="frame" x="0.0" y="430" width="414" height="378"/>
                                 <connections>
                                     <segue destination="6dE-NN-wGi" kind="embed" identifier="seguetoPathView" id="SGh-op-UYd"/>
                                 </connections>
                             </containerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="258.5" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="36h-41-nMG">
+                                <rect key="frame" x="52" y="40" width="310" height="310"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" translatesAutoresizingMaskIntoConstraints="NO" id="Gq2-Gj-f65">
+                                        <rect key="frame" x="0.0" y="0.0" width="310" height="310"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Gq2-Gj-f65" secondAttribute="height" multiplier="1:1" id="bAw-CH-ZSk"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="310" id="cHF-jV-1fW"/>
+                                    <constraint firstAttribute="height" constant="310" id="p3R-L8-hRt"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="IOe-Pp-RAO" firstAttribute="bottom" secondItem="nhc-oq-Teb" secondAttribute="bottom" id="4f5-Dm-nN3"/>
-                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="th9-Wu-AZr" secondAttribute="trailing" id="5z5-Ac-cTG"/>
-                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="36h-41-nMG" secondAttribute="trailing" constant="20" id="7KG-dC-RxJ"/>
-                            <constraint firstItem="IOe-Pp-RAO" firstAttribute="trailing" secondItem="N4z-pH-hL6" secondAttribute="trailing" id="7dN-T8-F63"/>
-                            <constraint firstItem="th9-Wu-AZr" firstAttribute="top" secondItem="nhc-oq-Teb" secondAttribute="top" id="AOO-pt-3Pc"/>
-                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="N4z-pH-hL6" secondAttribute="trailing" id="Lx6-vp-50v"/>
-                            <constraint firstItem="36h-41-nMG" firstAttribute="top" secondItem="th9-Wu-AZr" secondAttribute="bottom" id="VH0-2k-kGF"/>
-                            <constraint firstItem="th9-Wu-AZr" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="Wjz-UU-LCn"/>
-                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="ASW-9M-94w" secondAttribute="trailing" id="XzH-UN-Zvv"/>
-                            <constraint firstItem="36h-41-nMG" firstAttribute="top" secondItem="nhc-oq-Teb" secondAttribute="top" constant="40.5" id="YH9-3m-u9h"/>
-                            <constraint firstItem="36h-41-nMG" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" constant="20" id="feZ-Sd-hO8"/>
-                            <constraint firstItem="N4z-pH-hL6" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="huA-Y8-Ith"/>
-                            <constraint firstItem="IOe-Pp-RAO" firstAttribute="top" secondItem="N4z-pH-hL6" secondAttribute="bottom" id="kTa-WK-BW1"/>
-                            <constraint firstItem="IOe-Pp-RAO" firstAttribute="leading" secondItem="N4z-pH-hL6" secondAttribute="leading" id="lpF-Mo-kL0"/>
-                            <constraint firstItem="ASW-9M-94w" firstAttribute="top" secondItem="36h-41-nMG" secondAttribute="bottom" id="m9b-xV-Dr2"/>
-                            <constraint firstItem="ASW-9M-94w" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="pDQ-ug-SZn"/>
-                            <constraint firstItem="N4z-pH-hL6" firstAttribute="top" secondItem="ASW-9M-94w" secondAttribute="bottom" id="zge-0e-aZS"/>
+                            <constraint firstItem="IOe-Pp-RAO" firstAttribute="trailing" secondItem="nhc-oq-Teb" secondAttribute="trailing" id="16S-gq-23f"/>
+                            <constraint firstItem="IOe-Pp-RAO" firstAttribute="top" secondItem="N4z-pH-hL6" secondAttribute="bottom" id="174-FJ-XXG"/>
+                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="th9-Wu-AZr" secondAttribute="trailing" id="28X-2m-zpk"/>
+                            <constraint firstItem="IOe-Pp-RAO" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="2aF-OR-Rxd"/>
+                            <constraint firstAttribute="bottom" secondItem="IOe-Pp-RAO" secondAttribute="bottom" id="5Ve-wE-4os"/>
+                            <constraint firstItem="36h-41-nMG" firstAttribute="top" secondItem="th9-Wu-AZr" secondAttribute="bottom" id="Fjb-Ry-BHo"/>
+                            <constraint firstItem="36h-41-nMG" firstAttribute="centerX" secondItem="16O-Md-hzW" secondAttribute="centerX" id="Kmo-a9-7LN"/>
+                            <constraint firstItem="th9-Wu-AZr" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="PXq-bc-wt0"/>
+                            <constraint firstItem="ASW-9M-94w" firstAttribute="top" secondItem="36h-41-nMG" secondAttribute="bottom" id="ZTE-ay-8nc"/>
+                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="N4z-pH-hL6" secondAttribute="trailing" id="cE5-dm-CjO"/>
+                            <constraint firstItem="N4z-pH-hL6" firstAttribute="top" secondItem="ASW-9M-94w" secondAttribute="bottom" id="cul-s0-d7Q"/>
+                            <constraint firstItem="nhc-oq-Teb" firstAttribute="trailing" secondItem="ASW-9M-94w" secondAttribute="trailing" id="fsl-S2-IPp"/>
+                            <constraint firstItem="N4z-pH-hL6" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="kmE-sK-cqG"/>
+                            <constraint firstItem="ASW-9M-94w" firstAttribute="leading" secondItem="nhc-oq-Teb" secondAttribute="leading" id="kz3-sb-gJo"/>
+                            <constraint firstItem="th9-Wu-AZr" firstAttribute="top" secondItem="nhc-oq-Teb" secondAttribute="top" id="s5W-SC-ykg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nhc-oq-Teb"/>
                     </view>
@@ -317,24 +305,7 @@ Please walk along the arrow with this icon during guidance.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ViV-u3-IGR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7053.6231884057979" y="949.55357142857133"/>
-        </scene>
-        <!--Root View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" userLabel="Root View Controller" customClass="ViewController" customModule="naviboard_ios" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="186.95652173913044" y="883.92857142857144"/>
+            <point key="canvasLocation" x="6201" y="939"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ipa-rQ-vhZ">
@@ -355,7 +326,7 @@ Please walk along the arrow with this icon during guidance.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="neu-fE-tPj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2675" y="80"/>
+            <point key="canvasLocation" x="3553" y="213"/>
         </scene>
         <!--Icon Navigation Controller-->
         <scene sceneID="kXy-A5-VNf">
@@ -373,7 +344,7 @@ Please walk along the arrow with this icon during guidance.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="50z-eh-nlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3686.9565217391305" y="527.67857142857144"/>
+            <point key="canvasLocation" x="4884" y="213"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="k5z-fj-QvP">
@@ -392,7 +363,7 @@ Please walk along the arrow with this icon during guidance.</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Sa-rg-qk1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6147.826086956522" y="489.50892857142856"/>
+            <point key="canvasLocation" x="6202" y="213"/>
         </scene>
         <!--Emergency Controller-->
         <scene sceneID="61T-MB-XEi">
@@ -402,24 +373,29 @@ Please walk along the arrow with this icon during guidance.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOG-bK-DHc">
-                                <rect key="frame" x="40" y="40" width="334" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fyb-wg-aGU">
-                                <rect key="frame" x="40" y="100.5" width="334" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2td-c4-tEL" customClass="UIButton">
-                                <rect key="frame" x="87" y="284" width="240" height="240"/>
-                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lAp-kb-eqq">
+                                <rect key="frame" x="40" y="40" width="334" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOG-bK-DHc">
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="62"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fyb-wg-aGU">
+                                        <rect key="frame" x="0.0" y="62" width="334" height="18"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="pTD-sN-Vzs"/>
+                                    <constraint firstAttribute="height" constant="80" id="UMY-ft-pQa"/>
                                 </constraints>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2td-c4-tEL" customClass="UIButton">
+                                <rect key="frame" x="87" y="218" width="240" height="372"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="postEmergency:" destination="vf5-aq-HBi" eventType="touchDown" id="dl3-Hp-Rd7"/>
                                     <action selector="postEmergencyFinish:" destination="vf5-aq-HBi" eventType="touchUpInside" id="T5v-9Q-WP8"/>
@@ -429,17 +405,13 @@ Please walk along the arrow with this icon during guidance.</string>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="7Wm-K3-o4Z" firstAttribute="trailing" secondItem="Fyb-wg-aGU" secondAttribute="trailing" constant="40" id="9qU-c5-Xqe"/>
-                            <constraint firstItem="fOG-bK-DHc" firstAttribute="leading" secondItem="7Wm-K3-o4Z" secondAttribute="leading" constant="40" id="E0c-5y-GrY"/>
-                            <constraint firstItem="2td-c4-tEL" firstAttribute="centerX" secondItem="0Fp-8u-e03" secondAttribute="centerX" id="JV0-Nl-IOG"/>
-                            <constraint firstItem="2td-c4-tEL" firstAttribute="centerX" secondItem="0Fp-8u-e03" secondAttribute="centerX" id="Kpe-36-Drf"/>
-                            <constraint firstItem="2td-c4-tEL" firstAttribute="centerY" secondItem="0Fp-8u-e03" secondAttribute="centerY" id="MLZ-Nu-VDg"/>
-                            <constraint firstItem="Fyb-wg-aGU" firstAttribute="leading" secondItem="7Wm-K3-o4Z" secondAttribute="leading" constant="40" id="WQP-Bw-Jkn"/>
-                            <constraint firstItem="2td-c4-tEL" firstAttribute="leading" secondItem="7Wm-K3-o4Z" secondAttribute="leading" constant="87" id="bhQ-bH-0d3"/>
-                            <constraint firstItem="7Wm-K3-o4Z" firstAttribute="trailing" secondItem="fOG-bK-DHc" secondAttribute="trailing" constant="40" id="og6-hW-G4J"/>
-                            <constraint firstItem="fOG-bK-DHc" firstAttribute="top" secondItem="7Wm-K3-o4Z" secondAttribute="top" constant="40" id="tm4-BV-BCJ"/>
-                            <constraint firstItem="7Wm-K3-o4Z" firstAttribute="trailing" secondItem="2td-c4-tEL" secondAttribute="trailing" constant="87" id="uXZ-cT-0rp"/>
-                            <constraint firstItem="Fyb-wg-aGU" firstAttribute="top" secondItem="fOG-bK-DHc" secondAttribute="bottom" constant="40" id="yo2-kG-9PO"/>
+                            <constraint firstItem="2td-c4-tEL" firstAttribute="centerX" secondItem="0Fp-8u-e03" secondAttribute="centerX" id="8un-Ba-Lxt"/>
+                            <constraint firstItem="2td-c4-tEL" firstAttribute="top" secondItem="lAp-kb-eqq" secondAttribute="bottom" constant="98" id="KC4-6A-Rq5"/>
+                            <constraint firstItem="2td-c4-tEL" firstAttribute="centerY" secondItem="0Fp-8u-e03" secondAttribute="centerY" id="euX-qm-zxA"/>
+                            <constraint firstItem="7Wm-K3-o4Z" firstAttribute="trailing" secondItem="lAp-kb-eqq" secondAttribute="trailing" constant="40" id="kMM-pi-RJU"/>
+                            <constraint firstItem="lAp-kb-eqq" firstAttribute="top" secondItem="7Wm-K3-o4Z" secondAttribute="top" constant="40" id="uYj-ph-eRF"/>
+                            <constraint firstItem="lAp-kb-eqq" firstAttribute="leading" secondItem="7Wm-K3-o4Z" secondAttribute="leading" constant="40" id="xIT-ar-Ulr"/>
+                            <constraint firstItem="2td-c4-tEL" firstAttribute="leading" secondItem="7Wm-K3-o4Z" secondAttribute="leading" constant="87" id="yOV-0A-Q0v"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7Wm-K3-o4Z"/>
                     </view>
@@ -452,14 +424,14 @@ Please walk along the arrow with this icon during guidance.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zn7-e4-fzO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8085.507246376812" y="372.99107142857139"/>
+            <point key="canvasLocation" x="7221.6000000000004" y="580.78817733990149"/>
         </scene>
         <!--Path Table View Controller-->
         <scene sceneID="D7z-tv-nEp">
             <objects>
                 <viewController id="6dE-NN-wGi" customClass="PathTableViewController" customModule="naviboard_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9Yr-kc-kkc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="355"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="378"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
@@ -475,14 +447,14 @@ Please walk along the arrow with this icon during guidance.</string>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wUO-V2-rFS">
-                                            <rect key="frame" x="308" y="57" width="70" height="70"/>
+                                            <rect key="frame" x="295" y="57" width="70" height="70"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fo0-6y-e1A">
                                             <rect key="frame" x="114" y="79" width="181" height="48"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -490,7 +462,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                             <rect key="frame" x="20" y="13" width="350" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -498,7 +470,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                             <rect key="frame" x="114" y="58" width="181" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -523,30 +495,15 @@ Please walk along the arrow with this icon during guidance.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qd1-uR-SVt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8190" y="1121"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="RcM-ta-Fm2">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a9O-Ey-SEx" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FAS-WL-oAf">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vbh-Eb-5eJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1266.6666666666667" y="883.92857142857144"/>
+            <point key="canvasLocation" x="7225" y="1128"/>
         </scene>
     </scenes>
     <resources>
-        <image name="JR-icon3" width="140" height="61.5"/>
         <image name="emergency-red" width="25" height="23"/>
         <image name="emergency-white" width="24" height="24"/>
         <image name="language" width="26" height="26"/>
         <image name="settings" width="24" height="24"/>
+        <image name="userIcon" width="530" height="539"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wD4-ZF-1Y3"/>

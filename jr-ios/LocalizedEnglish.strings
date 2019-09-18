@@ -14,6 +14,9 @@
 /* navigation-item */
 "Back" = "Back";
 
+/* navigation-search */
+"Enter a destination..." = "Enter a destination...";
+
 /* global */
 "Cancel" = "Cancel";
 "Start Guidance" = "Start Guidance";

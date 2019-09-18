@@ -42,33 +42,53 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //MARK: Beacrew Manager
+        
         BCLManager.shared()?.delegate = self
+    
+        
+        //MARK: UI Setup
         
         navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(), comment: "navigation-title")
         tableSearch.delegate = self
         
-        // Load functions
+        tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: self.getTableName(), comment: "navigation-search");
+        tableSearch.backgroundColor = UIColor.white
+        
+        for s in tableSearch.subviews[0].subviews {
+            if s is UITextField {
+                s.layer.borderWidth = 1.0
+                s.layer.cornerRadius = 4.0
+                s.layer.borderColor = UIColor(red:0.00, green:0.40, blue:0.69, alpha:1.0).cgColor
+                
+            }
+        }
+        
+        
+        //MARK: Load functions
         loadDestinations()
         
     }
     
     func didActionCalled(_ action: BCLAction!, type: String!, source: Any!) {
-                var mdic: [AnyHashable : Any] = [:]
-                for param in action.params {
-                    mdic[param.key] = param.value
-                }
-                let kind = mdic["kind"] as? String
-                if (kind == "web") {
-                    let page = mdic["page"] as? String
-                    print("page", page!)
-                } else if (kind == "push") {
-                    let message = mdic["message"] as? String
-                    print("message", message!)
-                }
+        var mdic: [AnyHashable : Any] = [:]
+        for param in action.params {
+            mdic[param.key] = param.value
+        }
+        let kind = mdic["kind"] as? String
+        if (kind == "web") {
+            let page = mdic["page"] as? String
+            print("page", page!)
+        } else if (kind == "push") {
+            let message = mdic["message"] as? String
+            print("message", message!)
+        }
     }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
-        print("beacons", beacons!)
+        for beacon in beacons {
+            print(beacon.x, beacon.y, beacon.rssi)
+        }
     }
     
     func didEnter(_ region: BCLRegion!) {
@@ -99,6 +119,8 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
             self.language_current = .japanese
         }
         navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(),comment: "navigation-title")
+        tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: self.getTableName(), comment: "navigation-search");
+        
     }
     
     
@@ -116,6 +138,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         // set action for each language
         let japanese_action = UIAlertAction(title: "日本語", style: .default, handler: { (_) in
             self.switchLanguage(language: "japanese")
+            
             self.tableView.reloadData()
         })
         
@@ -176,12 +199,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         label.frame = CGRect.init(x: 16, y: 0, width: headerView.frame.width, height: headerView.frame.height)
         label.text = String(self.getCurrentLanguageTypeLabel(element: destinations[section][0]))
         label.textColor = UIColor.black // my custom colour
-        
-        if #available(iOS 13.0, *) {
-            headerView.backgroundColor = UIColor.systemGray5
-        } else {
-            // Fallback on earlier versions
-        }
+        headerView.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0)
         
         headerView.addSubview(label)
         

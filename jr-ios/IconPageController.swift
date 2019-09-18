@@ -14,19 +14,16 @@ class IconPageController: UIViewController {
     @IBOutlet weak var NavLeftItem: UIBarButtonItem!
     
     @IBOutlet weak var mainImageView: UIImageView!
-        
-    
-    @IBOutlet weak var ImageWarningLeft: UIImageView!
-    @IBOutlet weak var ImageWarningRight: UIImageView!
-    
     @IBOutlet weak var navigation: UINavigationItem!
     
     @IBOutlet weak var subtitle: UILabel!
+    
     @IBOutlet weak var firstParagraph: UILabel!
     @IBOutlet weak var secondParagraph: UILabel!
     @IBOutlet weak var dangerMessage: UILabel!
     
     
+    @IBOutlet weak var imageContainer: UIView!
     var language_current = Language.english
     var current_table = String()
     var myString:String = String()
@@ -39,23 +36,28 @@ class IconPageController: UIViewController {
         NavLeftItem.title = NSLocalizedString("Back", tableName: self.getTableName(), comment: "navigation-item")
         
         // PAGE
-        subtitle.text = "\(NSLocalizedString("Destination:", tableName: self.getTableName(), comment: "global")) \(myString)"
+        
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.firstLineHeadIndent = 20
+        let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
+
+        let myMutableString = NSMutableAttributedString(
+                                 string: "\(NSLocalizedString("Destination:", tableName: self.getTableName(), comment: "global")) \(myString)",
+                                 attributes: attributes)
+        
+
+        subtitle.attributedText = myMutableString
+        subtitle.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
+        imageContainer.layer.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0).cgColor
+        imageContainer.layer.borderWidth = 1
+        imageContainer.layer.borderColor = UIColor(red:0.77, green:0.77, blue:0.77, alpha:1.0).cgColor
+        imageContainer.layer.cornerRadius = 4
         
         firstParagraph.text = NSLocalizedString("This icon is displayed on the information board. Please walk along the arrow with this icon during guidance.", tableName: self.getTableName(), comment: "page-route")
         secondParagraph.text = NSLocalizedString("As you approach the next guide, you will be notified by sound and vibration.",  tableName: self.getTableName(), comment: "page-route")
         dangerMessage.text = NSLocalizedString("Walking with a smartphone is dangerous!", tableName: self.getTableName(), comment: "page-route")
         
-        
-        // ICONS
-        if #available(iOS 13.0, *) {
-            ImageWarningLeft.image = UIImage(systemName: "exclamationmark.triangle.fill")
-            ImageWarningRight.image = UIImage(systemName: "exclamationmark.triangle.fill")
-            
-            NavRightItem.image = UIImage(systemName: "gear")
-            
-        } else {
-            // Fallback on earlier versions
-        }
         
         // Do any additional setup after loading the view.
     }
@@ -84,12 +86,6 @@ class IconPageController: UIViewController {
             fatalError("The Icon Page Controller is not inside a navigation controller.")
         }
     }
-    
-    //    @IBAction func CancelAction(_ sender: UIBarButtonItem) {
-    //         dismiss(animated: true, completion: nil)
-    ////               self.navigationController?.popViewController(animated: true)
-    //    }
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print(self.myString)

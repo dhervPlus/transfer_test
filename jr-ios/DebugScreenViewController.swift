@@ -67,17 +67,17 @@ class DebugScreenViewController: UIViewController {
         
         NavLeftButton.title = NSLocalizedString("Back", tableName: current_table, comment: "navigation-item")
         navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
-        destinationName.text = "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)"
-        guideBoard.text = NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug")
-        //        destinationName.text = "目的地：\(self.myString)"
-        destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
-        //        NavLeftButton.title = "戻る"
-        if #available(iOS 13.0, *) {
-            NavRightButton.image = UIImage(systemName: "exclamationmark.triangle.fill")
-        } else {
-            // Fallback on earlier versions
-        }
-        // Do any additional setup after loading the view.
+        destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)")
+        guideBoard.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
+        guideBoard.attributedText = self.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+                destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
+
+        
     }
     
     
@@ -89,6 +89,19 @@ class DebugScreenViewController: UIViewController {
     }
     
     //MARK: Private Methods
+    
+    private func indent(string: String) -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.firstLineHeadIndent = 20
+        let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
+        
+        return NSMutableAttributedString(
+            string: string ,
+            attributes: attributes)
+        
+        
+        
+    }
     
     private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
@@ -106,7 +119,7 @@ class DebugScreenViewController: UIViewController {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = lineColor.cgColor
-        shapeLayer.lineWidth = 1.0
+        shapeLayer.lineWidth = 3.0
         
         view.layer.addSublayer(shapeLayer)
     }
@@ -121,11 +134,7 @@ class DebugScreenViewController: UIViewController {
             print("Download Finished")
             DispatchQueue.main.async() {
                 self.mapImage.image = UIImage(data: data)
-                if #available(iOS 13.0, *) {
-                    print(self.mapImage.frame.size.width, (self.mapImage.image?.size.width)! / self.mapImage.frame.size.width)
-                } else {
-                    // Fallback on earlier versions
-                }
+              
                 let mapWidth = self.mapImage.frame.width
                 
                 let mapHeight = self.mapImage.frame.height
@@ -134,23 +143,36 @@ class DebugScreenViewController: UIViewController {
                 
                 let natural_width = self.mapImage.image!.size.width
                 
+
+                let iphonePosition = Cursor(x: 0.55, y: 0.33)
+                let cursor = UIImage(named: "cursor")
+                let imageView = UIImageView(image: cursor!)
+                let x = round(CGFloat(iphonePosition!.x) * mapWidth)
+                let y = round(CGFloat(iphonePosition!.y) * mapHeight)
+                
+                print("here", x, y)
+
+                imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+                imageView.layer.zPosition = 5
+                self.mapImage.addSubview(imageView)
                 
                 let loco_height = (natural_height * 800.0) / natural_width
                 
                 for i in self.nodes {
                     
                     
-                    if #available(iOS 13.0, *) {
-                        let image = UIImage(systemName: "gear")
-                        let imageView = UIImageView(image: image!)
-                        let x = round(CGFloat(i.x) * mapWidth)
-                        let y = round(CGFloat(i.y) * mapHeight)
-                        print(x, y)
-                        imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
-                        self.mapImage.addSubview(imageView)
-                    } else {
-                        // Fallback on earlier versions
-                    }
+                    
+                    let image = UIImage(named: "node")
+                    let imageView = UIImageView(image: image!)
+                    print("node", i.x, i.y)
+                    let x = round(CGFloat(i.x) * mapWidth)
+                    let y = round(CGFloat(i.y) * mapHeight)
+                   
+                    
+                    imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
+                    imageView.layer.zPosition = 1
+                    self.mapImage.addSubview(imageView)
+                    
                     
                 }
                 
@@ -166,25 +188,23 @@ class DebugScreenViewController: UIViewController {
                     let start_point = CGPoint.init(x: start_x, y: start_y)
                     let end_point = CGPoint.init(x:end_x, y:end_y)
                     print(start_point, end_point)
-                    self.drawLineFromPoint(start: start_point, toPoint: end_point, ofColor: UIColor.red, inView: self.mapImage)
+                    self.drawLineFromPoint(start: start_point, toPoint: end_point, ofColor: UIColor(red:0.94, green:0.78, blue:0.36, alpha:1.0), inView: self.mapImage)
                 }
                 
                 for i in self.beacons {
                     
-                    if #available(iOS 13.0, *) {
-                        let image = UIImage(systemName: "circle.grid.hex")
-                        
-                        let imageView = UIImageView(image: image!)
-                        let x = round((CGFloat(i.x) * mapWidth) / 800.0) - 10
-                        let y = round((CGFloat(i.y) * mapHeight) / loco_height) - 10
-                        
-                        imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
-                        imageView.tintColor = UIColor.red
-                        self.mapImage.addSubview(imageView)
-                        //                        self.mapView.bringSubviewToFront(imageView)
-                    } else {
-                        // Fallback on earlier versions
-                    }
+                    
+                    let image = UIImage(named: "target")
+                    
+                    let imageView = UIImageView(image: image!)
+                    let x = round((CGFloat(i.x) * mapWidth) / 800.0) - 10
+                    let y = round((CGFloat(i.y) * mapHeight) / loco_height) - 10
+                    
+                    imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
+                    
+                    imageView.layer.zPosition = 2
+                    self.mapImage.addSubview(imageView)
+                    
                 }
             }
         }}
@@ -201,7 +221,7 @@ class DebugScreenViewController: UIViewController {
                 self.map = map_data.map
                 self.downloadImage(from: map_data.map.image)
                 DispatchQueue.main.async {
-                    self.mapName.text = "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)"
+                    self.mapName.attributedText = self.indent(string: "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)")
                     self.mapName.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
                     self.beacons = map_data.beacons
                     self.nodes = map_data.nodes
