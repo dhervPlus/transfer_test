@@ -56,6 +56,9 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     var current_table = String()
     var cursor: Cursor = Cursor(x:0, y:0)!
     
+    @IBOutlet weak var Location_X: UILabel!
+    @IBOutlet weak var Location_Y: UILabel!
+    
     @IBOutlet weak var mapName: UILabel!
     @IBOutlet weak var destinationName: UILabel!
     @IBOutlet weak var navigation: UINavigationItem!
@@ -84,8 +87,18 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
         BCLManager.shared()?.delegate = self
         
         
-        
     }
+    
+    
+    //    func estimatePosition() {
+    //        // each sample time will turn into an estimated position
+    //                      let input = _this.log.filter(_ => _.detected === timestamp);
+    //
+    //                      _this.radiationService = new RadiationService(_this.beacon);
+    //                      _this.clusterService = new ClusterService(_this.scenarioresult.scenario.cluster);
+    //                      _this.estimationService = new EstimationService(_this.radiationService, _this.clusterService);
+    //                      let estimate = _this.estimationService.locatePosition(input);
+    //    }
     
     
     func didActionCalled(_ action: BCLAction!, type: String!, source: Any!) {
@@ -96,20 +109,55 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
         let kind = mdic["kind"] as? String
         if (kind == "web") {
             let page = mdic["page"] as? String
-            print("page", page!)
+            
         } else if (kind == "push") {
             let message = mdic["message"] as? String
-            print("message", message!)
+            
         }
     }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
-        for beacon in beacons {
-            print(beacon.x, beacon.y, beacon.rssi)
-            //            DispatchQueue.main.async() {
-            self.setCursorPosition(x:0.65, y:0.43)
-            //            }
-        }
+        //        for beacon in beacons {
+        
+        //
+        
+        
+        DispatchQueue.main.async {
+            
+     
+        
+        let position: Estimate = EstimationService(radiationService:RadiationService()).locatePosition(beacons: beacons)
+        
+        
+        
+        self.Location_X.text = String(describing:position.x)
+        self.Location_Y.text = String(describing:position.y)
+        
+        
+        
+        
+        
+        let x = Double(String(describing:position.x))!
+        let y = Double(String(describing:position.y))!
+        
+        
+        
+        
+        
+        
+        
+        
+        self.setCursorPosition(x:x, y:y)
+               }
+        //        }
+        //            let input = _this.log.filter(_ => _.detected === timestamp);
+        //
+        //            _this.radiationService = new RadiationService(_this.beacon);
+        //            _this.clusterService = new ClusterService(_this.scenarioresult.scenario.cluster);
+        //            _this.estimationService = new EstimationService(_this.radiationService, _this.clusterService);
+        //            let estimate = _this.estimationService.locatePosition(input);
+        //            }
+        //        }
     }
     
     func didEnter(_ region: BCLRegion!) {
@@ -172,6 +220,17 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     
     private func setCursorPosition(x: Double, y: Double) {
         
+        let natural_height = self.mapImage.image!.size.height
+        
+        let natural_width = self.mapImage.image!.size.width
+        
+        
+        
+        
+        let loco_height = (natural_height * 800.0) / natural_width
+        
+        
+        
         if let viewWithTag = self.view.viewWithTag(100) {
             
             UIView.animate(withDuration: 0.25, animations: {
@@ -179,8 +238,9 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
                 
             })
             
-            let x = round(CGFloat(x) * self.mapImage.frame.width)
-            let y = round(CGFloat(y) * self.mapImage.frame.height)
+            
+            let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
+            let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
             viewWithTag.frame = CGRect(x: x, y: y, width: 60 , height: 60)
             
             UIView.animate(withDuration: 0.25, animations: {
@@ -190,15 +250,22 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
             
             
         }else{
+            
+            
+            
+            
             let cursor = UIImage(named: "cursor")
             let imageView = UIImageView(image: cursor!)
             imageView.tag = 100
-            let x = round(CGFloat(x) * self.mapImage.frame.width)
-            let y = round(CGFloat(y) * self.mapImage.frame.height)
+            let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
+            let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
             imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
             imageView.layer.zPosition = 5
             imageView.alpha = 0
             self.mapImage.addSubview(imageView)
+            
+            
+            
             
             
             UIView.animate(withDuration: 0.5, animations: {
@@ -218,7 +285,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
         getData(from: url) { data, response, error in
             guard let data = data, error == nil else { return }
             self.mapImageData = data
-            print(response?.suggestedFilename ?? url.lastPathComponent)
+            
             print("Download Finished")
             DispatchQueue.main.async() {
                 self.mapImage.image = UIImage(data: data)
@@ -242,7 +309,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
                     
                     let image = UIImage(named: "node")
                     let imageView = UIImageView(image: image!)
-                    print("node", i.x, i.y)
+                    
                     let x = round(CGFloat(i.x) * mapWidth)
                     let y = round(CGFloat(i.y) * mapHeight)
                     
@@ -265,7 +332,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
                     let end_y = Double(round(CGFloat(end!.y) * mapHeight)) + 10
                     let start_point = CGPoint.init(x: start_x, y: start_y)
                     let end_point = CGPoint.init(x:end_x, y:end_y)
-                    print(start_point, end_point)
+                    
                     self.drawLineFromPoint(start: start_point, toPoint: end_point, ofColor: UIColor(red:0.94, green:0.78, blue:0.36, alpha:1.0), inView: self.mapImage)
                 }
                 
@@ -295,7 +362,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
             case .failure(let err):
                 print(err)
             case .success(let map_data):
-                print(map_data)
+                
                 self.map = map_data.map
                 self.downloadImage(from: map_data.map.image)
                 DispatchQueue.main.async {
@@ -311,7 +378,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print(self.myString)
+        
         if segue.identifier == "seguetoPathView" {
             let pathTableView = segue.destination as! PathTableViewController
             pathTableView.myString = self.myString

@@ -58,7 +58,7 @@ class EmergencyViewController: UIViewController {
     
     
     @IBAction func postEmergency(_ sender: UIButton) {
-        print("EMERGENCY")
+        
         circleContainer.layer.shadowColor = UIColor.black.cgColor
         circleContainer.layer.shadowOpacity = 0
         circleContainer.layer.shadowOffset = .zero
