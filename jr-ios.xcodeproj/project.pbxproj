@@ -23,15 +23,11 @@
 		6D03242923262BAA00531279 /* EmergencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D03242823262BAA00531279 /* EmergencyViewController.swift */; };
 		6D9B5355231CE84600FC2D54 /* PathTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9B5354231CE84600FC2D54 /* PathTableViewController.swift */; };
 		6D9B5357231CE89A00FC2D54 /* PathTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9B5356231CE89A00FC2D54 /* PathTableViewCell.swift */; };
-		6DD3A45D2332087000671478 /* RadiationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A45C2332087000671478 /* RadiationService.swift */; };
-		6DD3A45F23320B7F00671478 /* EstimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A45E23320B7F00671478 /* EstimationService.swift */; };
-		6DD3A4622332119D00671478 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A4612332119D00671478 /* Vector.swift */; };
-		6DD3A464233211A900671478 /* Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A463233211A900671478 /* Spring.swift */; };
-		6DD3A4742333082C00671478 /* EstimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A4702333082C00671478 /* EstimationService.swift */; };
-		6DD3A4752333082C00671478 /* Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A4712333082C00671478 /* Spring.swift */; };
-		6DD3A4762333082C00671478 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A4722333082C00671478 /* Vector.swift */; };
-		6DD3A4772333082C00671478 /* RadiationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A4732333082C00671478 /* RadiationService.swift */; };
-		6DD3A47923331B1000671478 /* Estimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A47823331B1000671478 /* Estimate.swift */; };
+		6DD3A48023345BF300671478 /* EstimationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A47B23345BF300671478 /* EstimationService.swift */; };
+		6DD3A48123345BF300671478 /* Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A47C23345BF300671478 /* Spring.swift */; };
+		6DD3A48223345BF300671478 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A47D23345BF300671478 /* Vector.swift */; };
+		6DD3A48323345BF300671478 /* RadiationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A47E23345BF300671478 /* RadiationService.swift */; };
+		6DD3A48723345F7000671478 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A48623345F7000671478 /* Extensions.swift */; };
 		6DEF880C230FDA1100D5FF9A /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF880B230FDA1100D5FF9A /* Destination.swift */; };
 		6DEF880E230FDFD000D5FF9A /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF880D230FDFD000D5FF9A /* DestinationTableViewCell.swift */; };
 		6DEF88102310A12500D5FF9A /* DestinationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF880F2310A12500D5FF9A /* DestinationTableViewController.swift */; };
@@ -82,15 +78,11 @@
 		6D03242823262BAA00531279 /* EmergencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyViewController.swift; sourceTree = "<group>"; };
 		6D9B5354231CE84600FC2D54 /* PathTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTableViewController.swift; sourceTree = "<group>"; };
 		6D9B5356231CE89A00FC2D54 /* PathTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTableViewCell.swift; sourceTree = "<group>"; };
-		6DD3A45C2332087000671478 /* RadiationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiationService.swift; sourceTree = "<group>"; };
-		6DD3A45E23320B7F00671478 /* EstimationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EstimationService.swift; path = "jr-ios/Position/EstimationService.swift"; sourceTree = SOURCE_ROOT; };
-		6DD3A4612332119D00671478 /* Vector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
-		6DD3A463233211A900671478 /* Spring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spring.swift; sourceTree = "<group>"; };
-		6DD3A4702333082C00671478 /* EstimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimationService.swift; sourceTree = "<group>"; };
-		6DD3A4712333082C00671478 /* Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spring.swift; sourceTree = "<group>"; };
-		6DD3A4722333082C00671478 /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
-		6DD3A4732333082C00671478 /* RadiationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiationService.swift; sourceTree = "<group>"; };
-		6DD3A47823331B1000671478 /* Estimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Estimate.swift; sourceTree = "<group>"; };
+		6DD3A47B23345BF300671478 /* EstimationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimationService.swift; sourceTree = "<group>"; };
+		6DD3A47C23345BF300671478 /* Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spring.swift; sourceTree = "<group>"; };
+		6DD3A47D23345BF300671478 /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
+		6DD3A47E23345BF300671478 /* RadiationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiationService.swift; sourceTree = "<group>"; };
+		6DD3A48623345F7000671478 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6DEF880B230FDA1100D5FF9A /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		6DEF880D230FDFD000D5FF9A /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
 		6DEF880F2310A12500D5FF9A /* DestinationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -168,13 +160,14 @@
 				6D03240A231F99A500531279 /* Language.swift */,
 				6DEF880F2310A12500D5FF9A /* DestinationTableViewController.swift */,
 				6DEF880B230FDA1100D5FF9A /* Destination.swift */,
+				6DD3A48523345F6500671478 /* Extensions */,
 				6DEF88152318C76800D5FF9A /* IconPageController.swift */,
 				6D0324222325C64900531279 /* LocalizedEnglish.strings */,
 				6D0324242325C65700531279 /* LocalizedChinese.strings */,
 				6D0324262325C66000531279 /* LocalizedKorean.strings */,
 				6D0324202325C53E00531279 /* LocalizedJapanese.strings */,
 				6D027E77230FAF7B00A9B412 /* Main.storyboard */,
-				6DD3A4602332117400671478 /* Position */,
+				6DD3A47A23345BF200671478 /* Position */,
 				6D03242823262BAA00531279 /* EmergencyViewController.swift */,
 				6DEF88132318C1F900D5FF9A /* NavigationController.swift */,
 				6D9B5354231CE84600FC2D54 /* PathTableViewController.swift */,
@@ -205,28 +198,23 @@
 			path = "jr-iosUITests";
 			sourceTree = "<group>";
 		};
-		6DD3A4602332117400671478 /* Position */ = {
+		6DD3A47A23345BF200671478 /* Position */ = {
 			isa = PBXGroup;
 			children = (
-				6DD3A46F2333082C00671478 /* Position */,
-				6DD3A45C2332087000671478 /* RadiationService.swift */,
-				6DD3A45E23320B7F00671478 /* EstimationService.swift */,
-				6DD3A4612332119D00671478 /* Vector.swift */,
-				6DD3A463233211A900671478 /* Spring.swift */,
-				6DD3A47823331B1000671478 /* Estimate.swift */,
+				6DD3A47B23345BF300671478 /* EstimationService.swift */,
+				6DD3A47C23345BF300671478 /* Spring.swift */,
+				6DD3A47D23345BF300671478 /* Vector.swift */,
+				6DD3A47E23345BF300671478 /* RadiationService.swift */,
 			);
 			path = Position;
 			sourceTree = "<group>";
 		};
-		6DD3A46F2333082C00671478 /* Position */ = {
+		6DD3A48523345F6500671478 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				6DD3A4702333082C00671478 /* EstimationService.swift */,
-				6DD3A4712333082C00671478 /* Spring.swift */,
-				6DD3A4722333082C00671478 /* Vector.swift */,
-				6DD3A4732333082C00671478 /* RadiationService.swift */,
+				6DD3A48623345F7000671478 /* Extensions.swift */,
 			);
-			name = Position;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		FCD3D341567A3467E4B5D179 /* Frameworks */ = {
@@ -416,24 +404,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DD3A4772333082C00671478 /* RadiationService.swift in Sources */,
-				6DD3A47923331B1000671478 /* Estimate.swift in Sources */,
+				6DD3A48323345BF300671478 /* RadiationService.swift in Sources */,
 				6D03242923262BAA00531279 /* EmergencyViewController.swift in Sources */,
+				6DD3A48223345BF300671478 /* Vector.swift in Sources */,
 				6DEF88122310B5D100D5FF9A /* Api.swift in Sources */,
-				6DD3A4762333082C00671478 /* Vector.swift in Sources */,
 				6D9B5357231CE89A00FC2D54 /* PathTableViewCell.swift in Sources */,
 				6D027E76230FAF7B00A9B412 /* ViewController.swift in Sources */,
+				6DD3A48723345F7000671478 /* Extensions.swift in Sources */,
 				6D027E74230FAF7B00A9B412 /* AppDelegate.swift in Sources */,
+				6DD3A48123345BF300671478 /* Spring.swift in Sources */,
 				6DEF880E230FDFD000D5FF9A /* DestinationTableViewCell.swift in Sources */,
 				6DEF88182319ECD000D5FF9A /* DebugScreenViewController.swift in Sources */,
-				6DD3A4752333082C00671478 /* Spring.swift in Sources */,
-				6DD3A45D2332087000671478 /* RadiationService.swift in Sources */,
+				6DD3A48023345BF300671478 /* EstimationService.swift in Sources */,
 				6DEF880C230FDA1100D5FF9A /* Destination.swift in Sources */,
 				6D9B5355231CE84600FC2D54 /* PathTableViewController.swift in Sources */,
-				6DD3A4742333082C00671478 /* EstimationService.swift in Sources */,
-				6DD3A4622332119D00671478 /* Vector.swift in Sources */,
-				6DD3A45F23320B7F00671478 /* EstimationService.swift in Sources */,
-				6DD3A464233211A900671478 /* Spring.swift in Sources */,
 				6DEF88162318C76800D5FF9A /* IconPageController.swift in Sources */,
 				6D03240B231F99A500531279 /* Language.swift in Sources */,
 				6DEF88142318C1F900D5FF9A /* NavigationController.swift in Sources */,

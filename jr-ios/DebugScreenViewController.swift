@@ -9,155 +9,66 @@
 import UIKit
 import BeacrewLoco
 
-extension CALayer {
-    
-    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
-        
-        let border = CALayer()
-        
-        switch edge {
-        case UIRectEdge.top:
-            border.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: thickness)
-            break
-        case UIRectEdge.bottom:
-            border.frame = CGRect(x: 0, y: self.frame.height - thickness, width: self.frame.width, height: thickness)
-            break
-        case UIRectEdge.left:
-            border.frame = CGRect(x: 0, y: 0, width: thickness, height: self.frame.height)
-            break
-        case UIRectEdge.right:
-            border.frame = CGRect(x: self.frame.width - thickness, y: 0, width: thickness, height: self.frame.height)
-            break
-        default:
-            break
-        }
-        
-        border.backgroundColor = color.cgColor;
-        
-        self.addSublayer(border)
-    }
-    
-}
-
 
 class DebugScreenViewController: UIViewController, BCLManagerDelegate {
-    
-    @IBOutlet weak var NavLeftButton: UIBarButtonItem!
-    @IBOutlet weak var NavRightButton: UIBarButtonItem!
-    
-    @IBOutlet weak var mapImage: UIImageView!
-    
     var map: Map?
     var beacons = [Beacon]()
     var nodes = [Node]()
     var edges = [Edge]()
-    var mapImageData = Data()
+    
+    //    var mapImageData = Data()
     var myString:String = String()
     var current_table = String()
     var cursor: Cursor = Cursor(x:0, y:0)!
     
     @IBOutlet weak var Location_X: UILabel!
     @IBOutlet weak var Location_Y: UILabel!
-    
     @IBOutlet weak var mapName: UILabel!
     @IBOutlet weak var destinationName: UILabel!
     @IBOutlet weak var navigation: UINavigationItem!
     @IBOutlet weak var guideBoard: UILabel!
+    @IBOutlet weak var NavLeftButton: UIBarButtonItem!
+    @IBOutlet weak var NavRightButton: UIBarButtonItem!
+    
+    @IBOutlet weak var mapImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadMap()
-        
-        
+        //MARK: UI setup
         NavLeftButton.title = NSLocalizedString("Back", tableName: current_table, comment: "navigation-item")
         navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
-        destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)")
+        
         guideBoard.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
         guideBoard.attributedText = self.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
         
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
+        destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)")
         
+        //MARK: load functions
+        loadMap()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         //MARK: Beacrew Manager
-        
         BCLManager.shared()?.delegate = self
-        
-        
     }
     
-    
-    //    func estimatePosition() {
-    //        // each sample time will turn into an estimated position
-    //                      let input = _this.log.filter(_ => _.detected === timestamp);
-    //
-    //                      _this.radiationService = new RadiationService(_this.beacon);
-    //                      _this.clusterService = new ClusterService(_this.scenarioresult.scenario.cluster);
-    //                      _this.estimationService = new EstimationService(_this.radiationService, _this.clusterService);
-    //                      let estimate = _this.estimationService.locatePosition(input);
-    //    }
-    
-    
-    func didActionCalled(_ action: BCLAction!, type: String!, source: Any!) {
-        var mdic: [AnyHashable : Any] = [:]
-        for param in action.params {
-            mdic[param.key] = param.value
-        }
-        let kind = mdic["kind"] as? String
-        if (kind == "web") {
-            let page = mdic["page"] as? String
-            
-        } else if (kind == "push") {
-            let message = mdic["message"] as? String
-            
-        }
-    }
+    //MARK: BCL functions
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
-        //        for beacon in beacons {
-        
-        //
-        
-        
         DispatchQueue.main.async {
+            let position: Estimate = EstimationService(radiationService:RadiationService()).locatePosition(beacons: beacons)
             
-     
-        
-        let position: Estimate = EstimationService(radiationService:RadiationService()).locatePosition(beacons: beacons)
-        
-        
-        
-        self.Location_X.text = String(describing:position.x)
-        self.Location_Y.text = String(describing:position.y)
-        
-        
-        
-        
-        
-        let x = Double(String(describing:position.x))!
-        let y = Double(String(describing:position.y))!
-        
-        
-        
-        
-        
-        
-        
-        
-        self.setCursorPosition(x:x, y:y)
-               }
-        //        }
-        //            let input = _this.log.filter(_ => _.detected === timestamp);
-        //
-        //            _this.radiationService = new RadiationService(_this.beacon);
-        //            _this.clusterService = new ClusterService(_this.scenarioresult.scenario.cluster);
-        //            _this.estimationService = new EstimationService(_this.radiationService, _this.clusterService);
-        //            let estimate = _this.estimationService.locatePosition(input);
-        //            }
-        //        }
+            self.Location_X.text = String(describing:position.x)
+            self.Location_Y.text = String(describing:position.y)
+            
+            let x = Double(String(describing:position.x))!
+            let y = Double(String(describing:position.y))!
+            
+            self.setCursorPosition(x:x, y:y)
+        }
     }
     
     func didEnter(_ region: BCLRegion!) {
@@ -168,11 +79,12 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
         print("error", error!, error.message ?? "message", "code", error.code)
     }
     
-    
     func didChangeStatus(_ status: BCLState) {
         print("status", status)
     }
     
+    
+    //MARK: IB functions
     
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -184,6 +96,11 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     
     //MARK: Private Methods
     
+    private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    
     private func indent(string: String) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.firstLineHeadIndent = 20
@@ -192,13 +109,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
         return NSMutableAttributedString(
             string: string ,
             attributes: attributes)
-        
-        
-        
-    }
-    
-    private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
     
     
@@ -215,45 +125,24 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
         shapeLayer.strokeColor = lineColor.cgColor
         shapeLayer.lineWidth = 3.0
         
+        // Add line to layer
         view.layer.addSublayer(shapeLayer)
     }
+    
     
     private func setCursorPosition(x: Double, y: Double) {
         
         let natural_height = self.mapImage.image!.size.height
-        
         let natural_width = self.mapImage.image!.size.width
-        
-        
-        
-        
         let loco_height = (natural_height * 800.0) / natural_width
         
-        
-        
+        // if view with tag 100 is already here, remove it. Otherwise cursor will keep being added to the view
+        // else setup cursor and add it to view with tag 100
         if let viewWithTag = self.view.viewWithTag(100) {
-            
-            UIView.animate(withDuration: 0.25, animations: {
-                viewWithTag.alpha = 1
-                
-            })
-            
-            
             let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
             let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
             viewWithTag.frame = CGRect(x: x, y: y, width: 60 , height: 60)
-            
-            UIView.animate(withDuration: 0.25, animations: {
-                viewWithTag.alpha = 1
-                
-            })
-            
-            
-        }else{
-            
-            
-            
-            
+        } else {
             let cursor = UIImage(named: "cursor")
             let imageView = UIImageView(image: cursor!)
             imageView.tag = 100
@@ -264,63 +153,51 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
             imageView.alpha = 0
             self.mapImage.addSubview(imageView)
             
-            
-            
-            
-            
             UIView.animate(withDuration: 0.5, animations: {
                 imageView.alpha = 1
-                
             })
-            
-            
         }
-        
-        
     }
     
     
     private func downloadImage(from url: URL) {
-        print("Download Started")
         getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            self.mapImageData = data
             
-            print("Download Finished")
+            guard let data = data, error == nil else { return }
+            
             DispatchQueue.main.async() {
+                
+                // MARK: Add image
                 self.mapImage.image = UIImage(data: data)
-                
                 let mapWidth = self.mapImage.frame.width
-                
                 let mapHeight = self.mapImage.frame.height
-                
                 let natural_height = self.mapImage.image!.size.height
-                
                 let natural_width = self.mapImage.image!.size.width
-                
-                self.setCursorPosition(x:0.6, y:0.4)
-                
-                
                 let loco_height = (natural_height * 800.0) / natural_width
                 
+                // MARK: Add nodes to image view
                 for i in self.nodes {
-                    
-                    
-                    
                     let image = UIImage(named: "node")
                     let imageView = UIImageView(image: image!)
-                    
                     let x = round(CGFloat(i.x) * mapWidth)
                     let y = round(CGFloat(i.y) * mapHeight)
-                    
-                    
                     imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
                     imageView.layer.zPosition = 1
                     self.mapImage.addSubview(imageView)
-                    
-                    
                 }
                 
+                // MARK: Add beacons to image view
+                for i in self.beacons {
+                    let image = UIImage(named: "target")
+                    let imageView = UIImageView(image: image!)
+                    let x = round((CGFloat(i.x) * mapWidth) / 800.0) - 10
+                    let y = round((CGFloat(i.y) * mapHeight) / loco_height) - 10
+                    imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
+                    imageView.layer.zPosition = 2
+                    self.mapImage.addSubview(imageView)
+                }
+                
+                // MARK: Add edges to image view
                 for i in self.edges {
                     let start = self.nodes.first(where: { $0.id == i.node_start_id })
                     let end = self.nodes.first(where: {
@@ -332,29 +209,14 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
                     let end_y = Double(round(CGFloat(end!.y) * mapHeight)) + 10
                     let start_point = CGPoint.init(x: start_x, y: start_y)
                     let end_point = CGPoint.init(x:end_x, y:end_y)
-                    
                     self.drawLineFromPoint(start: start_point, toPoint: end_point, ofColor: UIColor(red:0.94, green:0.78, blue:0.36, alpha:1.0), inView: self.mapImage)
                 }
                 
-                for i in self.beacons {
-                    
-                    
-                    let image = UIImage(named: "target")
-                    
-                    let imageView = UIImageView(image: image!)
-                    let x = round((CGFloat(i.x) * mapWidth) / 800.0) - 10
-                    let y = round((CGFloat(i.y) * mapHeight) / loco_height) - 10
-                    
-                    imageView.frame = CGRect(x: x, y: y, width: 20, height: 20)
-                    
-                    imageView.layer.zPosition = 2
-                    self.mapImage.addSubview(imageView)
-                    
-                }
             }
         }}
     
     
+    // MARK: load functions
     
     private func loadMap() {
         Api.shared.get(path: "/loadmap/16"){(res) in
@@ -362,7 +224,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
             case .failure(let err):
                 print(err)
             case .success(let map_data):
-                
                 self.map = map_data.map
                 self.downloadImage(from: map_data.map.image)
                 DispatchQueue.main.async {
@@ -377,8 +238,10 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
         }
     }
     
+    
+    // MARK: Segue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "seguetoPathView" {
             let pathTableView = segue.destination as! PathTableViewController
             pathTableView.myString = self.myString

@@ -13,113 +13,57 @@ struct Cluster {
     var cm_per_pixel: Double
 }
 
-struct Position {
-    var x: Double
-    var y: Double
+struct Estimate {
+    var x: Decimal
+    var y: Decimal
+    var z: Decimal
 }
+
 struct EstimationService {
-    
     var radiationService: RadiationService;
-    
-    // cluster service allows us to determine information about the 'map'
     var cluster: Cluster = Cluster(cm_per_pixel: 1.0);
-    
     var userHeightCM:Double = 120.0;
     
-    
-    
+    /**
+     Calculate the current position of the iphone depending of the beacon logs
+     - parameter beacons: [BCLBeacon]
+     - returns: Estimate
+     */
     public func locatePosition(beacons: [BCLBeacon]) -> Estimate {
-        let CM2M = 0.01;
-        let VERSION = 15.1;
-        
-        
-        
-        // convert beacon to radiation service object {s:..., d:...}
+        // generate vector from beacon
         let rads = beacons.map({ (beacon: BCLBeacon) -> Radiation in return RadiationService().fromBeaconLog(beacon: beacon)})
+        // get center position from each vector
+        let center: Vector = self.getCenter(rads: rads)
+        // use spring to generate location
+        var springs = rads.map({(val: Radiation) -> Spring in Spring(source: val.s, lastLocated: center, length: val.d)});
+        // get location
+        let location = springs[0].location
         
+        return Estimate(x: Decimal(location.x), y: Decimal(location.y), z: Decimal(self.userHeightCM) );
+    }
+    
+    /**
+     Calculate the center position as a vector
+     - parameter rads: [Radiation]
+     - returns: Vector with center coordinates
+     */
+    private func getCenter(rads: [Radiation]) -> Vector {
         
-        //        if (!rads.length) return new Estimate(self.VERSION);
-        
-        // get cluster information
-        
-        // get pixel per meters
-        let PX2M = cluster.cm_per_pixel * CM2M;
-        
-        
-        // get center
         var center:Vector;
-        //        if (initPos.x > 0.0 && initPos.y > 0.0) {
-        // get each item's vector and add them up together and divide by 1/nb_items
+        
+        // Get vector of each beacon using the Radiation
         let center_array: [Vector] = rads.map({(val: Radiation) -> Vector in return val.s})
         
-        //            var center_reduced:Vector = center_array.reduce(into: Vector) { (a: Vector,b: Vector) -> Vector in a.add(v: b)}
-        var center_reduced:Vector = Vector(x: 0.0, y: 0.0, z: 0.0)
+        // addition all vector together and divide by their number to get center position
+        var initial_center:Vector = Vector(x: 0.0, y: 0.0, z: 0.0)
         for v in center_array {
-            center_reduced = center_reduced.add(v: v)
+            initial_center = initial_center.add(v: v)
         }
-        center = center_reduced.mul(a: 1.0 / Double(rads.count));
-        print("CENTER", center)
+        center = initial_center.mul(a: 1.0 / Double(rads.count));
         
+        // Add z index
+        center.z = self.userHeightCM;
         
-        
-        //        } else {
-        //            // describe a new vector at position init
-        //            center = Vector(x: initPos.x / PX2M, y: initPos.y / PX2M, z: 0.0);
-        //        }
-        
-        // map height to z
-        center.z = self.userHeightCM * CM2M * PX2M;
-        
-        
-        
-        
-        
-        //        if (center.x === undefined || center.y === undefined || center.z === undefined ||
-        //            isNaN(center.x) || isNaN(center.y) || isNaN(center.z)) {
-        //            //console.log(center);
-        //            return new Estimate(self.VERSION);
-        //        }
-        var springs = rads.map({(val: Radiation) -> Spring in Spring(source: val.s, lastLocated: center, length: val.d)});
-        
-        
-        let r = springs.map { (val: Spring) -> Decimal in
-            // make a copy of val to avoid immutable errors
-            var val = val
-            var horizontal_force = val.force;
-            horizontal_force.z = 0.0;
-            return horizontal_force.length;
-        }
-        
-        
-        //          return center
-        var result: Decimal = 0.0
-        for r_ in r {
-            result = result + r_
-        }
-        //        r = r.reduce(0.0, (a: Decimal,b: Decimal) in a + b)
-        result = result  / Decimal(springs.count)
-        
-        
-        
-        //        return result
-        
-        //        .reduce((a, b) => a + b) / springs.length;
-//        for spring in springs {
-//            var spring = spring
-//            print(spring.location)
-//        }
-        let location = springs[0].location
-        let doc = Estimate(version: Decimal(VERSION),usable:true, x: Decimal(location.x), y: Decimal(location.y), z: Decimal(self.userHeightCM), r:result, v: Decimal(VERSION) );
-        
-        print("DOC", doc)
-         
-        
-        //doc.out = doc.estimateOut(doc.r * PX2M);
-        //        doc.in = 100.0 - doc.out;
-        //        doc.v = self.VERSION;
-        //        doc.usable = true;
-        
-        return doc;
-        
+        return center
     }
 }

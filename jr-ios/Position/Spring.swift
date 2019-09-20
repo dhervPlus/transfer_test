@@ -9,52 +9,26 @@
 import Foundation
 
 struct Spring {
-    var source: Vector //val.s
-    var lastLocated: Vector // center
-    var length: Decimal; //val.s
-    
-    
-    
+    var source: Vector
+    var lastLocated: Vector
+    var length: Decimal
     var head: Vector
     {
-        mutating get {return lastLocated.sub(v: source)}
-        mutating set {
-            
+        /**
+         Substract vector source from lastLocated vector(=center vector)
+         */
+        mutating get {
+            return lastLocated.sub(v: source)
         }
     }
     var location: Vector {
+        /**
+         Add head vector to source vector
+         */
         mutating get {
-//            print("LOCATION", source, head, lastLocated)
-            
             return source.add(v: head);
         }
         
     }
     
-    var force: Vector {
-        mutating get {
-            var f = Vector(x: self.head.x, y: self.head.y, z: self.head.z);
-            f.length = self.length - self.head.length;
-            if (1.0 <= self.length) {
-                f.mul(a: Double(truncating: (1.0 / self.length) as NSNumber))
-            }
-            return f;
-        }
-        mutating set {}
-    }
-    
-    /**
-     * returns current spring force as Vector
-     */
-    //    private mutating func force() -> Vector {
-    //
-    //       }
-    
-    /**
-     * updates spring head (source and default length should not be changed)
-     */
-    mutating func drag(diff: Vector) -> Spring {
-        self.head = self.head.add(v: diff);
-        return self;
-    }
 }

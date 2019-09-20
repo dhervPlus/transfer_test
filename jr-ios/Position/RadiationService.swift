@@ -16,12 +16,16 @@ struct Radiation {
 }
 
 struct RadiationService {
+    /**
+     Build a radiation object from beacon 
+     - parameter BCLBeacon: beacon from beacrew loco sdk
+     - returns: Radiation
+     */
     public func fromBeaconLog(beacon: BCLBeacon) -> Radiation {
         let v = Vector(x: Double(beacon.x), y: Double(beacon.y), z: Double(beacon.height))
         return Radiation(
             s: v,
             d: pow(Decimal(Double(beacon.txPower - beacon.rssi) / 20.0), 10)
         )
-
     }
 }

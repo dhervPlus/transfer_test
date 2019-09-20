@@ -13,8 +13,11 @@ struct Vector {
     var y : Double
     var z : Double
     var length: Decimal {
-        get {return Decimal(sqrt(pow(self.x, 2) + pow(self.y, 2) + pow(self.z, 2)))}
-        set(l) {  let s = l > 0 ? l : 1.0
+        get {
+            return Decimal(sqrt(pow(self.x, 2) + pow(self.y, 2) + pow(self.z, 2)))
+        }
+        set(l) {
+            let s = l > 0 ? l : 1.0
             if (self.length != 0.0) {
                 let dl = Double(truncating: (s / self.length) as NSNumber);
                 self.mul(a: dl)
@@ -22,7 +25,11 @@ struct Vector {
         }
     }
     
-    
+    /**
+     Add vector to current one
+     - parameter v: Vector
+     - returns: new Vector
+     */
     mutating func add(v: Vector) -> Vector {
         self.x += v.x;
         self.y += v.y;
@@ -30,6 +37,11 @@ struct Vector {
         return Vector(x: self.x, y: self.y, z: self.z);
     }
     
+    /**
+     Substract vector to current one
+     - parameter v: Vector
+     - returns: new Vector
+     */
     mutating func sub(v: Vector) -> Vector {
         self.x -= v.x;
         self.y -= v.y;
@@ -37,22 +49,16 @@ struct Vector {
         return Vector(x: self.x, y: self.y, z: self.z);
     }
     
+    /**
+     Multiply vector with current one
+     - parameter a: Double - multiplicator
+     - returns: new Vector
+     */
     mutating func mul(a: Double = 1.0) -> Vector {
         self.x *= a;
         self.y *= a;
         self.z *= a;
         return Vector(x: self.x, y: self.y, z: self.z);
     }
-    
-    mutating func inverse() {
-        self.mul(a:-1.0);
-    }
-    
-    //    func sum(v_array = []) {
-    //        return v_array.reduce((a, b) => a.add(b));
-    //    }
-    
-    mutating func copy() -> Vector {
-        return Vector(x:self.x, y:self.y, z:self.z);
-    }
+
 }
