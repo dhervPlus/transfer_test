@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" text="" id="UPl-0Y-hQk">
-                            <rect key="frame" x="0.0" y="0.0" width="453" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <edgeInsets key="layoutMargins" top="16" left="16" bottom="8" right="8"/>
                             <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -77,11 +77,11 @@
             <objects>
                 <viewController storyboardIdentifier="IconPageController" id="vtX-vl-L77" userLabel="Icon Page Controller" customClass="IconPageController" customModule="naviboard_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ssP-hv-x5P">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdL-mi-JFv">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="NjL-pQ-b4k"/>
                                     <constraint firstAttribute="height" constant="40" id="lc0-t3-Jay"/>
@@ -92,7 +92,7 @@
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noD-5J-W5o">
-                                <rect key="frame" x="24" y="80" width="366" height="58"/>
+                                <rect key="frame" x="24" y="168" width="366" height="58"/>
                                 <string key="text">This icon is displayed on the information board.
 Please walk along the arrow with this icon during guidance.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
@@ -100,7 +100,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="As you approach the next guide, you will be notified by sound and vibration." textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3V7-Qo-X9H">
-                                <rect key="frame" x="24" y="446.66666666666663" width="366" height="38"/>
+                                <rect key="frame" x="24" y="534.66666666666663" width="366" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="tIv-AD-bR2"/>
                                 </constraints>
@@ -109,7 +109,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QV4-Ee-IqM">
-                                <rect key="frame" x="24" y="178" width="366" height="116"/>
+                                <rect key="frame" x="24" y="266" width="366" height="116"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userIcon" translatesAutoresizingMaskIntoConstraints="NO" id="OKR-30-Pkk">
                                         <rect key="frame" x="133" y="8" width="100" height="100"/>
@@ -127,7 +127,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ILb-dd-YW4">
-                                <rect key="frame" x="32" y="354" width="350" height="40"/>
+                                <rect key="frame" x="32" y="442" width="350" height="40"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emergency-red" translatesAutoresizingMaskIntoConstraints="NO" id="Q1t-F8-rt9">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -209,11 +209,11 @@ Please walk along the arrow with this icon during guidance.</string>
             <objects>
                 <viewController id="mXJ-wE-Itf" userLabel="Debug Screen Controller" customClass="DebugScreenViewController" customModule="naviboard_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="16O-Md-hzW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Floor:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="th9-Wu-AZr">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="cgA-h2-dfI"/>
                                 </constraints>
@@ -222,7 +222,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASW-9M-94w">
-                                <rect key="frame" x="0.0" y="350" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="438" width="414" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="HbQ-Gc-YqB"/>
                                 </constraints>
@@ -231,7 +231,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guide board display information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4z-pH-hL6">
-                                <rect key="frame" x="0.0" y="390" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="478" width="414" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="i8Q-pw-dxB"/>
                                 </constraints>
@@ -240,13 +240,13 @@ Please walk along the arrow with this icon during guidance.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IOe-Pp-RAO">
-                                <rect key="frame" x="0.0" y="430" width="414" height="378"/>
+                                <rect key="frame" x="0.0" y="518" width="414" height="378"/>
                                 <connections>
                                     <segue destination="6dE-NN-wGi" kind="embed" identifier="seguetoPathView" id="SGh-op-UYd"/>
                                 </connections>
                             </containerView>
                             <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="258.5" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="36h-41-nMG">
-                                <rect key="frame" x="52" y="40" width="310" height="310"/>
+                                <rect key="frame" x="52" y="128" width="310" height="310"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" translatesAutoresizingMaskIntoConstraints="NO" id="Gq2-Gj-f65">
                                         <rect key="frame" x="0.0" y="0.0" width="310" height="310"/>
@@ -260,6 +260,20 @@ Please walk along the arrow with this icon during guidance.</string>
                                     <constraint firstAttribute="height" constant="310" id="p3R-L8-hRt"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lY1-G5-qS3">
+                                <rect key="frame" x="2" y="127" width="412" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQB-0y-xLX">
+                                <rect key="frame" x="2" y="199" width="403" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -294,6 +308,8 @@ Please walk along the arrow with this icon during guidance.</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="Location_X" destination="lY1-G5-qS3" id="gVV-4L-00j"/>
+                        <outlet property="Location_Y" destination="jQB-0y-xLX" id="FSu-rV-7TI"/>
                         <outlet property="NavLeftButton" destination="JdJ-Fz-E9a" id="Zd1-Ez-W9x"/>
                         <outlet property="NavRightButton" destination="uRD-NC-f4r" id="nv5-KG-GEK"/>
                         <outlet property="destinationName" destination="ASW-9M-94w" id="BUW-gv-bTu"/>
@@ -305,7 +321,7 @@ Please walk along the arrow with this icon during guidance.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ViV-u3-IGR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6201" y="939"/>
+            <point key="canvasLocation" x="6200.0000000000009" y="938.83928571428567"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ipa-rQ-vhZ">
@@ -370,11 +386,11 @@ Please walk along the arrow with this icon during guidance.</string>
             <objects>
                 <viewController id="vf5-aq-HBi" userLabel="Emergency Controller" customClass="EmergencyViewController" customModule="naviboard_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Fp-8u-e03">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lAp-kb-eqq">
-                                <rect key="frame" x="40" y="40" width="334" height="80"/>
+                                <rect key="frame" x="40" y="128" width="334" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOG-bK-DHc">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="62"/>
@@ -394,7 +410,7 @@ Please walk along the arrow with this icon during guidance.</string>
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2td-c4-tEL" customClass="UIButton">
-                                <rect key="frame" x="87" y="218" width="240" height="372"/>
+                                <rect key="frame" x="87" y="306" width="240" height="284"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="postEmergency:" destination="vf5-aq-HBi" eventType="touchDown" id="dl3-Hp-Rd7"/>
@@ -435,7 +451,7 @@ Please walk along the arrow with this icon during guidance.</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationLevel="20" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="PathTableViewCell" rowHeight="160" translatesAutoresizingMaskIntoConstraints="NO" id="EY9-Y3-yoy" customClass="PathTableViewCell" customModule="naviboard_ios" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationLevel="20" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="PathTableViewCell" rowHeight="160" translatesAutoresizingMaskIntoConstraints="NO" id="EY9-Y3-yoy" customClass="PathTableViewCell" customModule="naviboard_ios" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="160"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EY9-Y3-yoy" id="HIt-ZK-TBy" customClass="PathTableViewCell" customModule="naviboard_ios" customModuleProvider="target">
@@ -507,6 +523,6 @@ Please walk along the arrow with this icon during guidance.</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wD4-ZF-1Y3"/>
-        <segue reference="OET-Ar-Ia3"/>
+        <segue reference="WUx-vy-aTm"/>
     </inferredMetricsTieBreakers>
 </document>

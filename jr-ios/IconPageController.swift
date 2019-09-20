@@ -88,7 +88,7 @@ class IconPageController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print(self.myString)
+        
         let debugScreenController = segue.destination as! DebugScreenViewController
         debugScreenController.myString = self.myString
         debugScreenController.current_table = self.current_table
