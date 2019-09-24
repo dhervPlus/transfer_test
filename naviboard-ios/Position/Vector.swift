@@ -12,9 +12,9 @@ struct Vector {
     var x : Double
     var y : Double
     var z : Double
-    var length: Decimal {
+    var length: Double {
         get {
-            return Decimal(sqrt(pow(self.x, 2) + pow(self.y, 2) + pow(self.z, 2)))
+            return Double(sqrt(pow(self.x, 2) + pow(self.y, 2) + pow(self.z, 2)))
         }
         set(l) {
             let s = l > 0 ? l : 1.0
@@ -60,5 +60,20 @@ struct Vector {
         self.z *= a;
         return Vector(x: self.x, y: self.y, z: self.z);
     }
-
+    
+    static func sum(v_array: [Vector]) -> Vector {
+        
+        var result = Vector(x: 0.0, y: 0.0, z: 0.0)
+        for v in v_array {
+            result = result.add(v: v)
+        }
+        
+        
+        
+        return result
+        
+    }
+    
+  
+    
 }

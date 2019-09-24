@@ -11,7 +11,7 @@ import Foundation
 struct Spring {
     var source: Vector
     var lastLocated: Vector
-    var length: Decimal
+    var length: Double
     var head: Vector
     {
         /**
@@ -20,6 +20,7 @@ struct Spring {
         mutating get {
             return lastLocated.sub(v: source)
         }
+      set{}
     }
     var location: Vector {
         /**
@@ -29,6 +30,28 @@ struct Spring {
             return source.add(v: head);
         }
         
+    }
+    
+    var force: Vector {
+        mutating get {
+            var f = Vector(x: self.head.x, y: self.head.y, z: self.head.z);
+            f.length = self.length - self.head.length;
+            
+            if (1.0 <= self.length) {
+                f.mul(a: 1.0 / self.length);
+            }
+            
+            return f;
+        }
+        
+    }
+    
+    mutating func drag(diff: Vector) -> Spring {
+       
+//        print("HEAD", self.head, "DIFF", diff)
+        self.head = self.head.add(v: diff)
+        
+        return self;
     }
     
 }

@@ -11,7 +11,7 @@ import Foundation
 class Api {
     
     public var map: MapData?
-    static let shared = Api(baseUrl: String("http://10.0.0.12:81/api"))
+    static let shared = Api(baseUrl: String("http://10.0.0.13:81/api"))
     
     var baseUrl: String
     
