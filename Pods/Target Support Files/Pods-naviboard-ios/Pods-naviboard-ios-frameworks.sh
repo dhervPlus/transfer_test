@@ -164,11 +164,15 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_ROOT}/BeacrewLoco/v2_3_0/sdk/BeacrewLoco/BeacrewLoco.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MQTTClient/MQTTClient.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Realm/Realm.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${PODS_ROOT}/BeacrewLoco/v2_3_0/sdk/BeacrewLoco/BeacrewLoco.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MQTTClient/MQTTClient.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Realm/Realm.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

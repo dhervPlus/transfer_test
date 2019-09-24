@@ -12,12 +12,16 @@ PODS:
   - Realm (2.10.2):
     - Realm/Headers (= 2.10.2)
   - Realm/Headers (2.10.2)
+  - Socket.IO-Client-Swift (15.1.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.0)
 
 DEPENDENCIES:
   - BeacrewLoco (= 2.3.0)
   - MQTTClient (= 0.14.0)
   - OpenSSL-Universal (= 1.0.2.13)
   - Realm (= 2.10.2)
+  - Socket.IO-Client-Swift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -25,13 +29,17 @@ SPEC REPOS:
     - MQTTClient
     - OpenSSL-Universal
     - Realm
+    - Socket.IO-Client-Swift
+    - Starscream
 
 SPEC CHECKSUMS:
   BeacrewLoco: da11f07ff84b05a50a43d3f0bebea4acf88b12d3
   MQTTClient: eea2eaaa6ddef852a1019a4dda091e22ad928b58
   OpenSSL-Universal: 401888162f11c33ebbd46f782d9229da35c61327
   Realm: 0ef72b837fb67e9f4b098bac771ddd72c7fdbb69
+  Socket.IO-Client-Swift: 7cb44c0ffb86e158cee32d0642d30ec5fdcf8f61
+  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
 
-PODFILE CHECKSUM: 0290a2408093055e44b3f9710ef328bbe4dbb8c6
+PODFILE CHECKSUM: 99b539c5e35ddeca96dcf1566232db2307cd8d35
 
 COCOAPODS: 1.7.5

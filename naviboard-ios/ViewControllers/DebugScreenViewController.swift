@@ -8,6 +8,7 @@
 
 import UIKit
 import BeacrewLoco
+import SocketIO
 
 
 class DebugScreenViewController: UIViewController, BCLManagerDelegate {
@@ -20,6 +21,12 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     var myString:String = String()
     var current_table = String()
     var cursor: Cursor = Cursor(x:0, y:0)!
+    
+    
+    //MARK: Socker Manager
+    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.13:8080")!, config: [.log(true), .compress])
+    var socket:SocketIOClient!
+    
     
     @IBOutlet weak var Location_X: UILabel!
     @IBOutlet weak var Location_Y: UILabel!
@@ -35,6 +42,8 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+     
+        
         //MARK: UI setup
         NavLeftButton.title = NSLocalizedString("Back", tableName: current_table, comment: "navigation-item")
         navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
@@ -45,20 +54,47 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
         destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)")
         
+        
+        
+        
         //MARK: load functions
         loadMap()
         
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         //MARK: Beacrew Manager
         BCLManager.shared()?.delegate = self
     }
     
+    
+    //MARK: Socket
+    
+    func checkAliveSocket() {
+        socket = manager.defaultSocket
+        if(socket!.status==SocketIOStatus.notConnected){
+            socket.on(clientEvent: .connect) {data, ack in
+                self.socket.emit("chat_message", "BOUYAkacha")
+            }
+            socket.connect()
+        }
+    }
+    
+    
     //MARK: BCL functions
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
+        
+        
+        
+        
         DispatchQueue.main.async {
+            
+
+            // Socket
+            self.checkAliveSocket()
+            
             let position: Estimate = EstimationService(radiationService:RadiationService()).locatePosition(beacons: beacons)
             
             self.Location_X.text = String(describing:position.x)
@@ -138,32 +174,32 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
             let loco_height = (natural_height * 800.0) / natural_width
             
             // if view with tag 100 is already here, remove it. Otherwise cursor will keep being added to the view
-                  // else setup cursor and add it to view with tag 100
-                  if let viewWithTag = self.view.viewWithTag(100) {
-                      let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
-                      let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-                      viewWithTag.frame = CGRect(x: x, y: y, width: 60 , height: 60)
-                  } else {
-                      let cursor = UIImage(named: "cursor")
-                      let imageView = UIImageView(image: cursor!)
-                      imageView.tag = 100
-                      let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
-                      let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-                      imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
-                      imageView.layer.zPosition = 5
-                      imageView.alpha = 0
-                      self.mapImage.addSubview(imageView)
-                      
-                      UIView.animate(withDuration: 0.5, animations: {
-                          imageView.alpha = 1
-                      })
-                  }
+            // else setup cursor and add it to view with tag 100
+            if let viewWithTag = self.view.viewWithTag(100) {
+                let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
+                let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
+                viewWithTag.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+            } else {
+                let cursor = UIImage(named: "cursor")
+                let imageView = UIImageView(image: cursor!)
+                imageView.tag = 100
+                let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
+                let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
+                imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+                imageView.layer.zPosition = 5
+                imageView.alpha = 0
+                self.mapImage.addSubview(imageView)
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    imageView.alpha = 1
+                })
+            }
         } else {
             return
         }
         
         
-      
+        
     }
     
     

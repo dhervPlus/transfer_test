@@ -5,4 +5,5 @@ target 'naviboard-ios' do
   pod 'Realm', '= 2.10.2'
   pod 'MQTTClient', '= 0.14.0'
   pod 'OpenSSL-Universal', '= 1.0.2.13'
+  pod 'Socket.IO-Client-Swift'
 end
