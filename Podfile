@@ -1,4 +1,4 @@
-target 'jr-ios' do
+target 'naviboard-ios' do
   platform :ios, '9.0'
   use_frameworks!
   pod 'BeacrewLoco', '= 2.3.0'
