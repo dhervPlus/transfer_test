@@ -132,31 +132,38 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     
     private func setCursorPosition(x: Double, y: Double) {
         
-        let natural_height = self.mapImage.image!.size.height
-        let natural_width = self.mapImage.image!.size.width
-        let loco_height = (natural_height * 800.0) / natural_width
-        
-        // if view with tag 100 is already here, remove it. Otherwise cursor will keep being added to the view
-        // else setup cursor and add it to view with tag 100
-        if let viewWithTag = self.view.viewWithTag(100) {
-            let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
-            let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-            viewWithTag.frame = CGRect(x: x, y: y, width: 60 , height: 60)
-        } else {
-            let cursor = UIImage(named: "cursor")
-            let imageView = UIImageView(image: cursor!)
-            imageView.tag = 100
-            let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
-            let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-            imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
-            imageView.layer.zPosition = 5
-            imageView.alpha = 0
-            self.mapImage.addSubview(imageView)
+        if self.mapImage.image != nil {
+            let natural_height = self.mapImage.image!.size.height
+            let natural_width = self.mapImage.image!.size.width
+            let loco_height = (natural_height * 800.0) / natural_width
             
-            UIView.animate(withDuration: 0.5, animations: {
-                imageView.alpha = 1
-            })
+            // if view with tag 100 is already here, remove it. Otherwise cursor will keep being added to the view
+                  // else setup cursor and add it to view with tag 100
+                  if let viewWithTag = self.view.viewWithTag(100) {
+                      let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
+                      let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
+                      viewWithTag.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+                  } else {
+                      let cursor = UIImage(named: "cursor")
+                      let imageView = UIImageView(image: cursor!)
+                      imageView.tag = 100
+                      let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
+                      let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
+                      imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+                      imageView.layer.zPosition = 5
+                      imageView.alpha = 0
+                      self.mapImage.addSubview(imageView)
+                      
+                      UIView.animate(withDuration: 0.5, animations: {
+                          imageView.alpha = 1
+                      })
+                  }
+        } else {
+            return
         }
+        
+        
+      
     }
     
     

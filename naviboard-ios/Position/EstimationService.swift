@@ -35,46 +35,42 @@ struct EstimationService {
      - returns: Estimate
      */
     public func locatePosition(beacons: [BCLBeacon]) -> Estimate {
+        
         // generate vector from beacon
         let rads = beacons.map({ (beacon: BCLBeacon) -> Radiation in return RadiationService().fromBeaconLog(beacon: beacon)})
         
+        
         // get center position from each vector
-        let center: Vector = self.getCenter(rads: rads)
-//        print("CENTER", center)
+        var center: Vector = self.getCenter(rads: rads)
+        
         
         // use spring to generate location
-        var springs = rads.map({(val: Radiation) -> Spring in Spring(source: val.s, lastLocated: center, length: val.d)});
+        var springs = rads.map({(val: Radiation) -> Spring in Spring(source: val.s, lastLocated: center, length: val.d, head: center.sub(v: val.s))});
         
-//        print("SPRINGS", springs)
         
         // Max iteration and spring mapping
-        var maxIter = 1000;
-        // 収束計算
+        var maxIter = 500;
         while(maxIter > 0) {
-            var sum = Vector.sum(v_array: springs.map { val in
+        var sum = Vector.sum(v_array: springs.map { val in
                 var v = val
                 return v.force
             })
             var next = sum.mul(a: 0.01);
             next.z = 0.0; // ignore z-axis force.
-            
-            
+
             springs = springs.map{ val in
                 var a = val
-                return a.drag(diff: next)
+                return a.drag(diff: sum)
             };
-            
-            if next.length < (0.0001 * PX2M) {break};
+
+            if next.length < (0.0001) {
+                break
+            };
             maxIter -= 1
         }
         
         // get location
-        var location = springs[0].location
-        
-        print(location, PX2M)
-        
-        location.x = location.x * PX2M * -1000;
-        location.y = location.y * PX2M * -1000;
+        let location = springs[0].location
         
         return Estimate(x: Decimal(location.x), y: Decimal(location.y), z: Decimal(self.userHeightCM) );
     }
@@ -91,6 +87,8 @@ struct EstimationService {
         // Get vector of each beacon using the Radiation
         let center_array: [Vector] = rads.map({(val: Radiation) -> Vector in return val.s})
         
+        
+        
         // addition all vector together and divide by their number to get center position
         var initial_center:Vector = Vector(x: 0.0, y: 0.0, z: 0.0)
         for v in center_array {
@@ -98,10 +96,7 @@ struct EstimationService {
         }
         center = initial_center.mul(a: 1.0 / Double(rads.count));
         
-        center.x = center.x * CM2M * PX2M;
-        center.y = center.y * CM2M * PX2M;
-        // Add z index
-        center.z = userHeightCM * CM2M * PX2M;
+        center.z = userHeightCM;
         
         return center
     }

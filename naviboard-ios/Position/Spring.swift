@@ -13,15 +13,16 @@ struct Spring {
     var lastLocated: Vector
     var length: Double
     var head: Vector
-    {
-        /**
-         Substract vector source from lastLocated vector(=center vector)
-         */
-        mutating get {
-            return lastLocated.sub(v: source)
-        }
-      set{}
-    }
+//    {
+//        /**
+//         Substract vector source from lastLocated vector(=center vector)
+//         */
+//        mutating get {
+//            print(lastLocated, source)
+//            return lastLocated.sub(v: source)
+//        }
+//      set{}
+//    }
     var location: Vector {
         /**
          Add head vector to source vector
@@ -34,23 +35,23 @@ struct Spring {
     
     var force: Vector {
         mutating get {
-            var f = Vector(x: self.head.x, y: self.head.y, z: self.head.z);
-            f.length = self.length - self.head.length;
-            
+            let head = self.head
+            var f = Vector(x: head.x, y: head.y, z: head.z);
+            f.length = self.length - head.length;
+           
             if (1.0 <= self.length) {
-                f.mul(a: 1.0 / self.length);
+                f.mul(a: (1.0 / self.length));
             }
-            
+             
             return f;
         }
         
     }
     
     mutating func drag(diff: Vector) -> Spring {
-       
-//        print("HEAD", self.head, "DIFF", diff)
-        self.head = self.head.add(v: diff)
         
+        let head = self.head.add(v: diff)
+        self.head = head
         return self;
     }
     

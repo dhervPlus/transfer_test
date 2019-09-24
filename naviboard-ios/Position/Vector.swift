@@ -67,11 +67,7 @@ struct Vector {
         for v in v_array {
             result = result.add(v: v)
         }
-        
-        
-        
         return result
-        
     }
     
   
