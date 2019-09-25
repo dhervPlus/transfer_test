@@ -11,6 +11,12 @@ import BeacrewLoco
 import SocketIO
 
 
+struct PostData: Codable {
+   var map_id: Int
+   var node_start_id: Int
+   var node_end_id: Int
+}
+
 class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     var map: Map?
     var beacons = [Beacon]()
@@ -22,6 +28,10 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     var current_table = String()
     var cursor: Cursor = Cursor(x:0, y:0)!
     
+    
+    // MARK: Path
+    
+    var path = [PathData]()
     
     //MARK: Socker Manager
     let manager = SocketManager(socketURL: URL(string: "http://10.0.0.13:8080")!, config: [.log(true), .compress])
@@ -82,6 +92,26 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     }
     
     
+    func getPath(position: Estimate) {
+        // prepare json data
+       let json: PostData = PostData(map_id: 16, node_start_id: 1, node_end_id: 5)
+              
+            
+        Api.shared.post( path: "/getPath",  myData: json) {(res) in
+            switch res {
+            case.failure(let error):
+                print(error)
+            case .success(let data):
+                self.path = data
+                print(data)
+                
+            }
+        }
+        
+        // waiting !!!! from mathieu as always
+        
+    }
+    
     //MARK: BCL functions
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
@@ -95,7 +125,9 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
             // Socket
             self.checkAliveSocket()
             
-            let position: Estimate = EstimationService(radiationService:RadiationService()).locatePosition(beacons: beacons)
+            let position: Estimate = EstimationService().locatePosition(beacons: beacons)
+            
+            self.getPath(position: position)
             
             self.Location_X.text = String(describing:position.x)
             self.Location_Y.text = String(describing:position.y)
