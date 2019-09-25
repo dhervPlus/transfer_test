@@ -285,6 +285,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                 
                 // MARK: Add edges to image view
                 for i in self.edges {
+                    print(i, self.nodes)
                     let start = self.nodes.first(where: { $0.id == i.node_start_id })
                     let end = self.nodes.first(where: {
                         $0.id == i.node_end_id
@@ -305,7 +306,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     // MARK: load functions
     
     private func loadMap() {
-        Api.shared.get(path: "/loadmap/16"){(res) in
+        Api.shared.get(path: "/loadmap/6"){(res) in
             switch res {
             case .failure(let err):
                 print(err)

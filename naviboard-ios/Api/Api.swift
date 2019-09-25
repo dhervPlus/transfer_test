@@ -11,9 +11,10 @@ import Foundation
 struct PathData: Decodable {
     var node_start_id: Int
     var node_end_id: Int
-    var   distance: Double
-    var    z: String
+    var distance: Double
+    var z: String
     var direction: String
+    var beacon_id: String?
 }
 
 
@@ -87,12 +88,12 @@ class Api {
             
             do {
                 let jsonObject = try JSONDecoder().decode([PathData].self, from: data)
-                 
-                               completion(.success(jsonObject))
+                
+                completion(.success(jsonObject))
             } catch {
                 print("JSONSerialization error:", error)
                 
-                               completion(.failure(error))
+                completion(.failure(error))
             }
             
         }

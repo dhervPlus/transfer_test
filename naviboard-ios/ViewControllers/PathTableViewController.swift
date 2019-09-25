@@ -21,15 +21,16 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var myString:String = String()
     var current_table = String()
     var pathData = [PathData]()
+    var count = 0
     //    @IBOutlet weak var informationBoard: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-          
+        
         
         //
-       
-//        loadSamplePaths()
+        
+        //        loadSamplePaths()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -38,24 +39,24 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     }
     
     
-        
+    
     override func viewWillAppear(_ animated: Bool) {
         //MARK: Beacrew Manager
         BCLManager.shared()?.delegate = self
     }
-//    func setData(data: [PathData]) {
-//         print("PATH", data)
-//          DispatchQueue.main.async {
-//        self.pathData = data
-//
-//                 self.tableView.reloadData()
-//        }
-//
-//    }
+    //    func setData(data: [PathData]) {
+    //         print("PATH", data)
+    //          DispatchQueue.main.async {
+    //        self.pathData = data
+    //
+    //                 self.tableView.reloadData()
+    //        }
+    //
+    //    }
     
     func getPath(position: Estimate) {
         // prepare json data
-        let json: PostData = PostData(map_id: 16, node_start_id: 1, node_end_id: 5)
+        let json: PostData = PostData(map_id: 6, node_start_id: 1, node_end_id: 5)
         
         print("CALLED")
         Api.shared.post( path: "/getPath",  myData: json) {(res) in
@@ -70,19 +71,25 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             }
         }
     }
-
+    
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
+        self.count += 1
         
-       
         let position: Estimate = EstimationService().locatePosition(beacons: beacons)
- delegate?.afterBeacon(beacons: beacons, position: position)
-        self.getPath(position: position)
+        delegate?.afterBeacon(beacons: beacons, position: position)
+        
+        if(count == 3) {
+            
+            
+            self.getPath(position: position)
+            self.count = 0
+        }
     }
-   
-
     
-
+    
+    
+    
     
     // MARK: - Table view data source
     
@@ -97,26 +104,26 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         return pathData.count
     }
     
-//    private func loadSamplePaths() {
-//
-//        //        let bg = UIImage(named: "JR-icon3.png")
-//        let icon = UIImage(named: "Group 17.3bus")
-//        let arrow = UIImage(named: "Vector")
-//
-//        guard let path1 = Path(id: 1, icon: icon!, arrow: arrow!) else {
-//            fatalError("Unable to instantiate path1")
-//        }
-//
-//        guard let path2 = Path(id: 2, icon: icon!, arrow: arrow!) else {
-//            fatalError("Unable to instantiate path2")
-//        }
-//
-//        guard let path3 = Path(id: 3, icon: icon!, arrow: arrow!) else {
-//            fatalError("Unable to instantiate path3")
-//        }
-//
-//        paths += [path1, path2, path3]
-//    }
+    //    private func loadSamplePaths() {
+    //
+    //        //        let bg = UIImage(named: "JR-icon3.png")
+    //        let icon = UIImage(named: "Group 17.3bus")
+    //        let arrow = UIImage(named: "Vector")
+    //
+    //        guard let path1 = Path(id: 1, icon: icon!, arrow: arrow!) else {
+    //            fatalError("Unable to instantiate path1")
+    //        }
+    //
+    //        guard let path2 = Path(id: 2, icon: icon!, arrow: arrow!) else {
+    //            fatalError("Unable to instantiate path2")
+    //        }
+    //
+    //        guard let path3 = Path(id: 3, icon: icon!, arrow: arrow!) else {
+    //            fatalError("Unable to instantiate path3")
+    //        }
+    //
+    //        paths += [path1, path2, path3]
+    //    }
     
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 160
@@ -159,7 +166,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         case "left":
             return "direction_left"
         default:
-           return "direction_straight"
+            return "direction_straight"
         }
     }
     
