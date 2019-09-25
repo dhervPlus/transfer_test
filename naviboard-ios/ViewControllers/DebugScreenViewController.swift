@@ -8,7 +8,7 @@
 
 import UIKit
 import BeacrewLoco
-import SocketIO
+
 
 
 struct PostData: Codable {
@@ -33,9 +33,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     
     var path = [PathData]()
     
-    //MARK: Socker Manager
-    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.13:8080")!, config: [.log(true), .compress])
-    var socket:SocketIOClient!
+ 
     
     
     @IBOutlet weak var Location_X: UILabel!
@@ -78,18 +76,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
 //        BCLManager.shared()?.delegate = self
 //    }
     
-    
-    //MARK: Socket
-    
-    func checkAliveSocket() {
-        socket = manager.defaultSocket
-        if(socket!.status==SocketIOStatus.notConnected){
-            socket.on(clientEvent: .connect) {data, ack in
-                self.socket.emit("chat_message", "BOUYAkacha")
-            }
-            socket.connect()
-        }
-    }
+
 
     
     //MARK: BCL functions
@@ -101,7 +88,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                     
                     
                     // Socket
-                    self.checkAliveSocket()
+                   
                     
                     
         //            self.getPath(position: position)

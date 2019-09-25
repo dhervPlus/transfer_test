@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PathData: Decodable {
+struct PathData: Codable {
     var node_start_id: Int
     var node_end_id: Int
     var distance: Double

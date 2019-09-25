@@ -8,9 +8,15 @@
 
 import UIKit
 import BeacrewLoco
+import SocketIO
 
 protocol UpdatePathTable {
     func afterBeacon(beacons: [BCLBeacon]!, position: Estimate)
+}
+
+struct EmitData {
+    var roomId: String
+    var json: PathData
 }
 
 class PathTableViewController: UITableViewController, BCLManagerDelegate {
@@ -22,7 +28,12 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var current_table = String()
     var pathData = [PathData]()
     var count = 0
+    var gg = [PathData]()
     //    @IBOutlet weak var informationBoard: UILabel!
+    
+    //MARK: Socker Manager
+    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.23:8080")!, config: [.log(true), .compress])
+    var socket:SocketIOClient!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +65,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     //
     //    }
     
-    func getPath(position: Estimate) {
+    func getPath(position: Estimate, beacons: [BCLBeacon]!) {
         // prepare json data
         let json: PostData = PostData(map_id: 6, node_start_id: 1, node_end_id: 5)
         
@@ -66,6 +77,17 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.pathData = data
+                    
+                    
+                    self.gg = []
+                    
+                    
+                    for l in data {
+                        if(l.beacon_id != nil) {
+                            self.gg.append(l)
+                        }
+                    }
+                    print(self.gg)
                     self.tableView.reloadData()
                 }
             }
@@ -73,8 +95,47 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     }
     
     
+    //MARK: Socket
+    
+    func checkAliveSocket() {
+        socket = manager.defaultSocket
+        if(socket!.status==SocketIOStatus.notConnected){
+            socket.on(clientEvent: .connect) {data, ack in
+                self.socket.emit("chat_message", "BOUYAkacha")
+            }
+            socket.connect()
+        }
+    }
+    
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
         self.count += 1
+        
+        self.checkAliveSocket()
+        
+        for beacon in beacons {
+            for g in self.gg {
+                
+                
+                if g.beacon_id != nil && g.beacon_id == beacon.beaconId {
+                    /* let send = PathData(node_start_id: g.node_start_id, node_end_id: g.node_end_id, distance: g.distance, z: g.z, direction: g.direction)*/
+                    
+                    do {
+                        
+                        let data = try JSONEncoder().encode(g)
+                        socket.emit("push_notification", ["roomId": beacon.beaconId! ,"json": data])
+                        
+                        
+                        
+                    } catch {
+                        print(error)
+                    }
+                    
+                    
+                }
+            }
+            
+        }
+        
         
         let position: Estimate = EstimationService().locatePosition(beacons: beacons)
         delegate?.afterBeacon(beacons: beacons, position: position)
@@ -82,7 +143,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         if(count == 3) {
             
             
-            self.getPath(position: position)
+            self.getPath(position: position, beacons: beacons)
             self.count = 0
         }
     }
