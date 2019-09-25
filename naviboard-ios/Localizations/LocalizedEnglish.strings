@@ -41,3 +41,8 @@
 "Press the button to switch the screen to emergency mode." = "Press the button to switch the screen to emergency mode.";
 
 
+/* path */
+"straight" = "Go straight";
+"right" = "Turn right";
+"left" = "Turn left";
+"back" = "U-turn";
