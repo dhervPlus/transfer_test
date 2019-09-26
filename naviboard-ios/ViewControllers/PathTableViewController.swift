@@ -135,6 +135,9 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                     
                
                     do {
+                        var memory_item = memory_item
+                        print("DEST ID", self.selectedDestination!.id)
+                        memory_item.destination_id = self.selectedDestination!.id
                         let path_item = try JSONEncoder().encode(memory_item)
                         
                         self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
