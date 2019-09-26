@@ -19,6 +19,11 @@ struct EmitData {
     var json: PathData
 }
 
+struct SocketObject {
+    var destination_id: Int
+    var display_id: String
+}
+
 class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     var delegate: UpdatePathTable?
@@ -28,8 +33,10 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var current_table = String()
     var pathData = [PathData]()
     var count = 0
-    var gg = [PathData]()
+    var pathMemory = [PathData]()
     var selectedDestination: Destination? = nil
+    var alreadySent = [SocketObject]()
+    var beacon_ids = [String]()
     //    @IBOutlet weak var informationBoard: UILabel!
     
     //MARK: Socker Manager
@@ -78,13 +85,14 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.pathData = data
-                    self.gg = []
-                    for l in data {
-                        if(l.beacon_id != nil) {
-                            self.gg.append(l)
+                    self.pathMemory = []
+                    for path in data {
+                        // store all beacon id from path - Those beacon ids represent one display each
+                        if(path.beacon_id != nil) {
+                            self.pathMemory.append(path)
                         }
                     }
-                    print(self.gg)
+                    print(self.pathMemory)
                     self.tableView.reloadData()
                 }
             }
@@ -109,17 +117,28 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         
         self.checkAliveSocket()
         
+        self.beacon_ids = beacons.map { $0.beaconId }
+        
         for beacon in beacons {
-            print("BEACON", beacon.beaconId)
-            for g in self.gg {
-                if g.beacon_id != nil && g.beacon_id == beacon.beaconId {
-                    /* let send = PathData(node_start_id: g.node_start_id, node_end_id: g.node_end_id, distance: g.distance, z: g.z, direction: g.direction)*/
+            for memory_item in self.pathMemory {
+                // check if beacon received from bluetooth is in the list of path items
+                // if exists - it means we found the display from bluetooth and should send path item
+                
+                // RESET alreadySent when beacon signal disappear
+             alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
+                print("ALREADYSENT", alreadySent)
+             
+            
+                
+                if memory_item.beacon_id != nil && memory_item.beacon_id == beacon.beaconId && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == beacon.beaconId } ) {
+                    
+                    
+               
                     do {
+                        let path_item = try JSONEncoder().encode(memory_item)
                         
-                        let data = try JSONEncoder().encode(g)
-                        print("DATA", data)
-//                        self.alreadySent.append(g.destination_id)
-                        socket.emit("push_notification", ["roomId": beacon.beaconId! ,"json": data])
+                        self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
+                        socket.emit("push_notification", ["roomId": beacon.beaconId! ,"json": path_item])
                     } catch {
                         print(error)
                     }
