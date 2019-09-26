@@ -20,7 +20,8 @@ struct Estimate {
 }
 
 struct EstimationService {
-    var radiationService: RadiationService;
+    var radiationService: RadiationService = RadiationService();
+    
     var cluster: Cluster = Cluster(cm_per_pixel: 1.0);
     var userHeightCM:Double = 120.0;
     var CM2M = 0.01;

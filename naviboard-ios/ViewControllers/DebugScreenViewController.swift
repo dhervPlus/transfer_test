@@ -8,10 +8,16 @@
 
 import UIKit
 import BeacrewLoco
-import SocketIO
 
 
-class DebugScreenViewController: UIViewController, BCLManagerDelegate {
+
+struct PostData: Codable {
+    var map_id: Int
+    var node_start_id: Int
+    var node_end_id: Int
+}
+
+class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePathTable {
     var map: Map?
     var beacons = [Beacon]()
     var nodes = [Node]()
@@ -23,9 +29,11 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     var cursor: Cursor = Cursor(x:0, y:0)!
     
     
-    //MARK: Socker Manager
-    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.13:8080")!, config: [.log(true), .compress])
-    var socket:SocketIOClient!
+    // MARK: Path
+    
+    var path = [PathData]()
+    
+ 
     
     
     @IBOutlet weak var Location_X: UILabel!
@@ -42,7 +50,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-     
+        
         
         //MARK: UI setup
         NavLeftButton.title = NSLocalizedString("Back", tableName: current_table, comment: "navigation-item")
@@ -62,62 +70,84 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
         
     }
     
+//    
+//    override func viewWillAppear(_ animated: Bool) {
+//        //MARK: Beacrew Manager
+//        BCLManager.shared()?.delegate = self
+//    }
     
-    override func viewWillAppear(_ animated: Bool) {
-        //MARK: Beacrew Manager
-        BCLManager.shared()?.delegate = self
-    }
-    
-    
-    //MARK: Socket
-    
-    func checkAliveSocket() {
-        socket = manager.defaultSocket
-        if(socket!.status==SocketIOStatus.notConnected){
-            socket.on(clientEvent: .connect) {data, ack in
-                self.socket.emit("chat_message", "BOUYAkacha")
-            }
-            socket.connect()
-        }
-    }
-    
+
+
     
     //MARK: BCL functions
     
-    func didRangeBeacons(_ beacons: [BCLBeacon]!) {
-        
-        
-        
-        
-        DispatchQueue.main.async {
-            
+    func afterBeacon(beacons: [BCLBeacon]!, position: Estimate) {
 
-            // Socket
-            self.checkAliveSocket()
-            
-            let position: Estimate = EstimationService(radiationService:RadiationService()).locatePosition(beacons: beacons)
-            
-            self.Location_X.text = String(describing:position.x)
-            self.Location_Y.text = String(describing:position.y)
-            
-            let x = Double(String(describing:position.x))!
-            let y = Double(String(describing:position.y))!
-            
-            self.setCursorPosition(x:x, y:y)
-        }
+                
+                DispatchQueue.main.async {
+                    
+                    
+                    // Socket
+                   
+                    
+                    
+        //            self.getPath(position: position)
+                    
+                    // checks to see if the delegate exists
+//                    delegate?getPath(position: position)
+                    print("POSITION")
+                    
+                    self.Location_X.text = String(describing:position.x)
+                    self.Location_Y.text = String(describing:position.y)
+                    
+                    let x = Double(String(describing:position.x))!
+                    let y = Double(String(describing:position.y))!
+                    
+                    self.setCursorPosition(x:x, y:y)
+                }
+        
     }
     
-    func didEnter(_ region: BCLRegion!) {
-        print("region", region!)
-    }
-    
-    func didFailWithError(_ error: BCLError!) {
-        print("error", error!, error.message ?? "message", "code", error.code)
-    }
-    
-    func didChangeStatus(_ status: BCLState) {
-        print("status", status)
-    }
+//    func didRangeBeacons(_ beacons: [BCLBeacon]!) {
+//        
+//        
+//        
+//        
+//        DispatchQueue.main.async {
+//            
+//            
+//            // Socket
+//            self.checkAliveSocket()
+//            
+//            let position: Estimate = EstimationService().locatePosition(beacons: beacons)
+//            
+////            self.getPath(position: position)
+//            
+//            // checks to see if the delegate exists
+//            delegate?getPath(position: position)
+//            print("POSITION")
+//            
+//            self.Location_X.text = String(describing:position.x)
+//            self.Location_Y.text = String(describing:position.y)
+//            
+//            let x = Double(String(describing:position.x))!
+//            let y = Double(String(describing:position.y))!
+//            
+//            self.setCursorPosition(x:x, y:y)
+//        }
+//    }
+//    
+//    func didEnter(_ region: BCLRegion!) {
+//        print("region", region!)
+//    }
+//    
+//    func didFailWithError(_ error: BCLError!) {
+//        print("error", error!, error.message ?? "message", "code", error.code)
+//    }
+//    
+//    func didChangeStatus(_ status: BCLState) {
+//        print("status", status)
+//    }
     
     
     //MARK: IB functions
@@ -242,6 +272,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
                 
                 // MARK: Add edges to image view
                 for i in self.edges {
+                    print(i, self.nodes)
                     let start = self.nodes.first(where: { $0.id == i.node_start_id })
                     let end = self.nodes.first(where: {
                         $0.id == i.node_end_id
@@ -262,7 +293,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     // MARK: load functions
     
     private func loadMap() {
-        Api.shared.get(path: "/loadmap/16"){(res) in
+        Api.shared.get(path: "/loadmap/6"){(res) in
             switch res {
             case .failure(let err):
                 print(err)
@@ -287,8 +318,13 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "seguetoPathView" {
             let pathTableView = segue.destination as! PathTableViewController
+            pathTableView.delegate = self
             pathTableView.myString = self.myString
             pathTableView.current_table = self.current_table
+            
+                pathTableView.pathData = self.path
+                pathTableView.tableView.reloadData()
+            
         } else {
             let emergencyView = segue.destination as! EmergencyViewController
             emergencyView.current_table = self.current_table
