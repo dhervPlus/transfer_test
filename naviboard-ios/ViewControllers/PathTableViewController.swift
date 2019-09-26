@@ -24,11 +24,12 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var delegate: UpdatePathTable?
     
     var paths = [Path]()
-    var myString:String = String()
+    var destination_name:String = String()
     var current_table = String()
     var pathData = [PathData]()
     var count = 0
     var gg = [PathData]()
+    var selectedDestination: Destination? = nil
     //    @IBOutlet weak var informationBoard: UILabel!
     
     //MARK: Socker Manager
@@ -192,12 +193,34 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         // path arrow depends on direction
         cell.arrowImage.image = UIImage(named: self.getArrow(direction: path.direction))
         // path icon depends on destination type
-        cell.iconImage.image =  UIImage(named: "Group 17.3bus")
-        cell.labelTitle.text = self.myString
+        let destination = selectedDestination
+        cell.iconImage.image =  UIImage(named: self.getIcon(type: selectedDestination!.type_id))
+        cell.labelTitle.text = self.destination_name
         cell.cellText.text = "\(50)m\(NSLocalizedString(path.direction, tableName: current_table, comment: "path"))"
         cell.informationBoard.text = NSLocalizedString("Information board ID:", tableName: current_table, comment: "page-debug")
         
         return cell
+    }
+    
+    func getIcon(type: Int) -> String {
+        switch(type) {
+        case 1:
+           return "icon_toilet"
+        case 2:
+            return "icon_bus"
+        case 3:
+            return "icon_tower"
+        case 4:
+            return "icon_taxi"
+        case 5:
+            return "icon_train"
+        case 6:
+            return "icon_info"
+        case 7:
+            return "icon_locker"
+        default:
+            return "icon_bus"
+        }
     }
     
     // MARK: Private functions

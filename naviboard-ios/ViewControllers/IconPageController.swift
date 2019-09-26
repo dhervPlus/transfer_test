@@ -24,11 +24,13 @@ class IconPageController: UIViewController {
     @IBOutlet weak var dangerMessage: UILabel!
     
     
+    
     @IBOutlet weak var imageContainer: UIView!
     var language_current = Language.english
     var current_table = String()
-    var myString:String = String()
+    var destination_name:String = String()
     var destination_order_number = Int()
+    var selectedDestination: Destination? = nil
     
     override func viewWillAppear(_ animated: Bool) {
         if self.destination_order_number > 0 && self.destination_order_number < 12 {
@@ -53,7 +55,7 @@ class IconPageController: UIViewController {
         let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
         
         let myMutableString = NSMutableAttributedString(
-            string: "\(NSLocalizedString("Destination:", tableName: self.getTableName(), comment: "global")) \(myString)",
+            string: "\(NSLocalizedString("Destination:", tableName: self.getTableName(), comment: "global")) \(destination_name)",
             attributes: attributes)
         
         
@@ -100,7 +102,8 @@ class IconPageController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let debugScreenController = segue.destination as! DebugScreenViewController
-        debugScreenController.myString = self.myString
+        debugScreenController.selectedDestination = self.selectedDestination
+        debugScreenController.destination_name = self.destination_name
         debugScreenController.current_table = self.current_table
     }
     

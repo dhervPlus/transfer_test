@@ -30,6 +30,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     var language_current = Language.english
     
     var current_table = String();
+    var selectedDestination: Destination? = nil
     
     //MARK: IBOutlet
     
@@ -213,6 +214,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
 //        destination_order_number =
         print("Destination", destinations[indexPath.section][indexPath.row].id)
         self.selectedCellLabel = label
+        self.selectedDestination = destinations[indexPath.section][indexPath.row] as Destination
         self.destination_order_number = destinations[indexPath.section][indexPath.row].order!
         
         self.alert(title: NSLocalizedString("Do you want to set the selected location as the destination?", tableName: self.getTableName(), comment: "alert"), message: label, completion: { result in
@@ -383,19 +385,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     
-    /**
-     Prepare the segue for the Icon Page
-     - parameter segue: use to get the destination segue from this controller
-     - parameter sender: Any
-     */
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let iconController = segue.destination as! IconPageController
-        iconController.myString = self.selectedCellLabel
-        iconController.language_current = self.language_current
-        iconController.current_table = self.current_table
-        iconController.destination_order_number = self.destination_order_number
-    }
+ 
     
     
     // MARK: - Search
@@ -455,6 +445,20 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         }
     }
     
+    /**
+      Prepare the segue for the Icon Page
+      - parameter segue: use to get the destination segue from this controller
+      - parameter sender: Any
+      */
+     
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         let iconController = segue.destination as! IconPageController
+         iconController.destination_name = self.selectedCellLabel
+         iconController.language_current = self.language_current
+         iconController.current_table = self.current_table
+         iconController.destination_order_number = self.destination_order_number
+         iconController.selectedDestination = self.selectedDestination
+     }
 }
 
 
