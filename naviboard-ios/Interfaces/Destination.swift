@@ -23,6 +23,7 @@ class Destination: Decodable {
     var type_label_english: String
     var type_label_chinese: String
     var type_label_korean: String
+    var order: Int?
     
     //MARK: Initialization
     

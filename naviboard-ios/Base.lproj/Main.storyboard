@@ -111,7 +111,7 @@ Please walk along the arrow with this icon during guidance.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QV4-Ee-IqM">
                                 <rect key="frame" x="24" y="266" width="366" height="116"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userIcon" translatesAutoresizingMaskIntoConstraints="NO" id="OKR-30-Pkk">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OKR-30-Pkk">
                                         <rect key="frame" x="133" y="8" width="100" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="3U3-IP-al0"/>
@@ -195,6 +195,7 @@ Please walk along the arrow with this icon during guidance.</string>
                         <outlet property="dangerMessage" destination="UEb-n4-vgU" id="lA2-D7-Am5"/>
                         <outlet property="firstParagraph" destination="noD-5J-W5o" id="G37-YS-6pL"/>
                         <outlet property="imageContainer" destination="QV4-Ee-IqM" id="w77-Uc-5dz"/>
+                        <outlet property="mainImageView" destination="OKR-30-Pkk" id="sw1-C0-H0N"/>
                         <outlet property="navigation" destination="cui-LP-MWB" id="pwC-i9-Z9U"/>
                         <outlet property="secondParagraph" destination="3V7-Qo-X9H" id="crR-8M-F6U"/>
                         <outlet property="subtitle" destination="CdL-mi-JFv" id="lGh-3O-YbR"/>
@@ -520,7 +521,6 @@ Please walk along the arrow with this icon during guidance.</string>
         <image name="emergency-white" width="24" height="24"/>
         <image name="language" width="26" height="26"/>
         <image name="settings" width="24" height="24"/>
-        <image name="userIcon" width="530" height="539"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wD4-ZF-1Y3"/>

@@ -18,6 +18,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     var destinations = [[Destination]]()
     var destinations_initial = [Destination]()
     var destinations_filtered = [[Destination]]()
+    var destination_order_number = Int()
     // table
     var selectedCellLabel = String()
     // search
@@ -202,14 +203,17 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var label = String()
+        _ = Int()
         
         if searchActive {
             label = self.getCurrentLanguageLabel(destination: destinations_filtered[indexPath.section][indexPath.row])
         } else {
             label = self.getCurrentLanguageLabel(destination: destinations[indexPath.section][indexPath.row])
         }
-        
+//        destination_order_number =
+        print("Destination", destinations[indexPath.section][indexPath.row].id)
         self.selectedCellLabel = label
+        self.destination_order_number = destinations[indexPath.section][indexPath.row].order!
         
         self.alert(title: NSLocalizedString("Do you want to set the selected location as the destination?", tableName: self.getTableName(), comment: "alert"), message: label, completion: { result in
             if result {
@@ -301,6 +305,19 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
             case .failure(let err):
                 print(err)
             case .success(let map_data):
+                
+                // order destinations by id
+                var destinations = map_data.destinations.sorted(by: { $0.id < $1.id }).enumerated().map { (arg) -> Destination in
+                    
+                    let (index, element) = arg
+                    element.order = index + 1
+                    return element
+                }
+                
+
+                // give order number to destinations
+                
+                
                 self.destinations_initial = map_data.destinations
                 return self.getTypes(destinations: map_data.destinations)
             }
@@ -377,6 +394,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         iconController.myString = self.selectedCellLabel
         iconController.language_current = self.language_current
         iconController.current_table = self.current_table
+        iconController.destination_order_number = self.destination_order_number
     }
     
     
