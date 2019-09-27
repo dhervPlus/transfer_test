@@ -68,11 +68,11 @@ class Api {
     func post(path: String, myData: PostData, completion: @escaping (Result<[PathData], Error>) -> ()) {
         
         let jsonData = try! JSONEncoder().encode(myData)
-        print("BEFORE")
+        
         
         // endpoint
         guard let endpoint = URL(string: (baseUrl + path)) else { return }
-        print("ENDPOINT", endpoint)
+        
         
         var request = URLRequest(url: endpoint)
         request.httpMethod = "POST"

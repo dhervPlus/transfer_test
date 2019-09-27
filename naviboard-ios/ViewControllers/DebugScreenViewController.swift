@@ -95,7 +95,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
             
             // checks to see if the delegate exists
             //                    delegate?getPath(position: position)
-            print("POSITION")
+            
             
             self.Location_X.text = String(describing:position.x)
             self.Location_Y.text = String(describing:position.y)
@@ -125,7 +125,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     //
     //            // checks to see if the delegate exists
     //            delegate?getPath(position: position)
-    //            print("POSITION")
+    
     //
     //            self.Location_X.text = String(describing:position.x)
     //            self.Location_Y.text = String(describing:position.y)
@@ -208,14 +208,14 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
             if let viewWithTag = self.view.viewWithTag(100) {
                 let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
                 let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-                viewWithTag.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+                viewWithTag.frame = CGRect(x: x - 30, y: y - 15, width: 60 , height: 60)
             } else {
                 let cursor = UIImage(named: "cursor")
                 let imageView = UIImageView(image: cursor!)
                 imageView.tag = 100
                 let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
                 let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-                imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+                imageView.frame = CGRect(x: x - 30, y: y - 15, width: 60 , height: 60)
                 imageView.layer.zPosition = 5
                 imageView.alpha = 0
                 self.mapImage.addSubview(imageView)
@@ -272,7 +272,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                 
                 // MARK: Add edges to image view
                 for i in self.edges {
-                    print(i, self.nodes)
+                    
                     let start = self.nodes.first(where: { $0.id == i.node_start_id })
                     let end = self.nodes.first(where: {
                         $0.id == i.node_end_id

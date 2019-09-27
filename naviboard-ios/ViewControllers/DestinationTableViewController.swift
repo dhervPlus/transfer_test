@@ -212,7 +212,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
             label = self.getCurrentLanguageLabel(destination: destinations[indexPath.section][indexPath.row])
         }
 //        destination_order_number =
-        print("Destination", destinations[indexPath.section][indexPath.row].id)
+        
         self.selectedCellLabel = label
         self.selectedDestination = destinations[indexPath.section][indexPath.row] as Destination
         self.destination_order_number = destinations[indexPath.section][indexPath.row].order!

@@ -22,7 +22,7 @@ struct Estimate {
 struct EstimationService {
     var radiationService: RadiationService = RadiationService();
     
-    var cluster: Cluster = Cluster(cm_per_pixel: 1.0);
+    var cluster: Cluster = Cluster(cm_per_pixel: 3.46875);
     var userHeightCM:Double = 120.0;
     var CM2M = 0.01;
     var VERSION = 15.1;
@@ -42,38 +42,57 @@ struct EstimationService {
         
         
         // get center position from each vector
-        var center: Vector = self.getCenter(rads: rads)
+        let center: Vector = self.getCenter(rads: rads)
+        
+//        print("CENTER", center)
         
         
         // use spring to generate location
-        var springs = rads.map({(val: Radiation) -> Spring in Spring(source: val.s, lastLocated: center, length: val.d, head: center.sub(v: val.s))});
-        
+        var springs = rads.map({(val: Radiation) -> Spring in Spring(source: val.s, lastLocated: center, length: val.d)});
+//        print("SPRING", springs)
         
         // Max iteration and spring mapping
         var maxIter = 500;
+        
+        var mut_springs = [Spring]()
         while(maxIter > 0) {
         var sum = Vector.sum(v_array: springs.map { val in
                 var v = val
-                return v.force
+            return v.force()
             })
+        
+        
+        
             var next = sum.mul(a: 0.01);
+            
             next.z = 0.0; // ignore z-axis force.
 
-            springs = springs.map{ val in
+            mut_springs = springs.map{ val in
                 var a = val
                 return a.drag(diff: sum)
             };
 
+        
             if next.length < (0.0001) {
                 break
             };
             maxIter -= 1
         }
         
+//        print("MUT",mut_springs)
         // get location
-        let location = springs[0].location
-        
-        return Estimate(x: Decimal(location.x), y: Decimal(location.y), z: Decimal(self.userHeightCM) );
+        var location: Estimate? = nil
+        if let firstNumber = mut_springs.first {
+            var first = firstNumber
+            let firstLoc = first.location()
+//            print(first.location)
+            
+          
+                
+            location = Estimate(x: Decimal( firstLoc.x), y: Decimal( firstLoc.y), z: Decimal(self.userHeightCM) );
+        }
+       
+        return location!
     }
     
     /**

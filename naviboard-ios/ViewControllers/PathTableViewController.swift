@@ -40,7 +40,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     //    @IBOutlet weak var informationBoard: UILabel!
     
     //MARK: Socker Manager
-    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.13:8080")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "http://192.168.0.105:8080")!, config: [.log(true), .compress])
     var socket:SocketIOClient!
     
     override func viewDidLoad() {
@@ -77,7 +77,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         // prepare json data
         let json: PostData = PostData(map_id: 6, node_start_id: 1, node_end_id: 5)
         
-        print("CALLED")
+        
         Api.shared.post( path: "/getPath",  myData: json) {(res) in
             switch res {
             case.failure(let error):
@@ -92,7 +92,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                             self.pathMemory.append(path)
                         }
                     }
-                    print(self.pathMemory)
+                    
                     self.tableView.reloadData()
                 }
             }
@@ -126,7 +126,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                 
                 // RESET alreadySent when beacon signal disappear
              alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
-                print("ALREADYSENT", alreadySent)
+                
              
             
                 
@@ -136,7 +136,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                
                     do {
                         var memory_item = memory_item
-                        print("DEST ID", self.selectedDestination!.id)
+                        
                         memory_item.destination_id = self.selectedDestination!.id
                         let path_item = try JSONEncoder().encode(memory_item)
                         
@@ -150,6 +150,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         }
         
         let position: Estimate = EstimationService().locatePosition(beacons: beacons)
+        print("POSITION", position)
         delegate?.afterBeacon(beacons: beacons, position: position)
         //        if(count == 3) {
         self.getPath(position: position, beacons: beacons)
@@ -170,7 +171,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        print("COUNT", pathData.count)
+        
         return pathData.count
     }
     
@@ -211,7 +212,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         // Configure the cell...
         
         let path = pathData[indexPath.row]
-        print("CELLL", path)
+        
         // path arrow depends on direction
         cell.arrowImage.image = UIImage(named: self.getArrow(direction: path.direction))
         // path icon depends on destination type

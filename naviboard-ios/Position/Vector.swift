@@ -12,18 +12,29 @@ struct Vector {
     var x : Double
     var y : Double
     var z : Double
+ 
     var length: Double {
         get {
+            
             return Double(sqrt(pow(self.x, 2) + pow(self.y, 2) + pow(self.z, 2)))
         }
-        set(l) {
-            let s = l > 0 ? l : 1.0
-            if (self.length != 0.0) {
-                let dl = Double(truncating: (s / self.length) as NSNumber);
-                self.mul(a: dl)
-            }
-        }
+       
     }
+    
+    mutating func setLength(l: Double) -> Vector {
+          
+         //            print("L", l)
+         //            var s
+         //            if (l != nil) {
+         //                s = l
+         //            }
+                     if (self.length != 0.0) {
+                         let dl = Double(truncating: (l / self.length) as NSNumber);
+                         self.mul(a: dl)
+                     }
+                     return self
+                 
+     }
     
     /**
      Add vector to current one
