@@ -40,7 +40,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     //    @IBOutlet weak var informationBoard: UILabel!
     
     //MARK: Socker Manager
-    let manager = SocketManager(socketURL: URL(string: "http://192.168.0.105:8080")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "http://54.64.251.38:8080")!, config: [.log(true), .compress])
     var socket:SocketIOClient!
     
     override func viewDidLoad() {
@@ -138,6 +138,8 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                         var memory_item = memory_item
                         
                         memory_item.destination_id = self.selectedDestination!.id
+                        memory_item.destination = self.selectedDestination
+                        
                         let path_item = try JSONEncoder().encode(memory_item)
                         
                         self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))

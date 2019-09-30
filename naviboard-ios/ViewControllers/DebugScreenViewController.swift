@@ -208,14 +208,14 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
             if let viewWithTag = self.view.viewWithTag(100) {
                 let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
                 let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-                viewWithTag.frame = CGRect(x: x - 30, y: y - 15, width: 60 , height: 60)
+                viewWithTag.frame = CGRect(x: x - 15, y: y - 15, width: 60 , height: 60)
             } else {
                 let cursor = UIImage(named: "cursor")
                 let imageView = UIImageView(image: cursor!)
                 imageView.tag = 100
                 let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
                 let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-                imageView.frame = CGRect(x: x - 30, y: y - 15, width: 60 , height: 60)
+                imageView.frame = CGRect(x: x - 15, y: y - 15, width: 60 , height: 60)
                 imageView.layer.zPosition = 5
                 imageView.alpha = 0
                 self.mapImage.addSubview(imageView)

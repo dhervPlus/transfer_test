@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Destination: Decodable {
+class Destination: Codable {
     
     //MARK: Properties
     

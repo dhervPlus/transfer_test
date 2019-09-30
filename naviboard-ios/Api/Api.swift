@@ -16,6 +16,20 @@ struct PathData: Codable {
     var direction: String
     var beacon_id: String?
     var destination_id: Int?
+    var destination: Destination?
+}
+
+struct Desti: Codable {
+    var id: Int
+    var node_id : Int
+    var type_id:Int
+    var label_japanese: String
+    var label_english: String
+    var label_korean: String
+    var label_chinese: String
+    var created_at: String
+    var updated_at: String
+
 }
 
 
