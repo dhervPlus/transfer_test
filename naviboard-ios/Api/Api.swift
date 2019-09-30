@@ -50,20 +50,15 @@ class Api {
         
         let task = URLSession.shared.dataTask(with: endpoint) { data, response, error in
             if let error = error {
-                //                self.handleClientError(error)
+                print(error)
                 return
             }
             
-            
             guard let data = data else { return }
             
-            
             do {
-                
                 let map_data = try JSONDecoder().decode(MapData.self, from: data)
                 self.map = map_data
-                
-                
                 completion(.success(map_data))
             } catch {
                 completion(.failure(error))
@@ -74,7 +69,6 @@ class Api {
                     //                self.handleServerError(response)
                     return
             }
-            
         }
         return task.resume()
     }
@@ -82,7 +76,6 @@ class Api {
     func post(path: String, myData: PostData, completion: @escaping (Result<[PathData], Error>) -> ()) {
         
         let jsonData = try! JSONEncoder().encode(myData)
-        
         
         // endpoint
         guard let endpoint = URL(string: (baseUrl + path)) else { return }

@@ -45,38 +45,16 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        //
-        
-        //        loadSamplePaths()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         //MARK: Beacrew Manager
         BCLManager.shared()?.delegate = self
     }
-    //    func setData(data: [PathData]) {
-    //         print("PATH", data)
-    //          DispatchQueue.main.async {
-    //        self.pathData = data
-    //
-    //                 self.tableView.reloadData()
-    //        }
-    //
-    //    }
     
     func getPath(position: Estimate, beacons: [BCLBeacon]!) {
         // prepare json data
         let json: PostData = PostData(map_id: 6, node_start_id: 1, node_end_id: 5)
-        
         
         Api.shared.post( path: "/getPath",  myData: json) {(res) in
             switch res {
@@ -120,30 +98,25 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         self.beacon_ids = beacons.map { $0.beaconId }
         
         for beacon in beacons {
-            for memory_item in self.pathMemory {
+            for path_item in self.pathMemory {
                 // check if beacon received from bluetooth is in the list of path items
                 // if exists - it means we found the display from bluetooth and should send path item
                 
                 // RESET alreadySent when beacon signal disappear
-             alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
+                alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
                 
-             
-            
-                
-                if memory_item.beacon_id != nil && memory_item.beacon_id == beacon.beaconId && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == beacon.beaconId } ) {
-                    
-                    
-               
+                if path_item.beacon_id != nil
+                    && path_item.beacon_id == beacon.beaconId
+                    && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == beacon.beaconId } ) {
                     do {
-                        var memory_item = memory_item
+                        var path_item = path_item
+                        path_item.destination_id = self.selectedDestination!.id
+                        path_item.destination = self.selectedDestination
                         
-                        memory_item.destination_id = self.selectedDestination!.id
-                        memory_item.destination = self.selectedDestination
-                        
-                        let path_item = try JSONEncoder().encode(memory_item)
+                        let path_item_to_send = try JSONEncoder().encode(path_item)
                         
                         self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
-                        socket.emit("push_notification", ["roomId": beacon.beaconId! ,"json": path_item])
+                        socket.emit("push_notification", ["roomId": beacon.beaconId! ,"json": path_item_to_send])
                     } catch {
                         print(error)
                     }
@@ -161,9 +134,6 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     }
     
     
-    
-    
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -176,27 +146,6 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         
         return pathData.count
     }
-    
-    //    private func loadSamplePaths() {
-    //
-    //        //        let bg = UIImage(named: "JR-icon3.png")
-    //        let icon = UIImage(named: "Group 17.3bus")
-    //        let arrow = UIImage(named: "Vector")
-    //
-    //        guard let path1 = Path(id: 1, icon: icon!, arrow: arrow!) else {
-    //            fatalError("Unable to instantiate path1")
-    //        }
-    //
-    //        guard let path2 = Path(id: 2, icon: icon!, arrow: arrow!) else {
-    //            fatalError("Unable to instantiate path2")
-    //        }
-    //
-    //        guard let path3 = Path(id: 3, icon: icon!, arrow: arrow!) else {
-    //            fatalError("Unable to instantiate path3")
-    //        }
-    //
-    //        paths += [path1, path2, path3]
-    //    }
     
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 160
@@ -218,7 +167,6 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         // path arrow depends on direction
         cell.arrowImage.image = UIImage(named: self.getArrow(direction: path.direction))
         // path icon depends on destination type
-        let destination = selectedDestination
         cell.iconImage.image =  UIImage(named: self.getIcon(type: selectedDestination!.type_id))
         cell.labelTitle.text = self.destination_name
         cell.cellText.text = "\(50)m\(NSLocalizedString(path.direction, tableName: current_table, comment: "path"))"
@@ -230,7 +178,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     func getIcon(type: Int) -> String {
         switch(type) {
         case 1:
-           return "icon_toilet"
+            return "icon_toilet"
         case 2:
             return "icon_bus"
         case 3:
