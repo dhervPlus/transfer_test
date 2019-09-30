@@ -33,6 +33,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     
     var path = [PathData]()
     var selectedDestination: Destination? = nil
+    var current_beacon_id = ""
     
     
     
@@ -50,8 +51,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         //MARK: UI setup
         NavLeftButton.title = NSLocalizedString("Back", tableName: current_table, comment: "navigation-item")
         navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
@@ -62,40 +61,17 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
         destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(destination_name)")
         
-        
-        
-        
         //MARK: load functions
-        loadMap()
+//        loadMap()
         
     }
-    
-    //
-    //    override func viewWillAppear(_ animated: Bool) {
-    //        //MARK: Beacrew Manager
-    //        BCLManager.shared()?.delegate = self
-    //    }
-    
-    
-    
+        
     
     //MARK: BCL functions
     
     func afterBeacon(beacons: [BCLBeacon]!, position: Estimate) {
         
-        
         DispatchQueue.main.async {
-            
-            
-            // Socket
-            
-            
-            
-            //            self.getPath(position: position)
-            
-            // checks to see if the delegate exists
-            //                    delegate?getPath(position: position)
-            
             
             self.Location_X.text = String(describing:position.x)
             self.Location_Y.text = String(describing:position.y)
@@ -104,50 +80,16 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
             let y = Double(String(describing:position.y))!
             
             self.setCursorPosition(x:x, y:y)
+            
+            // prevent from calling loadmap every second on get beacon signal
+            if(self.current_beacon_id == "") {
+                self.current_beacon_id = beacons.first!.beaconId
+                self.loadMap(beacon_id: beacons.first!.beaconId)
+            }
+            
         }
         
     }
-    
-    //    func didRangeBeacons(_ beacons: [BCLBeacon]!) {
-    //
-    //
-    //
-    //
-    //        DispatchQueue.main.async {
-    //
-    //
-    //            // Socket
-    //            self.checkAliveSocket()
-    //
-    //            let position: Estimate = EstimationService().locatePosition(beacons: beacons)
-    //
-    ////            self.getPath(position: position)
-    //
-    //            // checks to see if the delegate exists
-    //            delegate?getPath(position: position)
-    
-    //
-    //            self.Location_X.text = String(describing:position.x)
-    //            self.Location_Y.text = String(describing:position.y)
-    //
-    //            let x = Double(String(describing:position.x))!
-    //            let y = Double(String(describing:position.y))!
-    //
-    //            self.setCursorPosition(x:x, y:y)
-    //        }
-    //    }
-    //
-    //    func didEnter(_ region: BCLRegion!) {
-    //        print("region", region!)
-    //    }
-    //
-    //    func didFailWithError(_ error: BCLError!) {
-    //        print("error", error!, error.message ?? "message", "code", error.code)
-    //    }
-    //
-    //    func didChangeStatus(_ status: BCLState) {
-    //        print("status", status)
-    //    }
     
     
     //MARK: IB functions
@@ -292,8 +234,8 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     
     // MARK: load functions
     
-    private func loadMap() {
-        Api.shared.get(path: "/loadmap/6"){(res) in
+    private func loadMap(beacon_id: String) {
+        Api.shared.get(path: "/map/current/\(beacon_id)"){(res) in
             switch res {
             case .failure(let err):
                 print(err)
