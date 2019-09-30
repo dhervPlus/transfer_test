@@ -19,6 +19,9 @@ class Map: Decodable {
     var image: URL
     var created_at: String
     var updated_at: String
+    var guide_plates_settings_id: Int?
+    
+    
     
     //MARK: Initialization
     
@@ -28,7 +31,9 @@ class Map: Decodable {
             name: String,
             image: URL,
             created_at: String,
-            updated_at: String) {
+            updated_at: String,
+            guide_plates_settings_id: Int
+    ) {
         
         // Initialize stored properties.
         self.id = id
@@ -38,6 +43,8 @@ class Map: Decodable {
         self.image = image
         self.created_at = created_at
         self.updated_at = updated_at
+        self.guide_plates_settings_id = guide_plates_settings_id
+        
     }
 }
 

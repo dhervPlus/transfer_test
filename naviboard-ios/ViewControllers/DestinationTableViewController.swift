@@ -44,8 +44,8 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-    
+        
+        
         
         //MARK: UI Setup
         
@@ -63,14 +63,18 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
                 
             }
         }
-        
-        
-        //MARK: Load functions
-        loadDestinations()
-        
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        //MARK: Beacrew Manager
+        BCLManager.shared()?.delegate = self
+    }
+    
+    func didRangeBeacons(_ beacons: [BCLBeacon]!) {
+        let first_beacon_id = beacons.first?.beaconId
+        print("FIRST", first_beacon_id)
+        self.loadDestinations(beacon_id: first_beacon_id!)
+    }
     
     private func switchLanguage(language: String) {
         switch language {
@@ -211,7 +215,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         } else {
             label = self.getCurrentLanguageLabel(destination: destinations[indexPath.section][indexPath.row])
         }
-//        destination_order_number =
+        //        destination_order_number =
         
         self.selectedCellLabel = label
         self.selectedDestination = destinations[indexPath.section][indexPath.row] as Destination
@@ -301,13 +305,12 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
      - returns: call to getTypes()
      */
     
-    private func loadDestinations() {
-        Api.shared.get(path: "/loadmap/6"){(res) in
+    private func loadDestinations(beacon_id: String) {
+        Api.shared.get(path: "/map/current/\(beacon_id)"){(res) in
             switch res {
             case .failure(let err):
                 print(err)
             case .success(let map_data):
-                
                 // order destinations by id
                 var destinations = map_data.destinations.sorted(by: { $0.id < $1.id }).enumerated().map { (arg) -> Destination in
                     
@@ -315,11 +318,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
                     element.order = index + 1
                     return element
                 }
-                
-
                 // give order number to destinations
-                
-                
                 self.destinations_initial = map_data.destinations
                 return self.getTypes(destinations: map_data.destinations)
             }
@@ -385,7 +384,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     
- 
+    
     
     
     // MARK: - Search
@@ -446,19 +445,19 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     /**
-      Prepare the segue for the Icon Page
-      - parameter segue: use to get the destination segue from this controller
-      - parameter sender: Any
-      */
-     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         let iconController = segue.destination as! IconPageController
-         iconController.destination_name = self.selectedCellLabel
-         iconController.language_current = self.language_current
-         iconController.current_table = self.current_table
-         iconController.destination_order_number = self.destination_order_number
-         iconController.selectedDestination = self.selectedDestination
-     }
+     Prepare the segue for the Icon Page
+     - parameter segue: use to get the destination segue from this controller
+     - parameter sender: Any
+     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let iconController = segue.destination as! IconPageController
+        iconController.destination_name = self.selectedCellLabel
+        iconController.language_current = self.language_current
+        iconController.current_table = self.current_table
+        iconController.destination_order_number = self.destination_order_number
+        iconController.selectedDestination = self.selectedDestination
+    }
 }
 
 
