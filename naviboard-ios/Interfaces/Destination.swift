@@ -24,12 +24,16 @@ class Destination: Codable {
     var type_label_chinese: String
     var type_label_korean: String
     var order: Int?
+    var created_at: String
+    var updated_at: String
+    
     
     //MARK: Initialization
     
     init?(id: Int, node_id: Int, type_id: Int, label_japanese: String, label_english: String, label_korean: String, label_chinese: String, type_label_japanese: String, type_label_english: String,
-     type_label_chinese: String,
-    type_label_korean: String) {
+          type_label_chinese: String,
+          type_label_korean: String, created_at: String,
+          updated_at: String) {
         
         // Initialize stored properties.
         self.id = id
@@ -43,6 +47,8 @@ class Destination: Codable {
         self.type_label_english = type_label_english
         self.type_label_chinese = type_label_chinese
         self.type_label_korean = type_label_korean
+        self.created_at = created_at
+        self.updated_at = updated_at
     }
 }
 

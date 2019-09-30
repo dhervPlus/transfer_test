@@ -12,9 +12,13 @@ class Edge: Decodable {
     var id: Int
     var node_start_id: Int
     var node_end_id: Int
-    init?(id:Int, node_start_id:Int, node_end_id:Int) {
+    var created_at: String
+    var updated_at: String
+    init?(id:Int, node_start_id:Int, node_end_id:Int, created_at: String, updated_at: String) {
         self.id = id
         self.node_start_id = node_start_id
         self.node_end_id = node_end_id
+        self.created_at = created_at
+        self.updated_at = updated_at
     }
 }
