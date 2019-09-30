@@ -13,9 +13,10 @@ class IconPageController: UIViewController {
     @IBOutlet weak var NavRightItem: UIBarButtonItem!
     @IBOutlet weak var NavLeftItem: UIBarButtonItem!
     
-    @IBOutlet weak var mainImageView: UIImageView!
+    
     @IBOutlet weak var navigation: UINavigationItem!
     
+    @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var subtitle: UILabel!
     
     @IBOutlet weak var firstParagraph: UILabel!
@@ -23,10 +24,21 @@ class IconPageController: UIViewController {
     @IBOutlet weak var dangerMessage: UILabel!
     
     
+    
     @IBOutlet weak var imageContainer: UIView!
     var language_current = Language.english
     var current_table = String()
-    var myString:String = String()
+    var destination_name:String = String()
+    var destination_order_number = Int()
+    var selectedDestination: Destination? = nil
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if self.destination_order_number > 0 && self.destination_order_number < 12 {
+            let image_name = "destination_\(self.destination_order_number)"
+            let image = UIImage(named: image_name)
+            mainImageView.image = image
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +53,12 @@ class IconPageController: UIViewController {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.firstLineHeadIndent = 20
         let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
-
-        let myMutableString = NSMutableAttributedString(
-                                 string: "\(NSLocalizedString("Destination:", tableName: self.getTableName(), comment: "global")) \(myString)",
-                                 attributes: attributes)
         
-
+        let myMutableString = NSMutableAttributedString(
+            string: "\(NSLocalizedString("Destination:", tableName: self.getTableName(), comment: "global")) \(destination_name)",
+            attributes: attributes)
+        
+        
         subtitle.attributedText = myMutableString
         subtitle.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
         imageContainer.layer.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0).cgColor
@@ -64,15 +76,15 @@ class IconPageController: UIViewController {
     
     func getTableName() -> String {
         switch language_current {
-           case .english:
-               return "LocalizedEnglish"
-           case .chinese:
-               return "LocalizedChinese"
-           case .korean:
-               return "LocalizedKorean"
-           default:
-               return "LocalizedJapanese"
-           }
+        case .english:
+            return "LocalizedEnglish"
+        case .chinese:
+            return "LocalizedChinese"
+        case .korean:
+            return "LocalizedKorean"
+        default:
+            return "LocalizedJapanese"
+        }
     }
     
     
@@ -90,7 +102,8 @@ class IconPageController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let debugScreenController = segue.destination as! DebugScreenViewController
-        debugScreenController.myString = self.myString
+        debugScreenController.selectedDestination = self.selectedDestination
+        debugScreenController.destination_name = self.destination_name
         debugScreenController.current_table = self.current_table
     }
     

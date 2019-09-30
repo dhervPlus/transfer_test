@@ -15,6 +15,21 @@ struct PathData: Codable {
     var z: String
     var direction: String
     var beacon_id: String?
+    var destination_id: Int?
+    var destination: Destination?
+}
+
+struct Desti: Codable {
+    var id: Int
+    var node_id : Int
+    var type_id:Int
+    var label_japanese: String
+    var label_english: String
+    var label_korean: String
+    var label_chinese: String
+    var created_at: String
+    var updated_at: String
+
 }
 
 
@@ -67,11 +82,11 @@ class Api {
     func post(path: String, myData: PostData, completion: @escaping (Result<[PathData], Error>) -> ()) {
         
         let jsonData = try! JSONEncoder().encode(myData)
-        print("BEFORE")
+        
         
         // endpoint
         guard let endpoint = URL(string: (baseUrl + path)) else { return }
-        print("ENDPOINT", endpoint)
+        
         
         var request = URLRequest(url: endpoint)
         request.httpMethod = "POST"

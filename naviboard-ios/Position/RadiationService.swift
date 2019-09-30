@@ -23,9 +23,10 @@ struct RadiationService {
      */
     public func fromBeaconLog(beacon: BCLBeacon) -> Radiation {
         let v = Vector(x: Double(beacon.x), y: Double(beacon.y), z: Double(beacon.height))
+        print(beacon.name!, beacon.txPower, beacon.rssi, pow((Double((beacon.txPower - beacon.rssi)) / 20.0), 10))
         return Radiation(
             s: v,
-            d: pow((Double((beacon.txPower - beacon.rssi)) / 20.0), 10)
+            d: pow(10, (Double((beacon.txPower - beacon.rssi)) / 20.0))
         )
     }
 }

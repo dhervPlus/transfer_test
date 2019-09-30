@@ -24,7 +24,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     var edges = [Edge]()
     
     //    var mapImageData = Data()
-    var myString:String = String()
+    var destination_name:String = String()
     var current_table = String()
     var cursor: Cursor = Cursor(x:0, y:0)!
     
@@ -32,8 +32,8 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     // MARK: Path
     
     var path = [PathData]()
+    var selectedDestination: Destination? = nil
     
- 
     
     
     @IBOutlet weak var Location_X: UILabel!
@@ -60,7 +60,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         guideBoard.attributedText = self.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
         
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
-        destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(myString)")
+        destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(destination_name)")
         
         
         
@@ -70,84 +70,84 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         
     }
     
-//    
-//    override func viewWillAppear(_ animated: Bool) {
-//        //MARK: Beacrew Manager
-//        BCLManager.shared()?.delegate = self
-//    }
+    //
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        //MARK: Beacrew Manager
+    //        BCLManager.shared()?.delegate = self
+    //    }
     
-
-
+    
+    
     
     //MARK: BCL functions
     
     func afterBeacon(beacons: [BCLBeacon]!, position: Estimate) {
-
-                
-                DispatchQueue.main.async {
-                    
-                    
-                    // Socket
-                   
-                    
-                    
-        //            self.getPath(position: position)
-                    
-                    // checks to see if the delegate exists
-//                    delegate?getPath(position: position)
-                    print("POSITION")
-                    
-                    self.Location_X.text = String(describing:position.x)
-                    self.Location_Y.text = String(describing:position.y)
-                    
-                    let x = Double(String(describing:position.x))!
-                    let y = Double(String(describing:position.y))!
-                    
-                    self.setCursorPosition(x:x, y:y)
-                }
+        
+        
+        DispatchQueue.main.async {
+            
+            
+            // Socket
+            
+            
+            
+            //            self.getPath(position: position)
+            
+            // checks to see if the delegate exists
+            //                    delegate?getPath(position: position)
+            
+            
+            self.Location_X.text = String(describing:position.x)
+            self.Location_Y.text = String(describing:position.y)
+            
+            let x = Double(String(describing:position.x))!
+            let y = Double(String(describing:position.y))!
+            
+            self.setCursorPosition(x:x, y:y)
+        }
         
     }
     
-//    func didRangeBeacons(_ beacons: [BCLBeacon]!) {
-//        
-//        
-//        
-//        
-//        DispatchQueue.main.async {
-//            
-//            
-//            // Socket
-//            self.checkAliveSocket()
-//            
-//            let position: Estimate = EstimationService().locatePosition(beacons: beacons)
-//            
-////            self.getPath(position: position)
-//            
-//            // checks to see if the delegate exists
-//            delegate?getPath(position: position)
-//            print("POSITION")
-//            
-//            self.Location_X.text = String(describing:position.x)
-//            self.Location_Y.text = String(describing:position.y)
-//            
-//            let x = Double(String(describing:position.x))!
-//            let y = Double(String(describing:position.y))!
-//            
-//            self.setCursorPosition(x:x, y:y)
-//        }
-//    }
-//    
-//    func didEnter(_ region: BCLRegion!) {
-//        print("region", region!)
-//    }
-//    
-//    func didFailWithError(_ error: BCLError!) {
-//        print("error", error!, error.message ?? "message", "code", error.code)
-//    }
-//    
-//    func didChangeStatus(_ status: BCLState) {
-//        print("status", status)
-//    }
+    //    func didRangeBeacons(_ beacons: [BCLBeacon]!) {
+    //
+    //
+    //
+    //
+    //        DispatchQueue.main.async {
+    //
+    //
+    //            // Socket
+    //            self.checkAliveSocket()
+    //
+    //            let position: Estimate = EstimationService().locatePosition(beacons: beacons)
+    //
+    ////            self.getPath(position: position)
+    //
+    //            // checks to see if the delegate exists
+    //            delegate?getPath(position: position)
+    
+    //
+    //            self.Location_X.text = String(describing:position.x)
+    //            self.Location_Y.text = String(describing:position.y)
+    //
+    //            let x = Double(String(describing:position.x))!
+    //            let y = Double(String(describing:position.y))!
+    //
+    //            self.setCursorPosition(x:x, y:y)
+    //        }
+    //    }
+    //
+    //    func didEnter(_ region: BCLRegion!) {
+    //        print("region", region!)
+    //    }
+    //
+    //    func didFailWithError(_ error: BCLError!) {
+    //        print("error", error!, error.message ?? "message", "code", error.code)
+    //    }
+    //
+    //    func didChangeStatus(_ status: BCLState) {
+    //        print("status", status)
+    //    }
     
     
     //MARK: IB functions
@@ -208,14 +208,14 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
             if let viewWithTag = self.view.viewWithTag(100) {
                 let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
                 let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-                viewWithTag.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+                viewWithTag.frame = CGRect(x: x - 15, y: y - 15, width: 60 , height: 60)
             } else {
                 let cursor = UIImage(named: "cursor")
                 let imageView = UIImageView(image: cursor!)
                 imageView.tag = 100
                 let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
                 let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-                imageView.frame = CGRect(x: x, y: y, width: 60 , height: 60)
+                imageView.frame = CGRect(x: x - 15, y: y - 15, width: 60 , height: 60)
                 imageView.layer.zPosition = 5
                 imageView.alpha = 0
                 self.mapImage.addSubview(imageView)
@@ -272,7 +272,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                 
                 // MARK: Add edges to image view
                 for i in self.edges {
-                    print(i, self.nodes)
+                    
                     let start = self.nodes.first(where: { $0.id == i.node_start_id })
                     let end = self.nodes.first(where: {
                         $0.id == i.node_end_id
@@ -319,11 +319,11 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         if segue.identifier == "seguetoPathView" {
             let pathTableView = segue.destination as! PathTableViewController
             pathTableView.delegate = self
-            pathTableView.myString = self.myString
+            pathTableView.destination_name = self.destination_name
             pathTableView.current_table = self.current_table
-            
-                pathTableView.pathData = self.path
-                pathTableView.tableView.reloadData()
+            pathTableView.pathData = self.path
+            pathTableView.selectedDestination = self.selectedDestination
+            pathTableView.tableView.reloadData()
             
         } else {
             let emergencyView = segue.destination as! EmergencyViewController

@@ -19,20 +19,28 @@ struct EmitData {
     var json: PathData
 }
 
+struct SocketObject {
+    var destination_id: Int
+    var display_id: String
+}
+
 class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     var delegate: UpdatePathTable?
     
     var paths = [Path]()
-    var myString:String = String()
+    var destination_name:String = String()
     var current_table = String()
     var pathData = [PathData]()
     var count = 0
-    var gg = [PathData]()
+    var pathMemory = [PathData]()
+    var selectedDestination: Destination? = nil
+    var alreadySent = [SocketObject]()
+    var beacon_ids = [String]()
     //    @IBOutlet weak var informationBoard: UILabel!
     
     //MARK: Socker Manager
-    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.23:8080")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "http://54.64.251.38:8080")!, config: [.log(true), .compress])
     var socket:SocketIOClient!
     
     override func viewDidLoad() {
@@ -69,7 +77,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         // prepare json data
         let json: PostData = PostData(map_id: 6, node_start_id: 1, node_end_id: 5)
         
-        print("CALLED")
+        
         Api.shared.post( path: "/getPath",  myData: json) {(res) in
             switch res {
             case.failure(let error):
@@ -77,17 +85,14 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.pathData = data
-                    
-                    
-                    self.gg = []
-                    
-                    
-                    for l in data {
-                        if(l.beacon_id != nil) {
-                            self.gg.append(l)
+                    self.pathMemory = []
+                    for path in data {
+                        // store all beacon id from path - Those beacon ids represent one display each
+                        if(path.beacon_id != nil) {
+                            self.pathMemory.append(path)
                         }
                     }
-                    print(self.gg)
+                    
                     self.tableView.reloadData()
                 }
             }
@@ -101,51 +106,58 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         socket = manager.defaultSocket
         if(socket!.status==SocketIOStatus.notConnected){
             socket.on(clientEvent: .connect) {data, ack in
-                self.socket.emit("chat_message", "BOUYAkacha")
+                self.socket.emit("chat_message", "connected")
             }
             socket.connect()
         }
     }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
-        self.count += 1
+        //        self.count += 1
         
         self.checkAliveSocket()
         
+        self.beacon_ids = beacons.map { $0.beaconId }
+        
         for beacon in beacons {
-            for g in self.gg {
+            for memory_item in self.pathMemory {
+                // check if beacon received from bluetooth is in the list of path items
+                // if exists - it means we found the display from bluetooth and should send path item
                 
+                // RESET alreadySent when beacon signal disappear
+             alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
                 
-                if g.beacon_id != nil && g.beacon_id == beacon.beaconId {
-                    /* let send = PathData(node_start_id: g.node_start_id, node_end_id: g.node_end_id, distance: g.distance, z: g.z, direction: g.direction)*/
+             
+            
+                
+                if memory_item.beacon_id != nil && memory_item.beacon_id == beacon.beaconId && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == beacon.beaconId } ) {
                     
+                    
+               
                     do {
+                        var memory_item = memory_item
                         
-                        let data = try JSONEncoder().encode(g)
-                        socket.emit("push_notification", ["roomId": beacon.beaconId! ,"json": data])
+                        memory_item.destination_id = self.selectedDestination!.id
+                        memory_item.destination = self.selectedDestination
                         
+                        let path_item = try JSONEncoder().encode(memory_item)
                         
-                        
+                        self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
+                        socket.emit("push_notification", ["roomId": beacon.beaconId! ,"json": path_item])
                     } catch {
                         print(error)
                     }
-                    
-                    
                 }
             }
-            
         }
-        
         
         let position: Estimate = EstimationService().locatePosition(beacons: beacons)
+        print("POSITION", position)
         delegate?.afterBeacon(beacons: beacons, position: position)
-        
-        if(count == 3) {
-            
-            
-            self.getPath(position: position, beacons: beacons)
-            self.count = 0
-        }
+        //        if(count == 3) {
+        self.getPath(position: position, beacons: beacons)
+        //            self.count = 0
+        //        }
     }
     
     
@@ -161,7 +173,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        print("COUNT", pathData.count)
+        
         return pathData.count
     }
     
@@ -202,16 +214,38 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         // Configure the cell...
         
         let path = pathData[indexPath.row]
-        print("CELLL", path)
+        
         // path arrow depends on direction
         cell.arrowImage.image = UIImage(named: self.getArrow(direction: path.direction))
         // path icon depends on destination type
-        cell.iconImage.image =  UIImage(named: "Group 17.3bus")
-        cell.labelTitle.text = self.myString
+        let destination = selectedDestination
+        cell.iconImage.image =  UIImage(named: self.getIcon(type: selectedDestination!.type_id))
+        cell.labelTitle.text = self.destination_name
         cell.cellText.text = "\(50)m\(NSLocalizedString(path.direction, tableName: current_table, comment: "path"))"
         cell.informationBoard.text = NSLocalizedString("Information board ID:", tableName: current_table, comment: "page-debug")
         
         return cell
+    }
+    
+    func getIcon(type: Int) -> String {
+        switch(type) {
+        case 1:
+           return "icon_toilet"
+        case 2:
+            return "icon_bus"
+        case 3:
+            return "icon_tower"
+        case 4:
+            return "icon_taxi"
+        case 5:
+            return "icon_train"
+        case 6:
+            return "icon_info"
+        case 7:
+            return "icon_locker"
+        default:
+            return "icon_bus"
+        }
     }
     
     // MARK: Private functions
