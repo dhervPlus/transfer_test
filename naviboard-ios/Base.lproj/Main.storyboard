@@ -304,7 +304,7 @@ Please walk along the arrow with this icon during guidance.</string>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="emergency-white" id="uRD-NC-f4r">
                             <connections>
-                                <segue destination="vf5-aq-HBi" kind="show" id="ejO-oa-JkF"/>
+                                <segue destination="vf5-aq-HBi" kind="show" identifier="segueToEmergency" id="ejO-oa-JkF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
