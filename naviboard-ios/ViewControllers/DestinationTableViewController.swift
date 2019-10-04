@@ -43,10 +43,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        
+
         //MARK: UI Setup
         
         navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(), comment: "navigation-title")

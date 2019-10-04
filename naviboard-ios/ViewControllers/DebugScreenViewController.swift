@@ -13,8 +13,9 @@ import BeacrewLoco
 
 struct PostData: Codable {
     var map_id: Int
-    var node_start_id: Int
-    var node_end_id: Int
+    var x_pixel: Double
+    var y_pixel: Double
+    var destination_id: Int
 }
 
 class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePathTable {
@@ -65,6 +66,21 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
 //        loadMap()
         
     }
+    
+    
+      override func viewWillAppear(_ animated: Bool) {
+          //MARK: Beacrew Manager
+          BCLManager.shared()?.delegate = self
+      }
+    
+    func didRangeBeacons(_ beacons: [BCLBeacon]!) {
+        // prevent from calling loadmap every second on get beacon signal
+                   if(self.current_beacon_id == "") {
+                       self.current_beacon_id = beacons.first!.beaconId
+                       self.loadMap(beacon_id: beacons.first!.beaconId)
+                    
+                   }
+    }
         
     
     //MARK: BCL functions
@@ -81,11 +97,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
             
             self.setCursorPosition(x:x, y:y)
             
-            // prevent from calling loadmap every second on get beacon signal
-            if(self.current_beacon_id == "") {
-                self.current_beacon_id = beacons.first!.beaconId
-                self.loadMap(beacon_id: beacons.first!.beaconId)
-            }
+           
             
         }
         
@@ -241,6 +253,8 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                 print(err)
             case .success(let map_data):
                 self.map = map_data.map
+                
+                
                 self.downloadImage(from: map_data.map.image)
                 DispatchQueue.main.async {
                     self.mapName.attributedText = self.indent(string: "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)")
@@ -248,10 +262,19 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                     self.beacons = map_data.beacons
                     self.nodes = map_data.nodes
                     self.edges = map_data.edges
+                    self.performSegue(withIdentifier: "seguetoPathView", sender: self)
+                   
                     
                 }
             }
         }
+    }
+    
+
+  
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        print(identifier == "seguetoPathView" && self.current_beacon_id != "")
+        return identifier == "seguetoPathView" && self.current_beacon_id != ""
     }
     
     
@@ -265,6 +288,8 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
             pathTableView.current_table = self.current_table
             pathTableView.pathData = self.path
             pathTableView.selectedDestination = self.selectedDestination
+            pathTableView.map = self.map
+            pathTableView.current_beacon_id = self.current_beacon_id
             pathTableView.tableView.reloadData()
             
         } else {

@@ -13,7 +13,7 @@ struct Cluster {
     var cm_per_pixel: Double
 }
 
-struct Estimate {
+struct Estimate: Codable {
     var x: Decimal
     var y: Decimal
     var z: Decimal

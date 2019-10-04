@@ -14,7 +14,7 @@ struct PathData: Codable {
     var distance: Double
     var z: String
     var direction: String
-    var beacon_id: String?
+    var first_beacon_id: String?
     var destination_id: Int?
     var destination: Destination?
 }

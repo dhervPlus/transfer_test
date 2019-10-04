@@ -24,10 +24,15 @@ struct SocketObject {
     var display_id: String
 }
 
+struct Position: Codable {
+    var x_pixel:Decimal
+    var y_pixel:Decimal
+}
+
 class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     var delegate: UpdatePathTable?
-    
+    var map: Map? = nil
     var paths = [Path]()
     var destination_name:String = String()
     var current_table = String()
@@ -37,10 +42,11 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var selectedDestination: Destination? = nil
     var alreadySent = [SocketObject]()
     var beacon_ids = [String]()
+      var current_beacon_id = ""
     //    @IBOutlet weak var informationBoard: UILabel!
     
     //MARK: Socker Manager
-    let manager = SocketManager(socketURL: URL(string: "http://54.64.251.38:8080")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.18:3000")!, config: [.log(true), .compress])
     var socket:SocketIOClient!
     
     override func viewDidLoad() {
@@ -52,10 +58,27 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         BCLManager.shared()?.delegate = self
     }
     
+
+    
     func getPath(position: Estimate, beacons: [BCLBeacon]!) {
         // prepare json data
-        let json: PostData = PostData(map_id: 6, node_start_id: 1, node_end_id: 5)
+         
         
+        if(self.current_beacon_id != "") {
+        let decimal_x = round(Double(truncating: position.x as NSNumber))
+       
+//        NSDecimalRound(&rounded_x, &decimal_x, 2, .plain)
+        
+     
+        let decimal_y = round(Double(truncating:position.y as NSNumber))
+//        NSDecimalRound(&rounded_y, &decimal_y, 2, .plain)
+        
+        print(decimal_x, decimal_y, self.map!.id, self.selectedDestination!.id)
+        
+        let json: PostData = PostData(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
+        
+//        let json : PostPostData = PostPostData(node_start_id:1,node_end_id:5,map_id:6)
+        print(json)
         Api.shared.post( path: "/getPath",  myData: json) {(res) in
             switch res {
             case.failure(let error):
@@ -63,17 +86,20 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.pathData = data
+
                     self.pathMemory = []
                     for path in data {
+                        print("PATH", path)
                         // store all beacon id from path - Those beacon ids represent one display each
-                        if(path.beacon_id != nil) {
+                        if(path.first_beacon_id != nil) {
                             self.pathMemory.append(path)
                         }
                     }
-                    
+
                     self.tableView.reloadData()
                 }
             }
+        }
         }
     }
     
@@ -82,12 +108,16 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     func checkAliveSocket() {
         socket = manager.defaultSocket
+        print("SOCKET STATUS", socket.status)
         if(socket!.status==SocketIOStatus.notConnected){
             socket.on(clientEvent: .connect) {data, ack in
-                self.socket.emit("chat_message", "connected")
+//                self.socket.emit("message_room", "connected")
+                print("SOCKET")
+               
             }
             socket.connect()
         }
+      
     }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
@@ -95,9 +125,12 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         
         self.checkAliveSocket()
         
+//          socket.emit("test_iphone")
+        
         self.beacon_ids = beacons.map { $0.beaconId }
         
         for beacon in beacons {
+            print(self.pathMemory)
             for path_item in self.pathMemory {
                 // check if beacon received from bluetooth is in the list of path items
                 // if exists - it means we found the display from bluetooth and should send path item
@@ -105,8 +138,8 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                 // RESET alreadySent when beacon signal disappear
                 alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
                 
-                if path_item.beacon_id != nil
-                    && path_item.beacon_id == beacon.beaconId
+                if path_item.first_beacon_id != nil
+                    && path_item.first_beacon_id == beacon.beaconId
                     && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == beacon.beaconId } ) {
                     do {
                         var path_item = path_item
@@ -116,7 +149,8 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                         let path_item_to_send = try JSONEncoder().encode(path_item)
                         
                         self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
-                        socket.emit("push_notification", ["roomId": beacon.beaconId! ,"json": path_item_to_send])
+                        print(beacon.beaconId!, path_item_to_send)
+                        socket.emit("push_notification", ["roomId": path_item.first_beacon_id! ,"json": path_item_to_send])
                     } catch {
                         print(error)
                     }
@@ -125,12 +159,14 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         }
         
         let position: Estimate = EstimationService().locatePosition(beacons: beacons)
-        print("POSITION", position)
+        
         delegate?.afterBeacon(beacons: beacons, position: position)
-        //        if(count == 3) {
-        self.getPath(position: position, beacons: beacons)
-        //            self.count = 0
-        //        }
+    
+//        if(self.map?.id != nil) {
+            self.getPath(position: position, beacons: beacons)
+//        }
+        
+        
     }
     
     
