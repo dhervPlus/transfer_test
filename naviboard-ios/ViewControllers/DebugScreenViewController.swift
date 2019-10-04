@@ -294,7 +294,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
   
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         print(identifier == "seguetoPathView" && self.current_beacon_id != "")
-        return identifier == "seguetoPathView" && self.current_beacon_id != ""
+        return identifier == "seguetoPathView" && self.current_beacon_id != "" || identifier == "segueToEmergency"
     }
     
     
