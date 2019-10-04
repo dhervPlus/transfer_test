@@ -32,6 +32,8 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     var current_table = String();
     var selectedDestination: Destination? = nil
     
+     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+    
     var loaded = false
     
     //MARK: IBOutlet
@@ -47,6 +49,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         super.viewDidLoad()
 
         //MARK: UI Setup
+          showActivityIndicatory()
         
         navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(), comment: "navigation-title")
         tableSearch.delegate = self
@@ -64,9 +67,25 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         }
     }
     
+    func showActivityIndicatory() {
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.style =
+            UIActivityIndicatorView.Style.gray
+        self.view.addSubview(actInd)
+        actInd.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    func stopActivityIndicator() {
+        actInd.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         //MARK: Beacrew Manager
         BCLManager.shared()?.delegate = self
+      
     }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
@@ -321,9 +340,11 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
                 // give order number to destinations
                 self.destinations_initial = map_data.destinations
                 self.loaded = true
+                
                 return self.getTypes(destinations: map_data.destinations)
             }
         }
+        self.stopActivityIndicator()
     }
     
     
