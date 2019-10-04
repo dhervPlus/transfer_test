@@ -32,6 +32,8 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     var current_table = String();
     var selectedDestination: Destination? = nil
     
+    var loaded = false
+    
     //MARK: IBOutlet
     
     
@@ -69,8 +71,9 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
         let first_beacon_id = beacons.first?.beaconId
-        print("FIRST", first_beacon_id)
-        self.loadDestinations(beacon_id: first_beacon_id!)
+        if(!self.loaded) {
+             self.loadDestinations(beacon_id: first_beacon_id!)
+        }
     }
     
     private func switchLanguage(language: String) {
@@ -317,6 +320,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
                 }
                 // give order number to destinations
                 self.destinations_initial = map_data.destinations
+                self.loaded = true
                 return self.getTypes(destinations: map_data.destinations)
             }
         }
