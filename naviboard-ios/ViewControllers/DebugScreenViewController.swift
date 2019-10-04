@@ -35,6 +35,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     var path = [PathData]()
     var selectedDestination: Destination? = nil
     var current_beacon_id = ""
+    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     
     
     
@@ -65,6 +66,8 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         //MARK: load functions
 //        loadMap()
         
+        showActivityIndicatory()
+        
     }
     
     
@@ -80,6 +83,22 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                        self.loadMap(beacon_id: beacons.first!.beaconId)
                     
                    }
+    }
+    
+    
+    func showActivityIndicatory() {
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.style =
+            UIActivityIndicatorView.Style.gray
+        self.view.addSubview(actInd)
+        actInd.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    func stopActivityIndicator() {
+        actInd.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
         
     
@@ -178,6 +197,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                     imageView.alpha = 1
                 })
             }
+            stopActivityIndicator()
         } else {
             return
         }
