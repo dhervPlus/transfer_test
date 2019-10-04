@@ -37,12 +37,14 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var destination_name:String = String()
     var current_table = String()
     var pathData = [PathData]()
-    var count = 0
+    var timer_count = 3
     var pathMemory = [PathData]()
     var selectedDestination: Destination? = nil
     var alreadySent = [SocketObject]()
     var beacon_ids = [String]()
-      var current_beacon_id = ""
+    var current_beacon_id = ""
+    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+    var rowCount = 0
     //    @IBOutlet weak var informationBoard: UILabel!
     
     //MARK: Socker Manager
@@ -58,48 +60,49 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         BCLManager.shared()?.delegate = self
     }
     
-
+    
     
     func getPath(position: Estimate, beacons: [BCLBeacon]!) {
         // prepare json data
-         
+        
         
         if(self.current_beacon_id != "") {
-        let decimal_x = round(Double(truncating: position.x as NSNumber))
-       
-//        NSDecimalRound(&rounded_x, &decimal_x, 2, .plain)
+            let decimal_x = round(Double(truncating: position.x as NSNumber))
+            let decimal_y = round(Double(truncating:position.y as NSNumber))
+            
+            let json: PostData = PostData(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
         
-     
-        let decimal_y = round(Double(truncating:position.y as NSNumber))
-//        NSDecimalRound(&rounded_y, &decimal_y, 2, .plain)
-        
-        print(decimal_x, decimal_y, self.map!.id, self.selectedDestination!.id)
-        
-        let json: PostData = PostData(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
-        
-//        let json : PostPostData = PostPostData(node_start_id:1,node_end_id:5,map_id:6)
-        print(json)
-        Api.shared.post( path: "/getPath",  myData: json) {(res) in
-            switch res {
-            case.failure(let error):
-                print(error)
-            case .success(let data):
-                DispatchQueue.main.async {
-                    self.pathData = data
-
-                    self.pathMemory = []
-                    for path in data {
-                        print("PATH", path)
-                        // store all beacon id from path - Those beacon ids represent one display each
-                        if(path.first_beacon_id != nil) {
-                            self.pathMemory.append(path)
+            Api.shared.post( path: "/getPath",  myData: json) {(res) in
+                switch res {
+                case.failure(let error):
+                    print(error)
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        self.pathData = data
+                        self.pathMemory = []
+                        for path in data {
+                            // store all beacon id from path - Those beacon ids represent one display each
+                            if(path.first_beacon_id != nil) {
+                                self.pathMemory.append(path)
+                            }
+                        }
+                        
+                        if(self.tableView.numberOfRows(inSection: 0) > 0 && self.tableView.numberOfRows(inSection: 0) == self.pathData.count) {
+                            for (index, _) in data.enumerated() {
+                                let indexPath = IndexPath(item: index, section: 0)
+                                let contentOffset = self.tableView.contentOffset
+                                self.tableView.beginUpdates()
+                                self.tableView.reloadRows(at: [indexPath], with: .fade)
+                                self.tableView.endUpdates()
+                                self.tableView.layer.removeAllAnimations()
+                                self.tableView.setContentOffset(contentOffset, animated: false)
+                            }
+                        } else {
+                            self.tableView.reloadData()
                         }
                     }
-
-                    self.tableView.reloadData()
                 }
             }
-        }
         }
     }
     
@@ -111,21 +114,21 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         print("SOCKET STATUS", socket.status)
         if(socket!.status==SocketIOStatus.notConnected){
             socket.on(clientEvent: .connect) {data, ack in
-//                self.socket.emit("message_room", "connected")
+                //                self.socket.emit("message_room", "connected")
                 print("SOCKET")
-               
+                
             }
             socket.connect()
         }
-      
+        
     }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
-        //        self.count += 1
+        self.timer_count += 1
         
         self.checkAliveSocket()
         
-//          socket.emit("test_iphone")
+        //          socket.emit("test_iphone")
         
         self.beacon_ids = beacons.map { $0.beaconId }
         
@@ -161,10 +164,11 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         let position: Estimate = EstimationService().locatePosition(beacons: beacons)
         
         delegate?.afterBeacon(beacons: beacons, position: position)
-    
-//        if(self.map?.id != nil) {
+        
+        if(self.timer_count > 2) {
             self.getPath(position: position, beacons: beacons)
-//        }
+            self.timer_count = 0
+        }
         
         
     }
