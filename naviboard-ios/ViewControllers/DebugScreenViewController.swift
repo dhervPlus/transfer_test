@@ -60,6 +60,10 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         guideBoard.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
         guideBoard.attributedText = self.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
         
+    
+        self.mapName.attributedText = self.indent(string: NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug"))
+         self.mapName.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
+        
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
         destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(destination_name)")
         
@@ -278,7 +282,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                 self.downloadImage(from: map_data.map.image)
                 DispatchQueue.main.async {
                     self.mapName.attributedText = self.indent(string: "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)")
-                    self.mapName.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
+                   
                     self.beacons = map_data.beacons
                     self.nodes = map_data.nodes
                     self.edges = map_data.edges
