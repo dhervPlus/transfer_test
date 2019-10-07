@@ -48,7 +48,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     //    @IBOutlet weak var informationBoard: UILabel!
     
     //MARK: Socker Manager
-    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.17:3000")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "http://54.64.251.38:3000")!, config: [.log(true), .compress])
     var socket:SocketIOClient!
     
     override func viewDidLoad() {
@@ -112,12 +112,10 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
 //   if working on local and socket stuck in "connecting", check the network url (should be ip address of local server) and iphone/server on same wifi
     func checkAliveSocket() {
         socket = manager.defaultSocket
-        print("SOCKET STATUS", socket.status)
         if(socket!.status==SocketIOStatus.notConnected){
             socket.on(clientEvent: .connect) {data, ack in
                 //                self.socket.emit("message_room", "connected")
                 print("SOCKET")
-                
             }
             socket.connect()
         }
@@ -129,12 +127,10 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         
         self.checkAliveSocket()
         
-        //          socket.emit("test_iphone")
         
         self.beacon_ids = beacons.map { $0.beaconId }
         
         for beacon in beacons {
-            print(self.pathMemory)
             for path_item in self.pathMemory {
                 // check if beacon received from bluetooth is in the list of path items
                 // if exists - it means we found the display from bluetooth and should send path item
@@ -153,7 +149,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                         let path_item_to_send = try JSONEncoder().encode(path_item)
                         
                         self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
-                        print(beacon.beaconId!, path_item_to_send)
+                        
                         socket.emit("push_notification", ["roomId": path_item.first_beacon_id! ,"json": path_item_to_send])
                     } catch {
                         print(error)
