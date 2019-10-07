@@ -23,6 +23,8 @@ class EmergencyViewController: UIViewController {
         
         emergencyTitle.text = NSLocalizedString("Emergency guide settings", tableName: current_table, comment: "emergency")
         emergencyText.text = NSLocalizedString("Press the button to switch the screen to emergency mode.", tableName: current_table, comment: "emergency")
+        
+        
         // Do any additional setup after loading the view.
     }
     
@@ -46,14 +48,7 @@ class EmergencyViewController: UIViewController {
         circleContainer.layer.shadowRadius = 2
         
         circleContainer.layer.addSublayer(shapeLayer)
-        
-        //       emergencyButton.backgroundColor = .clear
-        //        emergencyButton.layer.cornerRadius = 0.5 * emergencyButton.bounds.size.width
-        //        emergencyButton.clipsToBounds = true
-        //        emergencyButton.layer.borderWidth = 5
-        //        emergencyButton.layer.borderColor = UIColor.white.cgColor
-        ////        emergencyButton.backgroundColor = UIColor.red
-        //        emergencyButton.layer.backgroundColor = UIColor.red.cgColor
+
     }
     
     
@@ -63,6 +58,8 @@ class EmergencyViewController: UIViewController {
         circleContainer.layer.shadowOpacity = 0
         circleContainer.layer.shadowOffset = .zero
         circleContainer.layer.shadowRadius = 0
+        
+        self.setEmergency()
         
     }
     
@@ -92,8 +89,9 @@ class EmergencyViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    @IBAction func test(_ sender: Any) {
-        print("test")
+    func setEmergency() {
+        print("setEmergency")
+        Api.shared.setEmergency(path: "/emergency")
     }
     
 }

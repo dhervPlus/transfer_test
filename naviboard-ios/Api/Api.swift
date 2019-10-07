@@ -29,7 +29,7 @@ struct Desti: Codable {
     var label_chinese: String
     var created_at: String
     var updated_at: String
-
+    
 }
 
 
@@ -96,14 +96,30 @@ class Api {
             
             do {
                 let jsonObject = try JSONDecoder().decode([PathData].self, from: data)
-                
                 completion(.success(jsonObject))
             } catch {
                 print("JSONSerialization error:", error)
-                
                 completion(.failure(error))
             }
             
+        }
+        return task.resume()
+    }
+    
+    func setEmergency(path: String) {
+        guard let endpoint = URL(string: (baseUrl + path)) else { return }
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "PUT"
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            guard let data = data else { return }
+
         }
         return task.resume()
     }
