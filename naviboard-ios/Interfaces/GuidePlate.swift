@@ -13,7 +13,7 @@ class GuidePlate: Decodable {
     var direction: String
     var map_id: Int
     var first_beacon_id: String
-    var second_beacon_id: String
+    var second_beacon_id: String?
     var node_start_id: Int
     var node_end_id: Int
     var created_at: String
@@ -31,6 +31,7 @@ class GuidePlate: Decodable {
     var ad_image: String
     var x: Int
     var y: Int
+    var android_id: String
     init(id: Int,
          direction: String,
          map_id: Int,
@@ -52,7 +53,8 @@ class GuidePlate: Decodable {
          display_image: String,
          ad_image: String,
          x: Int,
-         y: Int) {
+         y: Int,
+         android_id: String) {
         self.id = id
         self.direction = direction
         self.map_id = map_id
@@ -75,5 +77,6 @@ class GuidePlate: Decodable {
         self.ad_image = ad_image
         self.x = x
         self.y = y
+        self.android_id = android_id
     }
 }

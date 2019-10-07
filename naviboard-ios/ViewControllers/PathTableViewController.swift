@@ -48,7 +48,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     //    @IBOutlet weak var informationBoard: UILabel!
     
     //MARK: Socker Manager
-    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.18:3000")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.17:3000")!, config: [.log(true), .compress])
     var socket:SocketIOClient!
     
     override func viewDidLoad() {
@@ -108,7 +108,8 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     
     //MARK: Socket
-    
+
+//   if working on local and socket stuck in "connecting", check the network url (should be ip address of local server) and iphone/server on same wifi
     func checkAliveSocket() {
         socket = manager.defaultSocket
         print("SOCKET STATUS", socket.status)
