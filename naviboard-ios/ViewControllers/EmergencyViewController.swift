@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SocketIO
 
 class EmergencyViewController: UIViewController {
     
@@ -17,6 +18,11 @@ class EmergencyViewController: UIViewController {
     var current_table = String();
     
     
+    //MARK: Socker Manager
+    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.17:3000")!, config: [.log(true), .compress])
+    var socket:SocketIOClient!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.drawCircle()
@@ -24,7 +30,7 @@ class EmergencyViewController: UIViewController {
         emergencyTitle.text = NSLocalizedString("Emergency guide settings", tableName: current_table, comment: "emergency")
         emergencyText.text = NSLocalizedString("Press the button to switch the screen to emergency mode.", tableName: current_table, comment: "emergency")
         
-        
+        checkAliveSocket()
         // Do any additional setup after loading the view.
     }
     
@@ -48,7 +54,7 @@ class EmergencyViewController: UIViewController {
         circleContainer.layer.shadowRadius = 2
         
         circleContainer.layer.addSublayer(shapeLayer)
-
+        
     }
     
     
@@ -89,9 +95,35 @@ class EmergencyViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    
+    //MARK: Socket
+    
+    //   if working on local and socket stuck in "connecting", check the network url (should be ip address of local server) and iphone/server on same wifi
+    func checkAliveSocket() {
+        socket = manager.defaultSocket
+        if(socket!.status==SocketIOStatus.notConnected){
+            socket.on(clientEvent: .connect) {data, ack in
+                //                self.socket.emit("message_room", "connected")
+                print("SOCKET")
+            }
+            socket.connect()
+        }
+        
+    }
+    
     func setEmergency() {
         print("setEmergency")
-        Api.shared.setEmergency(path: "/emergency")
+        Api.shared.setEmergency(path: "/emergency"){(res) in
+            switch res {
+            case .failure(let err):
+                print(err)
+            case .success(let emergency_data):
+                print("EMER", emergency_data, self.socket.status)
+                if emergency_data.emergency {
+                    self.socket.emit("emergency", ["emergency": emergency_data.emergency])
+                }
+            }}
+        
     }
     
 }

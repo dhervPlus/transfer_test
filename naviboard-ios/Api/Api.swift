@@ -29,7 +29,10 @@ struct Desti: Codable {
     var label_chinese: String
     var created_at: String
     var updated_at: String
-    
+}
+
+struct EmergencyData: Decodable {
+    var emergency: Bool
 }
 
 
@@ -106,7 +109,7 @@ class Api {
         return task.resume()
     }
     
-    func setEmergency(path: String) {
+    func setEmergency(path: String, completion: @escaping (Result<EmergencyData, Error>) -> ()) {
         guard let endpoint = URL(string: (baseUrl + path)) else { return }
         
         var request = URLRequest(url: endpoint)
@@ -119,7 +122,16 @@ class Api {
             }
             
             guard let data = data else { return }
-
+            
+            do {
+                let emergency_mode = try JSONDecoder().decode(EmergencyData.self, from: data)
+                
+                print(emergency_mode)
+                completion(.success(emergency_mode))
+            } catch {
+                completion(.failure(error))
+            }
+            
         }
         return task.resume()
     }
