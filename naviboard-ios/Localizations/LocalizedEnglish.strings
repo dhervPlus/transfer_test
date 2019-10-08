@@ -42,7 +42,7 @@
 
 
 /* path */
-"straight" = "Go straight";
-"right" = "Turn right";
-"left" = "Turn left";
-"back" = "U-turn";
+"straight" = "go straight";
+"right" = "turn right";
+"left" = "turn left";
+"back" = "turn back";

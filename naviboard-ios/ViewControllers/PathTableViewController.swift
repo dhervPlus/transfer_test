@@ -48,7 +48,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     //    @IBOutlet weak var informationBoard: UILabel!
     
     //MARK: Socker Manager
-    let manager = SocketManager(socketURL: URL(string: "http://54.64.251.38:3000")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.17:3000")!, config: [.log(true), .compress])
     var socket:SocketIOClient!
     
     override func viewDidLoad() {
@@ -200,13 +200,13 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         // Configure the cell...
         
         let path = pathData[indexPath.row]
-        
+        print(selectedDestination?.id)
         // path arrow depends on direction
         cell.arrowImage.image = UIImage(named: self.getArrow(direction: path.direction))
         // path icon depends on destination type
         cell.iconImage.image =  UIImage(named: self.getIcon(type: selectedDestination!.type_id))
         cell.labelTitle.text = self.destination_name
-        cell.cellText.text = "\(50)m\(NSLocalizedString(path.direction, tableName: current_table, comment: "path"))"
+        cell.cellText.text = "\(path.distance)m \(NSLocalizedString(path.direction, tableName: current_table, comment: "path"))"
         cell.informationBoard.text = NSLocalizedString("Information board ID:", tableName: current_table, comment: "page-debug")
         
         return cell
