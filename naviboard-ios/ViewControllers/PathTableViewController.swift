@@ -9,6 +9,8 @@
 import UIKit
 import BeacrewLoco
 import SocketIO
+import AudioToolbox
+import AVFoundation
 
 protocol UpdatePathTable {
     func afterBeacon(beacons: [BCLBeacon]!, position: Estimate)
@@ -45,7 +47,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var current_beacon_id = ""
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     var rowCount = 0
-    //    @IBOutlet weak var informationBoard: UILabel!
+
     
     //MARK: Socker Manager
     let manager = SocketManager(socketURL: URL(string: "http://10.0.0.17:3000")!, config: [.log(true), .compress])
@@ -71,7 +73,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             let decimal_y = round(Double(truncating:position.y as NSNumber))
             
             let json: PostData = PostData(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
-        
+            
             Api.shared.post( path: "/getPath",  myData: json) {(res) in
                 switch res {
                 case.failure(let error):
@@ -108,48 +110,48 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     
     //MARK: Socket
-
-//   if working on local and socket stuck in "connecting", check the network url (should be ip address of local server) and iphone/server on same wifi
+    
+    //   if working on local and socket stuck in "connecting", check the network url (should be ip address of local server) and iphone/server on same wifi
     func checkAliveSocket() {
         socket = manager.defaultSocket
         if(socket!.status==SocketIOStatus.notConnected){
             socket.on(clientEvent: .connect) {data, ack in
-                //                self.socket.emit("message_room", "connected")
                 print("SOCKET")
             }
             socket.connect()
         }
-        
     }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
         self.timer_count += 1
         
         self.checkAliveSocket()
-        
-        
+
         self.beacon_ids = beacons.map { $0.beaconId }
         
         for beacon in beacons {
+            
             for path_item in self.pathMemory {
                 // check if beacon received from bluetooth is in the list of path items
                 // if exists - it means we found the display from bluetooth and should send path item
                 
                 // RESET alreadySent when beacon signal disappear
                 alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
-                
+
                 if path_item.first_beacon_id != nil
                     && path_item.first_beacon_id == beacon.beaconId
-                    && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == beacon.beaconId } ) {
+                    && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == path_item.first_beacon_id } ) {
                     do {
                         var path_item = path_item
                         path_item.destination_id = self.selectedDestination!.id
                         path_item.destination = self.selectedDestination
                         
                         let path_item_to_send = try JSONEncoder().encode(path_item)
-                        
-                        self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
-                        
+                      self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
+                                            
+                        AudioServicesPlaySystemSound(SystemSoundID(1025))
+                        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                      
                         socket.emit("push_notification", ["roomId": path_item.first_beacon_id! ,"json": path_item_to_send])
                     } catch {
                         print(error)
@@ -200,7 +202,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         // Configure the cell...
         
         let path = pathData[indexPath.row]
-        print(selectedDestination?.id)
+        
         // path arrow depends on direction
         cell.arrowImage.image = UIImage(named: self.getArrow(direction: path.direction))
         // path icon depends on destination type
