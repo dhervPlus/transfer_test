@@ -48,9 +48,6 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     var rowCount = 0
 
-    
-    //MARK: Socker Manager
-    let manager = SocketManager(socketURL: URL(string: "http://10.0.0.17:3000")!, config: [.log(true), .compress])
     var socket:SocketIOClient!
     
     override func viewDidLoad() {
@@ -65,8 +62,6 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     
     func getPath(position: Estimate, beacons: [BCLBeacon]!) {
-        // prepare json data
-        
         
         if(self.current_beacon_id != "") {
             let decimal_x = round(Double(truncating: position.x as NSNumber))
@@ -108,30 +103,15 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         }
     }
     
-    
-    //MARK: Socket
-    
-    //   if working on local and socket stuck in "connecting", check the network url (should be ip address of local server) and iphone/server on same wifi
-    func checkAliveSocket() {
-        socket = manager.defaultSocket
-        if(socket!.status==SocketIOStatus.notConnected){
-            socket.on(clientEvent: .connect) {data, ack in
-                print("SOCKET")
-            }
-            socket.connect()
-        }
-    }
-    
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
         self.timer_count += 1
         
-        self.checkAliveSocket()
+        let socket = Socket.shared.checkAliveSocket()
 
         self.beacon_ids = beacons.map { $0.beaconId }
-        
+    
         for beacon in beacons {
-            
-            for path_item in self.pathMemory {
+            for path_item in self.pathMemory {  
                 // check if beacon received from bluetooth is in the list of path items
                 // if exists - it means we found the display from bluetooth and should send path item
                 
@@ -168,8 +148,6 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             self.getPath(position: position, beacons: beacons)
             self.timer_count = 0
         }
-        
-        
     }
     
     

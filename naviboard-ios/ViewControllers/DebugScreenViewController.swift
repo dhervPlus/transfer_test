@@ -85,7 +85,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                    if(self.current_beacon_id == "") {
                        self.current_beacon_id = beacons.first!.beaconId
                        self.loadMap(beacon_id: beacons.first!.beaconId)
-                    
                    }
     }
     
@@ -111,7 +110,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     func afterBeacon(beacons: [BCLBeacon]!, position: Estimate) {
         
         DispatchQueue.main.async {
-            
             self.Location_X.text = String(describing:position.x)
             self.Location_Y.text = String(describing:position.y)
             
@@ -119,9 +117,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
             let y = Double(String(describing:position.y))!
             
             self.setCursorPosition(x:x, y:y)
-            
-           
-            
         }
         
     }
@@ -205,9 +200,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         } else {
             return
         }
-        
-        
-        
     }
     
     
@@ -277,8 +269,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                 print(err)
             case .success(let map_data):
                 self.map = map_data.map
-                
-                
                 self.downloadImage(from: map_data.map.image)
                 DispatchQueue.main.async {
                     self.mapName.attributedText = self.indent(string: "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)")
