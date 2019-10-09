@@ -16,33 +16,19 @@ protocol UpdatePathTable {
     func afterBeacon(beacons: [BCLBeacon]!, position: Estimate)
 }
 
-struct EmitData {
-    var roomId: String
-    var json: PathData
-}
-
-struct SocketObject {
-    var destination_id: Int
-    var display_id: String
-}
-
-struct Position: Codable {
-    var x_pixel:Decimal
-    var y_pixel:Decimal
-}
 
 class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     var delegate: UpdatePathTable?
     var map: Map? = nil
-    var paths = [Path]()
+//    var paths = [Path]()
     var destination_name:String = String()
     var current_table = String()
     var pathData = [PathData]()
     var timer_count = 3
     var pathMemory = [PathData]()
     var selectedDestination: Destination? = nil
-    var alreadySent = [SocketObject]()
+    var alreadySent = [SocketPostBody]()
     var beacon_ids = [String]()
     var current_beacon_id = ""
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -68,7 +54,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             let decimal_x = round(Double(truncating: position.x as NSNumber))
             let decimal_y = round(Double(truncating:position.y as NSNumber))
             
-            let json: PostData = PostData(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
+            let json: PathPostBody = PathPostBody(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
             
             Api.shared.post( path: "/getPath",  myData: json) {(res) in
                 switch res {
@@ -140,7 +126,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                         path_item.destination = self.selectedDestination
                         
                         let path_item_to_send = try JSONEncoder().encode(path_item)
-                        self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
+                        self.alreadySent.append(SocketPostBody(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
                         
                         AudioServicesPlaySystemSound(SystemSoundID(1025))
                         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))

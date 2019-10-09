@@ -8,35 +8,6 @@
 
 import Foundation
 
-struct PathData: Codable {
-    var node_start_id: Int
-    var node_end_id: Int
-    var distance: Double
-    var z: String
-    var direction: String
-    var first_beacon_id: String?
-    var second_beacon_id: String?
-    var destination_id: Int?
-    var destination: Destination?
-}
-
-struct Desti: Codable {
-    var id: Int
-    var node_id : Int
-    var type_id:Int
-    var label_japanese: String
-    var label_english: String
-    var label_korean: String
-    var label_chinese: String
-    var created_at: String
-    var updated_at: String
-}
-
-struct EmergencyData: Decodable {
-    var emergency: Bool
-}
-
-
 class Api {
     
     public var map: MapData?
@@ -77,7 +48,7 @@ class Api {
         return task.resume()
     }
     
-    func post(path: String, myData: PostData, completion: @escaping (Result<[PathData], Error>) -> ()) {
+    func post(path: String, myData: PathPostBody, completion: @escaping (Result<[PathData], Error>) -> ()) {
         
         let jsonData = try! JSONEncoder().encode(myData)
         
@@ -110,7 +81,7 @@ class Api {
         return task.resume()
     }
     
-    func setEmergency(path: String, completion: @escaping (Result<EmergencyData, Error>) -> ()) {
+    func setEmergency(path: String, completion: @escaping (Result<Emergency, Error>) -> ()) {
         guard let endpoint = URL(string: (baseUrl + path)) else { return }
         
         var request = URLRequest(url: endpoint)
@@ -125,7 +96,7 @@ class Api {
             guard let data = data else { return }
             
             do {
-                let emergency_mode = try JSONDecoder().decode(EmergencyData.self, from: data)
+                let emergency_mode = try JSONDecoder().decode(Emergency.self, from: data)
                 
                 
                 completion(.success(emergency_mode))

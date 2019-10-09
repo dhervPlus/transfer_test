@@ -9,15 +9,6 @@
 import UIKit
 import BeacrewLoco
 
-
-
-struct PostData: Codable {
-    var map_id: Int
-    var x_pixel: Double
-    var y_pixel: Double
-    var destination_id: Int
-}
-
 class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePathTable {
     var map: Map?
     var beacons = [Beacon]()
@@ -27,7 +18,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     //    var mapImageData = Data()
     var destination_name:String = String()
     var current_table = String()
-    var cursor: Cursor = Cursor(x:0, y:0)!
+    var cursor: Cursor = Cursor(x:0, y:0)
     
     
     // MARK: Path

@@ -331,9 +331,9 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
                 print(err)
             case .success(let map_data):
                 // order destinations by id
-                var destinations = map_data.destinations.sorted(by: { $0.id < $1.id }).enumerated().map { (arg) -> Destination in
+                _ = map_data.destinations.sorted(by: { $0.id < $1.id }).enumerated().map { (arg) -> Destination in
                     
-                    let (index, element) = arg
+                    var (index, element) = arg
                     element.order = index + 1
                     return element
                 }

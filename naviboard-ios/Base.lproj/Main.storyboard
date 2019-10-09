@@ -523,7 +523,7 @@ Please walk along the arrow with this icon during guidance.</string>
         <image name="settings" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wD4-ZF-1Y3"/>
+        <segue reference="Ucw-je-n5F"/>
         <segue reference="WUx-vy-aTm"/>
     </inferredMetricsTieBreakers>
 </document>
