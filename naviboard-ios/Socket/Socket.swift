@@ -10,7 +10,7 @@ import SocketIO
 
 class Socket {
     
-    static let shared = Socket(url: String("http://10.0.0.17:3000"))
+    static let shared = Socket(url: String("http://54.64.251.38:3000"))
     
     var url: String
     var manager: SocketManager

@@ -117,7 +117,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                 // if exists - it means we found the display from bluetooth and should send path item
                 
                 // check for second beacon ids and store if beacon is in range
-                if path_item.second_beacon_id != "" {
+                if path_item.second_beacon_id != nil {
                     // check if beacon is in range and is not already stored in secondBeaconIds array
                     if beacon_ids.contains(path_item.second_beacon_id!) && !self.secondBeaconIdsStore.contains(path_item.second_beacon_id!) {
                         self.secondBeaconIdsStore.append(path_item.second_beacon_id!)
@@ -132,7 +132,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                     && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == path_item.first_beacon_id } ) {
                     do {
                         // check if display has a second beacon id. If not stored, return
-                        if (path_item.second_beacon_id != "" && !self.secondBeaconIdsStore.contains(path_item.second_beacon_id!)) {
+                        if (path_item.second_beacon_id != nil && !self.secondBeaconIdsStore.contains(path_item.second_beacon_id!)) {
                             return
                         }
                         var path_item = path_item
@@ -148,7 +148,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                         socket.emit("push_notification", ["roomId": path_item.first_beacon_id! ,"json": path_item_to_send])
                         
                         // if second beacon id, filter it out
-                        if self.secondBeaconIdsStore.contains(path_item.second_beacon_id!) {
+                        if path_item.second_beacon_id != nil && self.secondBeaconIdsStore.contains(path_item.second_beacon_id!) {
                             let secondBeaconIdsStore = self.secondBeaconIdsStore.filter { $0 != path_item.second_beacon_id }
                             self.secondBeaconIdsStore = secondBeaconIdsStore
                         }
