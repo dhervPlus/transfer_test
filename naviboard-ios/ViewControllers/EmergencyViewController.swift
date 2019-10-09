@@ -88,7 +88,6 @@ class EmergencyViewController: UIViewController {
      */
     
     func setEmergency() {
-        print("setEmergency")
         Api.shared.setEmergency(path: "/emergency"){(res) in
             switch res {
             case .failure(let err):

@@ -15,6 +15,7 @@ struct PathData: Codable {
     var z: String
     var direction: String
     var first_beacon_id: String?
+    var second_beacon_id: String?
     var destination_id: Int?
     var destination: Destination?
 }
@@ -126,7 +127,7 @@ class Api {
             do {
                 let emergency_mode = try JSONDecoder().decode(EmergencyData.self, from: data)
                 
-                print(emergency_mode)
+                
                 completion(.success(emergency_mode))
             } catch {
                 completion(.failure(error))

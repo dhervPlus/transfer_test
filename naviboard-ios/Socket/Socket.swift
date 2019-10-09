@@ -24,7 +24,7 @@ class Socket {
         let socket = self.manager.defaultSocket
         if(socket.status==SocketIOStatus.notConnected){
             socket.on(clientEvent: .connect) {data, ack in
-                print("SOCKET")
+                print("socket client connected")
             }
             socket.connect()
         }

@@ -47,7 +47,8 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var current_beacon_id = ""
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     var rowCount = 0
-
+    var secondBeaconIdsStore = [String]()
+    
     var socket:SocketIOClient!
     
     override func viewDidLoad() {
@@ -107,35 +108,55 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         self.timer_count += 1
         
         let socket = Socket.shared.checkAliveSocket()
-
+        
         self.beacon_ids = beacons.map { $0.beaconId }
-    
+        
         for beacon in beacons {
             for path_item in self.pathMemory {  
                 // check if beacon received from bluetooth is in the list of path items
                 // if exists - it means we found the display from bluetooth and should send path item
                 
+                // check for second beacon ids and store if beacon is in range
+                if path_item.second_beacon_id != "" {
+                    // check if beacon is in range and is not already stored in secondBeaconIds array
+                    if beacon_ids.contains(path_item.second_beacon_id!) && !self.secondBeaconIdsStore.contains(path_item.second_beacon_id!) {
+                        self.secondBeaconIdsStore.append(path_item.second_beacon_id!)
+                    }
+                }
+                
                 // RESET alreadySent when beacon signal disappear
                 alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
-
+                
                 if path_item.first_beacon_id != nil
                     && path_item.first_beacon_id == beacon.beaconId
                     && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == path_item.first_beacon_id } ) {
                     do {
+                        // check if display has a second beacon id. If not stored, return
+                        if (path_item.second_beacon_id != "" && !self.secondBeaconIdsStore.contains(path_item.second_beacon_id!)) {
+                            return
+                        }
                         var path_item = path_item
                         path_item.destination_id = self.selectedDestination!.id
                         path_item.destination = self.selectedDestination
                         
                         let path_item_to_send = try JSONEncoder().encode(path_item)
-                      self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
-                                            
+                        self.alreadySent.append(SocketObject(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
+                        
                         AudioServicesPlaySystemSound(SystemSoundID(1025))
                         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                      
+                        
                         socket.emit("push_notification", ["roomId": path_item.first_beacon_id! ,"json": path_item_to_send])
+                        
+                        // if second beacon id, filter it out
+                        if self.secondBeaconIdsStore.contains(path_item.second_beacon_id!) {
+                            let secondBeaconIdsStore = self.secondBeaconIdsStore.filter { $0 != path_item.second_beacon_id }
+                            self.secondBeaconIdsStore = secondBeaconIdsStore
+                        }
                     } catch {
                         print(error)
                     }
+                    
+                    
                 }
             }
         }
