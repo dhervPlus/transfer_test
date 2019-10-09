@@ -366,6 +366,8 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
             destinations.append(value)
         }
         
+        destinations = destinations.sorted(by: {$0.first!.type_label_english < $1.first!.type_label_english})
+        
         if searchActive {
             self.destinations_filtered = destinations
         } else {
