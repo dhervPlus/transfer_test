@@ -325,7 +325,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
      */
     
     private func loadDestinations(beacon_id: String) {
-        Api.shared.get(path: "/map/current/\(beacon_id)"){(res) in
+        Api.shared.get(for: MapData.self, path: "/map/current/\(beacon_id)"){(res) in
             switch res {
             case .failure(let err):
                 print(err)

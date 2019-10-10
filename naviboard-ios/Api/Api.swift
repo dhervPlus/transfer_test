@@ -8,9 +8,10 @@
 
 import Foundation
 
+
 class Api {
     
-    public var map: MapData?
+    
     static let shared = Api(baseUrl: String("http://13.231.244.58/public/api"))
     
     var baseUrl: String
@@ -19,46 +20,35 @@ class Api {
         self.baseUrl = baseUrl
     }
     
-    func get(path: String, completion: @escaping (Result<MapData, Error>) -> ()) {
+    func get<T: Decodable>(for: T.Type = T.self, path: String, completion: @escaping (Result<T, Error>) -> ()) {
         
         guard let endpoint = URL(string: (baseUrl + path)) else { return }
         
         let task = URLSession.shared.dataTask(with: endpoint) { data, response, error in
-            if let error = error {
-                print(error)
+            
+            guard let data = data else {
+                print("URLSession dataTask error:", error ?? "nil")
                 return
             }
             
-            guard let data = data else { return }
-            
             do {
-                let map_data = try JSONDecoder().decode(MapData.self, from: data)
-                self.map = map_data
-                completion(.success(map_data))
+                let response_data = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(response_data))
             } catch {
                 completion(.failure(error))
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse,
-                (200...299).contains(httpResponse.statusCode) else {
-                    //                self.handleServerError(response)
-                    return
             }
         }
         return task.resume()
     }
     
-    func post(path: String, myData: PathPostBody, completion: @escaping (Result<[PathData], Error>) -> ()) {
+    func post<T: Decodable, P: Encodable>(for: T.Type = T.self, path: String, postData: P, completion: @escaping (Result<[T], Error>) -> ()) {
         
-        let jsonData = try! JSONEncoder().encode(myData)
-        
-        // endpoint
         guard let endpoint = URL(string: (baseUrl + path)) else { return }
         
+        let jsonData = try! JSONEncoder().encode(postData)
         
         var request = URLRequest(url: endpoint)
         request.httpMethod = "POST"
-        // insert json data to the request
         request.httpBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -70,8 +60,8 @@ class Api {
             }
             
             do {
-                let jsonObject = try JSONDecoder().decode([PathData].self, from: data)
-                completion(.success(jsonObject))
+                let response_data = try JSONDecoder().decode([T].self, from: data)
+                completion(.success(response_data))
             } catch {
                 print("JSONSerialization error:", error)
                 completion(.failure(error))
@@ -81,25 +71,22 @@ class Api {
         return task.resume()
     }
     
-    func setEmergency(path: String, completion: @escaping (Result<Emergency, Error>) -> ()) {
+    func put<T: Decodable>(for: T.Type = T.self, path: String, completion: @escaping (Result<T, Error>) -> ()) {
+        
         guard let endpoint = URL(string: (baseUrl + path)) else { return }
         
         var request = URLRequest(url: endpoint)
         request.httpMethod = "PUT"
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print(error)
+            
+            guard let data = data else {
+                print("URLSession dataTask error:", error ?? "nil")
                 return
             }
-            
-            guard let data = data else { return }
-            
             do {
-                let emergency_mode = try JSONDecoder().decode(Emergency.self, from: data)
-                
-                
-                completion(.success(emergency_mode))
+                let response_data = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(response_data))
             } catch {
                 completion(.failure(error))
             }

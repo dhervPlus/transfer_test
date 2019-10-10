@@ -254,7 +254,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     // MARK: load functions
     
     private func loadMap(beacon_id: String) {
-        Api.shared.get(path: "/map/current/\(beacon_id)"){(res) in
+            Api.shared.get(for: MapData.self, path: "/map/current/\(beacon_id)"){(res) in
             switch res {
             case .failure(let err):
                 print(err)
@@ -268,7 +268,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                     self.nodes = map_data.nodes
                     self.edges = map_data.edges
                     self.performSegue(withIdentifier: "seguetoPathView", sender: self)
-                   
                     
                 }
             }

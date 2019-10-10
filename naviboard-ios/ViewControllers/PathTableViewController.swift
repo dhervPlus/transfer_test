@@ -56,7 +56,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             
             let json: PathPostBody = PathPostBody(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
             
-            Api.shared.post( path: "/getPath",  myData: json) {(res) in
+            Api.shared.post(for: PathData.self, path: "/getPath",  postData: json) {(res) in
                 switch res {
                 case.failure(let error):
                     print(error)
