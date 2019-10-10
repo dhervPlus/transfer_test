@@ -12,10 +12,9 @@ import SocketIO
 import AudioToolbox
 import AVFoundation
 
-protocol UpdatePathTable {
-    func afterBeacon(beacons: [BCLBeacon]!, position: Estimate)
+protocol PathPositionDelegate {
+    func setCursorPosition(position: Estimate)
 }
-
 
 class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
@@ -23,21 +22,18 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     // MARK: variables
     
     // from segue
-    var delegate: UpdatePathTable?
+    var pathPositionDelegate: PathPositionDelegate?
     var map: Map? = nil
-//    var paths = [Path]()
     var destination_name:String = String()
     var current_table = String()
     var pathData = [Path]()
     
-    var timer_count = 3
-    var pathMemory = [Path]()
+    // from controller
+    var get_path_timer_count = 3
+    var displayMemory = [Path]()
     var selectedDestination: Destination? = nil
     var alreadySent = [PostSocket]()
     var beacon_ids = [String]()
-    var current_beacon_id = ""
-    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-    var rowCount = 0
     var secondBeaconIdsStore = [String]()
     
     var socket:SocketIOClient!
@@ -47,98 +43,91 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //MARK: Beacrew Manager
         BCLManager.shared()?.delegate = self
     }
     
     
-    
-    func getPath(position: Estimate, beacons: [BCLBeacon]!) {
-        
-//        if(self.current_beacon_id != "") {
-            let decimal_x = round(Double(truncating: position.x as NSNumber))
-            let decimal_y = round(Double(truncating:position.y as NSNumber))
-            
-            let json: PostPath = PostPath(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
-            
-            Api.shared.post(for: Path.self, path: "/getPath",  postData: json) {(res) in
-                switch res {
-                case.failure(let error):
-                    print(error)
-                case .success(let data):
-                    DispatchQueue.main.async {
-                        self.pathData = data
-                        self.pathMemory = []
-                        for path in data {
-                            // store all beacon id from path - Those beacon ids represent one display each
-                            if(path.first_beacon_id != nil) {
-                                self.pathMemory.append(path)
-                            }
-                        }
-                        
-                        if(self.tableView.numberOfRows(inSection: 0) > 0 && self.tableView.numberOfRows(inSection: 0) == self.pathData.count) {
-                            for (index, _) in data.enumerated() {
-                                let indexPath = IndexPath(item: index, section: 0)
-                                let contentOffset = self.tableView.contentOffset
-                                self.tableView.beginUpdates()
-                                self.tableView.reloadRows(at: [indexPath], with: .fade)
-                                self.tableView.endUpdates()
-                                self.tableView.layer.removeAllAnimations()
-                                self.tableView.setContentOffset(contentOffset, animated: false)
-                            }
-                        } else {
-                            self.tableView.reloadData()
-                        }
-                    }
-                }
-            }
-//        }
-    }
+    // MARK: BCL functions
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
-        self.timer_count += 1
+        checkDisplayInRange(beacons: beacons)
+    }
+    
+    
+    // MARK: Private functions
+    
+    /**
+     Check if display items beacon id match one of the beacons in range
+     If found, build item and send it through socket to display
+     - parameter beacons: [BCLBeacon]
+     */
+    private func checkDisplayInRange(beacons: [BCLBeacon]) {
+        // Check the socket is alived and set it
+        socket = Socket.shared.checkAliveSocket()
         
-        let socket = Socket.shared.checkAliveSocket()
+        // Update the get_path_timer_count
+        self.get_path_timer_count += 1
         
+        // Store the beacons in range with their ids
         self.beacon_ids = beacons.map { $0.beaconId }
         
+        
         for beacon in beacons {
-            for path_item in self.pathMemory {  
-                // check if beacon received from bluetooth is in the list of path items
-                // if exists - it means we found the display from bluetooth and should send path item
+            
+            // check if beacon received from bluetooth is in the list of path items
+            // If it is already stored, it means we found the display from bluetooth and should send path item
+            for path_item_with_display in self.displayMemory {
+                
                 
                 // check for second beacon ids and store if beacon is in range
-                if path_item.second_beacon_id != nil {
+                if path_item_with_display.second_beacon_id != nil {
+                    
+                    
                     // check if beacon is in range and is not already stored in secondBeaconIds array
-                    if beacon_ids.contains(path_item.second_beacon_id!) && !self.secondBeaconIdsStore.contains(path_item.second_beacon_id!) {
-                        self.secondBeaconIdsStore.append(path_item.second_beacon_id!)
+                    if beacon_ids.contains(path_item_with_display.second_beacon_id!) && !self.secondBeaconIdsStore.contains(path_item_with_display.second_beacon_id!) {
+                        self.secondBeaconIdsStore.append(path_item_with_display.second_beacon_id!)
                     }
                 }
                 
                 // RESET alreadySent when beacon signal disappear
                 alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
                 
-                if path_item.first_beacon_id != nil
-                    && path_item.first_beacon_id == beacon.beaconId
-                    && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == path_item.first_beacon_id } ) {
+                
+                // if path has first_beacon_id (mean edge/path has display)
+                // if this beacon is in range
+                // if not already sent
+                if path_item_with_display.first_beacon_id != nil
+                    && path_item_with_display.first_beacon_id == beacon.beaconId
+                    && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == path_item_with_display.first_beacon_id } ) {
                     do {
-                        // check if display has a second beacon id. If not stored, return
-                        if (path_item.second_beacon_id != nil && !self.secondBeaconIdsStore.contains(path_item.second_beacon_id!)) {
+                        
+                        // Check if display has a second beacon id.
+                        // Second beacon id means the display is visible only when you arrived from the second beacon id position.
+                        // And if this id has not already been stored, return.
+                        // It means the application should have reach the second beacon first but did not.
+                        if (path_item_with_display.second_beacon_id != nil && !self.secondBeaconIdsStore.contains(path_item_with_display.second_beacon_id!)) {
                             return
                         }
-                        var path_item = path_item
-                        path_item.destination_id = self.selectedDestination!.id
-                        path_item.destination = self.selectedDestination
                         
-                        let path_item_to_send = try JSONEncoder().encode(path_item)
+                        // Store the item as already sent
                         self.alreadySent.append(PostSocket(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
                         
-                        AudioServicesPlaySystemSound(SystemSoundID(1025))
-                        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                         
-                        socket.emit("push_notification", ["roomId": path_item.first_beacon_id! ,"json": path_item_to_send])
+                        // Build the path item to send
+                        let path_item: Path = buildPathItemToSend(path_item: path_item_with_display)
+                        let path_item_to_send = try JSONEncoder().encode(path_item)
                         
-                        // if second beacon id, filter it out
+                        
+                        // Play sound and vibration
+                        playSoundAndVibrate()
+                        
+                        
+                        // Send path item to display using web socket
+                        sendPathItemToDisplay(path_first_beacon_id: path_item.first_beacon_id!, path_item_to_send: path_item_to_send)
+                        
+                        
+                        // Filter out the path item second beacon if stored
+                        // The user needs to reach the second beacon again to be able to send the item.
                         if path_item.second_beacon_id != nil && self.secondBeaconIdsStore.contains(path_item.second_beacon_id!) {
                             let secondBeaconIdsStore = self.secondBeaconIdsStore.filter { $0 != path_item.second_beacon_id }
                             self.secondBeaconIdsStore = secondBeaconIdsStore
@@ -146,19 +135,163 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                     } catch {
                         print(error)
                     }
-                    
-                    
                 }
             }
         }
         
-        let position: Estimate = EstimationService().locatePosition(beacons: beacons)
+        let position = setPosition(beacons: beacons)
         
-        delegate?.afterBeacon(beacons: beacons, position: position)
-        
-        if(self.timer_count > 2) {
+        if(self.get_path_timer_count > 2) {
             self.getPath(position: position, beacons: beacons)
-            self.timer_count = 0
+            self.get_path_timer_count = 0
+        }
+    }
+    
+    
+    /**
+     Build the path item to send to the socket server
+     - parameter path_item: Path
+     - returns: path_item
+     */
+    private func buildPathItemToSend(path_item: Path) -> Path {
+        var path_item = path_item
+        path_item.destination_id = self.selectedDestination!.id
+        path_item.destination = self.selectedDestination
+        return path_item
+    }
+    
+    
+    /**
+     Emit the path item to the socket linked to the display (room id = path_item_with_display.first_beacon_id
+     - parameter path_first_beacon_id : String
+     - parameter path_item_to_send : Data
+     */
+    private func sendPathItemToDisplay(path_first_beacon_id: String, path_item_to_send: Data) {
+        socket.emit("push_notification", ["roomId": path_first_beacon_id ,"json": path_item_to_send])
+    }
+    
+    
+    /**
+     Get the current position of the device
+     Send it throught delegate to debug screen to display the cursor
+     - parameter beacons : [BCLBeacon]
+     - returns: Estimate
+     */
+    private func setPosition(beacons: [BCLBeacon]) -> Estimate {
+        let position: Estimate = EstimationService().locatePosition(beacons: beacons)
+        pathPositionDelegate?.setCursorPosition( position: position)
+        return position
+    }
+    
+    
+    /**
+     Play sound and vibrate
+     */
+    private func playSoundAndVibrate() {
+        AudioServicesPlaySystemSound(SystemSoundID(1025))
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+    }
+    
+    
+    /**
+     Return the direction name to get the right vector image
+     - parameter direction : String
+     - returns: String
+     */
+    private func getArrow(direction: String) -> String {
+        switch(direction) {
+        case "straigt":
+            return "direction_straight"
+        case "back":
+            return "direction_back"
+        case "right":
+            return "direction_right"
+        case "left":
+            return "direction_left"
+        default:
+            return "direction_straight"
+        }
+    }
+    
+    
+    /**
+     Get icon name from destination type id
+     - parameter type : Int
+     - returns: String
+     */
+    private func getIcon(type: Int) -> String {
+        switch(type) {
+        case 1:
+            return "icon_toilet"
+        case 2:
+            return "icon_bus"
+        case 3:
+            return "icon_tower"
+        case 4:
+            return "icon_taxi"
+        case 5:
+            return "icon_train"
+        case 6:
+            return "icon_info"
+        case 7:
+            return "icon_locker"
+        default:
+            return "icon_bus"
+        }
+    }
+    
+    
+    /**
+     Get path from estimated position and list of beacons in range
+     - parameter position: Estimate
+     - parameter beacons: [BCLBeacon]
+     */
+    private func getPath(position: Estimate, beacons: [BCLBeacon]!) {
+        
+        let decimal_x = round(Double(truncating: position.x as NSNumber))
+        let decimal_y = round(Double(truncating:position.y as NSNumber))
+        
+        let json: PostPath = PostPath(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
+        
+        Api.shared.post(for: Path.self, path: "/getPath",  postData: json) {(res) in
+            switch res {
+            case.failure(let error):
+                print(error)
+            case .success(let data):
+                DispatchQueue.main.async {
+                    
+                    // pathData is the actual list of paths
+                    self.pathData = data
+                    
+                    // display memory will store only the paths which have a first_beacon_id meaning a display
+                    self.displayMemory = []
+                    
+                    
+                    for path in data {
+                        // Store all beacon id from path
+                        // Those beacon ids represent one display each
+                        if(path.first_beacon_id != nil) {
+                            self.displayMemory.append(path)
+                        }
+                    }
+                    
+                    // MARK: - handle the scroll effect at each table reload
+                    
+                    if(self.tableView.numberOfRows(inSection: 0) > 0 && self.tableView.numberOfRows(inSection: 0) == self.pathData.count) {
+                        for (index, _) in data.enumerated() {
+                            let indexPath = IndexPath(item: index, section: 0)
+                            let contentOffset = self.tableView.contentOffset
+                            self.tableView.beginUpdates()
+                            self.tableView.reloadRows(at: [indexPath], with: .fade)
+                            self.tableView.endUpdates()
+                            self.tableView.layer.removeAllAnimations()
+                            self.tableView.setContentOffset(contentOffset, animated: false)
+                        }
+                    } else {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
         }
     }
     
@@ -189,8 +322,6 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             fatalError("The dequeued cell is not an instance of PathTableViewCell.")
         }
         
-        // Configure the cell...
-        
         let path = pathData[indexPath.row]
         
         // path arrow depends on direction
@@ -203,89 +334,4 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         
         return cell
     }
-    
-    func getIcon(type: Int) -> String {
-        switch(type) {
-        case 1:
-            return "icon_toilet"
-        case 2:
-            return "icon_bus"
-        case 3:
-            return "icon_tower"
-        case 4:
-            return "icon_taxi"
-        case 5:
-            return "icon_train"
-        case 6:
-            return "icon_info"
-        case 7:
-            return "icon_locker"
-        default:
-            return "icon_bus"
-        }
-    }
-    
-    // MARK: Private functions
-    
-    func getArrow(direction: String) -> String {
-        switch(direction) {
-        case "straigt":
-            return "direction_straight"
-        case "back":
-            return "direction_back"
-        case "right":
-            return "direction_right"
-        case "left":
-            return "direction_left"
-        default:
-            return "direction_straight"
-        }
-    }
-    
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

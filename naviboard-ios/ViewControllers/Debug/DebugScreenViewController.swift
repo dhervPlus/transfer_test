@@ -10,7 +10,7 @@ import UIKit
 import BeacrewLoco
 
 
-class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePathTable {
+class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPositionDelegate {
     
     // MARK: variables
     
@@ -101,21 +101,51 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     }
     
     
-    // MARK: delegate functions
+    // MARK: Delegate functions
+    
     
     /**
-     Function is called from protocol in PathTableViewController
-     Setup the cursor position
-     - parameter beacons: [BCLBeacon],
-     - parameter position: Estimate
-     - returns: call to setCursorPosition
+     Set the cursor depending on the x and y provided
+     - parameter x : Double
+     - parameter y: Double
      */
     
-    func afterBeacon(beacons: [BCLBeacon]!, position: Estimate) {
-        DispatchQueue.main.async {
-            let x = Double(String(describing:position.x))!
-            let y = Double(String(describing:position.y))!
-            self.setCursorPosition(x:x, y:y)
+    func setCursorPosition(position: Estimate) {
+        
+        let x = Double(String(describing:position.x))!
+        let y = Double(String(describing:position.y))!
+        
+        if self.mapImage.image != nil {
+            let natural_height = self.mapImage.image!.size.height
+            let natural_width = self.mapImage.image!.size.width
+            let loco_height = (natural_height * 800.0) / natural_width
+            
+            // if view with tag 100 is already here, remove it. Otherwise cursor will keep being added to the view
+            // else setup cursor and add it to view with tag 100
+            if let viewWithTag = self.view.viewWithTag(100) {
+                let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
+                let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
+                viewWithTag.frame = CGRect(x: x - 15, y: y - 15, width: 60 , height: 60)
+            } else {
+                let cursor = UIImage(named: "cursor")
+                let imageView = UIImageView(image: cursor!)
+                imageView.tag = 100
+                let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
+                let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
+                imageView.frame = CGRect(x: x - 15, y: y - 15, width: 60 , height: 60)
+                imageView.layer.zPosition = 5
+                imageView.alpha = 0
+                self.mapImage.addSubview(imageView)
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    imageView.alpha = 1
+                })
+            }
+            
+            // Loader stop
+            self.view.stopActivityIndicator()
+        } else {
+            return
         }
     }
     
@@ -157,49 +187,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         
         // Add line to layer
         view.layer.addSublayer(shapeLayer)
-    }
-    
-    
-    /**
-     Set the cursor depending on the x and y provided
-     - parameter x : Double
-     - parameter y: Double
-     */
-    
-    private func setCursorPosition(x: Double, y: Double) {
-        
-        if self.mapImage.image != nil {
-            let natural_height = self.mapImage.image!.size.height
-            let natural_width = self.mapImage.image!.size.width
-            let loco_height = (natural_height * 800.0) / natural_width
-            
-            // if view with tag 100 is already here, remove it. Otherwise cursor will keep being added to the view
-            // else setup cursor and add it to view with tag 100
-            if let viewWithTag = self.view.viewWithTag(100) {
-                let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
-                let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-                viewWithTag.frame = CGRect(x: x - 15, y: y - 15, width: 60 , height: 60)
-            } else {
-                let cursor = UIImage(named: "cursor")
-                let imageView = UIImageView(image: cursor!)
-                imageView.tag = 100
-                let x = round((CGFloat(x) * self.mapImage.frame.width) / 800.0) - 10
-                let y = round((CGFloat(y) * self.mapImage.frame.height) / loco_height) - 10
-                imageView.frame = CGRect(x: x - 15, y: y - 15, width: 60 , height: 60)
-                imageView.layer.zPosition = 5
-                imageView.alpha = 0
-                self.mapImage.addSubview(imageView)
-                
-                UIView.animate(withDuration: 0.5, animations: {
-                    imageView.alpha = 1
-                })
-            }
-            
-            // Loader stop
-            self.view.stopActivityIndicator()
-        } else {
-            return
-        }
     }
     
     /**
@@ -314,7 +301,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "seguetoPathView" {
             let pathTableView = segue.destination as! PathTableViewController
-            pathTableView.delegate = self
+            pathTableView.pathPositionDelegate = self
             pathTableView.destination_name = self.destination_name
             pathTableView.current_table = self.current_table
             pathTableView.selectedDestination = self.selectedDestination
