@@ -28,7 +28,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var timer_count = 3
     var pathMemory = [PathData]()
     var selectedDestination: Destination? = nil
-    var alreadySent = [SocketPostBody]()
+    var alreadySent = [PostSocket]()
     var beacon_ids = [String]()
     var current_beacon_id = ""
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -54,7 +54,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             let decimal_x = round(Double(truncating: position.x as NSNumber))
             let decimal_y = round(Double(truncating:position.y as NSNumber))
             
-            let json: PathPostBody = PathPostBody(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
+            let json: PostPath = PostPath(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
             
             Api.shared.post(for: PathData.self, path: "/getPath",  postData: json) {(res) in
                 switch res {
@@ -126,7 +126,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                         path_item.destination = self.selectedDestination
                         
                         let path_item_to_send = try JSONEncoder().encode(path_item)
-                        self.alreadySent.append(SocketPostBody(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
+                        self.alreadySent.append(PostSocket(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
                         
                         AudioServicesPlaySystemSound(SystemSoundID(1025))
                         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))

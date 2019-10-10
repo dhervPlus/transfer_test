@@ -35,10 +35,12 @@
 		6DD3A48323345BF300671478 /* RadiationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A47E23345BF300671478 /* RadiationService.swift */; };
 		6DD3A48723345F7000671478 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3A48623345F7000671478 /* Extensions.swift */; };
 		6DDB29BA234D679400E6D39C /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29B9234D679400E6D39C /* Socket.swift */; };
-		6DDB29CE234DC8B600E6D39C /* PathPostBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29CD234DC8B600E6D39C /* PathPostBody.swift */; };
+		6DDB29CE234DC8B600E6D39C /* PostPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29CD234DC8B600E6D39C /* PostPath.swift */; };
 		6DDB29D0234DC94200E6D39C /* Emergency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29CF234DC94200E6D39C /* Emergency.swift */; };
 		6DDB29D2234DCA4B00E6D39C /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29D1234DCA4B00E6D39C /* Position.swift */; };
-		6DDB29D4234DCA6A00E6D39C /* SocketPostBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29D3234DCA6A00E6D39C /* SocketPostBody.swift */; };
+		6DDB29D4234DCA6A00E6D39C /* PostSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29D3234DCA6A00E6D39C /* PostSocket.swift */; };
+		6DDB29E0234EB6D000E6D39C /* PositionCluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29DF234EB6D000E6D39C /* PositionCluster.swift */; };
+		6DDB29E2234EB6F800E6D39C /* PositionEstimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29E1234EB6F800E6D39C /* PositionEstimate.swift */; };
 		6DEF880C230FDA1100D5FF9A /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF880B230FDA1100D5FF9A /* Destination.swift */; };
 		6DEF880E230FDFD000D5FF9A /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF880D230FDFD000D5FF9A /* DestinationTableViewCell.swift */; };
 		6DEF88102310A12500D5FF9A /* DestinationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF880F2310A12500D5FF9A /* DestinationTableViewController.swift */; };
@@ -101,10 +103,12 @@
 		6DD3A47E23345BF300671478 /* RadiationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiationService.swift; sourceTree = "<group>"; };
 		6DD3A48623345F7000671478 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6DDB29B9234D679400E6D39C /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
-		6DDB29CD234DC8B600E6D39C /* PathPostBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathPostBody.swift; sourceTree = "<group>"; };
+		6DDB29CD234DC8B600E6D39C /* PostPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPath.swift; sourceTree = "<group>"; };
 		6DDB29CF234DC94200E6D39C /* Emergency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emergency.swift; sourceTree = "<group>"; };
 		6DDB29D1234DCA4B00E6D39C /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
-		6DDB29D3234DCA6A00E6D39C /* SocketPostBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketPostBody.swift; sourceTree = "<group>"; };
+		6DDB29D3234DCA6A00E6D39C /* PostSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSocket.swift; sourceTree = "<group>"; };
+		6DDB29DF234EB6D000E6D39C /* PositionCluster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionCluster.swift; sourceTree = "<group>"; };
+		6DDB29E1234EB6F800E6D39C /* PositionEstimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionEstimate.swift; sourceTree = "<group>"; };
 		6DEF880B230FDA1100D5FF9A /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		6DEF880D230FDFD000D5FF9A /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
 		6DEF880F2310A12500D5FF9A /* DestinationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -308,8 +312,10 @@
 			children = (
 				6DC366772334986E00B73E00 /* Cursor.swift */,
 				6DDB29D1234DCA4B00E6D39C /* Position.swift */,
-				6DDB29CD234DC8B600E6D39C /* PathPostBody.swift */,
-				6DDB29D3234DCA6A00E6D39C /* SocketPostBody.swift */,
+				6DDB29DF234EB6D000E6D39C /* PositionCluster.swift */,
+				6DDB29E1234EB6F800E6D39C /* PositionEstimate.swift */,
+				6DDB29CD234DC8B600E6D39C /* PostPath.swift */,
+				6DDB29D3234DCA6A00E6D39C /* PostSocket.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -517,19 +523,21 @@
 				6DEF88122310B5D100D5FF9A /* Api.swift in Sources */,
 				6D9B5357231CE89A00FC2D54 /* PathTableViewCell.swift in Sources */,
 				6DC366742334984900B73E00 /* GuidePlate.swift in Sources */,
-				6DDB29D4234DCA6A00E6D39C /* SocketPostBody.swift in Sources */,
+				6DDB29D4234DCA6A00E6D39C /* PostSocket.swift in Sources */,
 				6DD3A48723345F7000671478 /* Extensions.swift in Sources */,
 				6DC3666C2334979C00B73E00 /* Node.swift in Sources */,
 				6DC366782334986E00B73E00 /* Cursor.swift in Sources */,
 				6DC366762334985D00B73E00 /* Path.swift in Sources */,
 				6DC366722334983200B73E00 /* Beacon.swift in Sources */,
+				6DDB29E0234EB6D000E6D39C /* PositionCluster.swift in Sources */,
 				6DDB29BA234D679400E6D39C /* Socket.swift in Sources */,
 				6DDB29D2234DCA4B00E6D39C /* Position.swift in Sources */,
+				6DDB29E2234EB6F800E6D39C /* PositionEstimate.swift in Sources */,
 				6D027E74230FAF7B00A9B412 /* AppDelegate.swift in Sources */,
 				6DD3A48123345BF300671478 /* Spring.swift in Sources */,
 				6DC3666E233497BA00B73E00 /* Map.swift in Sources */,
 				6DEF880E230FDFD000D5FF9A /* DestinationTableViewCell.swift in Sources */,
-				6DDB29CE234DC8B600E6D39C /* PathPostBody.swift in Sources */,
+				6DDB29CE234DC8B600E6D39C /* PostPath.swift in Sources */,
 				6DEF88182319ECD000D5FF9A /* DebugScreenViewController.swift in Sources */,
 				6DD3A48023345BF300671478 /* EstimationService.swift in Sources */,
 				6DEF880C230FDA1100D5FF9A /* Destination.swift in Sources */,

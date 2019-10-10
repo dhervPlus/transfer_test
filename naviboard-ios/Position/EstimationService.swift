@@ -9,19 +9,9 @@
 import Foundation
 import BeacrewLoco
 
-struct Cluster {
-    var cm_per_pixel: Double
-}
-
-struct Estimate: Codable {
-    var x: Decimal
-    var y: Decimal
-    var z: Decimal
-}
 
 struct EstimationService {
     var radiationService: RadiationService = RadiationService();
-    
     var cluster: Cluster = Cluster(cm_per_pixel: 3.46875);
     var userHeightCM:Double = 120.0;
     var CM2M = 0.01;
@@ -44,54 +34,40 @@ struct EstimationService {
         // get center position from each vector
         let center: Vector = self.getCenter(rads: rads)
         
-//        print("CENTER", center)
-        
         
         // use spring to generate location
-        var springs = rads.map({(val: Radiation) -> Spring in Spring(source: val.s, lastLocated: center, length: val.d)});
-//        print("SPRING", springs)
+        let springs = rads.map({(val: Radiation) -> Spring in Spring(source: val.s, lastLocated: center, length: val.d)});
+        
         
         // Max iteration and spring mapping
         var maxIter = 500;
-        
         var mut_springs = [Spring]()
         while(maxIter > 0) {
-        var sum = Vector.sum(v_array: springs.map { val in
-                var v = val
-            return v.force()
+            var sum = Vector.sum(v_array: springs.map { val in
+                let v = val
+                return v.force()
             })
-        
-        
-        
             var next = sum.mul(a: 0.01);
-            
             next.z = 0.0; // ignore z-axis force.
-
             mut_springs = springs.map{ val in
-                var a = val
+                let a = val
                 return a.drag(diff: sum)
             };
-
-        
             if next.length < (0.0001) {
                 break
             };
             maxIter -= 1
         }
         
-//        print("MUT",mut_springs)
+    
         // get location
         var location: Estimate? = nil
         if let firstNumber = mut_springs.first {
-            var first = firstNumber
+            let first = firstNumber
             let firstLoc = first.location()
-//            print(first.location)
-            
-          
-                
             location = Estimate(x: Decimal( firstLoc.x), y: Decimal( firstLoc.y), z: Decimal(self.userHeightCM) );
         }
-       
+        
         return location!
     }
     
@@ -106,7 +82,6 @@ struct EstimationService {
         
         // Get vector of each beacon using the Radiation
         let center_array: [Vector] = rads.map({(val: Radiation) -> Vector in return val.s})
-        
         
         
         // addition all vector together and divide by their number to get center position

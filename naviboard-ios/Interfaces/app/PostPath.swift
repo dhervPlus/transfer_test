@@ -1,5 +1,5 @@
 //
-//  PathPostBody.swift
+//  PostPath.swift
 //  naviboard-ios
 //
 //  Created by damien on 2019/10/09.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PathPostBody: Codable {
+struct PostPath: Codable {
     var map_id: Int
     var x_pixel: Double
     var y_pixel: Double

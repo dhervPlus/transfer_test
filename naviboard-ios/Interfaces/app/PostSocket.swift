@@ -1,5 +1,5 @@
 //
-//  SocketPostBody.swift
+//  PostSocket.swift
 //  naviboard-ios
 //
 //  Created by damien on 2019/10/09.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SocketPostBody {
+struct PostSocket {
     var destination_id: Int
     var display_id: String
 }

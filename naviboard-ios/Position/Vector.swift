@@ -8,33 +8,34 @@
 
 import Foundation
 
+
 struct Vector {
     var x : Double
     var y : Double
     var z : Double
- 
+    
+    /**
+    Get the distance
+    - returns: current vector's distance
+    */
     var length: Double {
         get {
-            
             return Double(sqrt(pow(self.x, 2) + pow(self.y, 2) + pow(self.z, 2)))
         }
-       
     }
     
+    /**
+     Set the distance
+     - parameter v: Vector
+     - returns: new Vector or current one
+     */
     mutating func setLength(l: Double) -> Vector {
-          
-         //            print("L", l)
-         //            var s
-         //            if (l != nil) {
-         //                s = l
-         //            }
-                     if (self.length != 0.0) {
-                         let dl = Double(truncating: (l / self.length) as NSNumber);
-                         self.mul(a: dl)
-                     }
-                     return self
-                 
-     }
+        if (self.length != 0.0) {
+            let dl = Double(truncating: (l / self.length) as NSNumber);
+            return self.mul(a: dl)
+        }
+        return self
+    }
     
     /**
      Add vector to current one
@@ -72,15 +73,16 @@ struct Vector {
         return Vector(x: self.x, y: self.y, z: self.z);
     }
     
+    /**
+     Sum up a collection of vectors
+     - parameter v-array: [Vector]
+     - returns: new Vector
+     */
     static func sum(v_array: [Vector]) -> Vector {
-        
         var result = Vector(x: 0.0, y: 0.0, z: 0.0)
         for v in v_array {
             result = result.add(v: v)
         }
         return result
     }
-    
-  
-    
 }
