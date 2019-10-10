@@ -261,20 +261,6 @@ Please walk along the arrow with this icon during guidance.</string>
                                     <constraint firstAttribute="height" constant="310" id="p3R-L8-hRt"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lY1-G5-qS3">
-                                <rect key="frame" x="2" y="127" width="412" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQB-0y-xLX">
-                                <rect key="frame" x="2" y="199" width="403" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -309,8 +295,6 @@ Please walk along the arrow with this icon during guidance.</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="Location_X" destination="lY1-G5-qS3" id="gVV-4L-00j"/>
-                        <outlet property="Location_Y" destination="jQB-0y-xLX" id="FSu-rV-7TI"/>
                         <outlet property="NavLeftButton" destination="JdJ-Fz-E9a" id="Zd1-Ez-W9x"/>
                         <outlet property="NavRightButton" destination="uRD-NC-f4r" id="nv5-KG-GEK"/>
                         <outlet property="destinationName" destination="ASW-9M-94w" id="BUW-gv-bTu"/>

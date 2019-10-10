@@ -14,69 +14,60 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
     var beacons = [Beacon]()
     var nodes = [Node]()
     var edges = [Edge]()
+     var path = [Path]()
     
-    //    var mapImageData = Data()
-    var destination_name:String = String()
+    var destination_name = String()
     var current_table = String()
-    var cursor: Cursor = Cursor(x:0, y:0)
-    
-    
-    // MARK: Path
-    
-    var path = [PathData]()
+   
     var selectedDestination: Destination? = nil
     var current_beacon_id = ""
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     
-    
-    
-    @IBOutlet weak var Location_X: UILabel!
-    @IBOutlet weak var Location_Y: UILabel!
     @IBOutlet weak var mapName: UILabel!
     @IBOutlet weak var destinationName: UILabel!
     @IBOutlet weak var navigation: UINavigationItem!
     @IBOutlet weak var guideBoard: UILabel!
     @IBOutlet weak var NavLeftButton: UIBarButtonItem!
     @IBOutlet weak var NavRightButton: UIBarButtonItem!
-    
     @IBOutlet weak var mapImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //MARK: UI setup
+        
+        // Nav
         NavLeftButton.title = NSLocalizedString("Back", tableName: current_table, comment: "navigation-item")
         navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
         
+        // Guide board
         guideBoard.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
-        guideBoard.attributedText = self.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
+        guideBoard.attributedText = guideBoard.text!.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
         
-    
-        self.mapName.attributedText = self.indent(string: NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug"))
-         self.mapName.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
+        // Map name
+        // - Placeholder. Replaced with the actual map name one loadMap finish executing.
+        self.mapName.attributedText = self.mapName.text!.indent(string: NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug"))
+        self.mapName.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
         
+        // Destination name
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
-        destinationName.attributedText = self.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(destination_name)")
-        
-        //MARK: load functions
-//        loadMap()
+        destinationName.attributedText = destinationName.text!.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(destination_name)")
         
         showActivityIndicatory()
-        
     }
     
     
-      override func viewWillAppear(_ animated: Bool) {
-          //MARK: Beacrew Manager
-          BCLManager.shared()?.delegate = self
-      }
+    override func viewWillAppear(_ animated: Bool) {
+        //MARK: Beacrew Manager
+        BCLManager.shared()?.delegate = self
+    }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
         // prevent from calling loadmap every second on get beacon signal
-                   if(self.current_beacon_id == "") {
-                       self.current_beacon_id = beacons.first!.beaconId
-                       self.loadMap(beacon_id: beacons.first!.beaconId)
-                   }
+        if(self.current_beacon_id == "") {
+            self.current_beacon_id = beacons.first!.beaconId
+            self.loadMap(beacon_id: beacons.first!.beaconId)
+        }
     }
     
     
@@ -94,27 +85,27 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         actInd.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
     }
-        
     
-    //MARK: BCL functions
     
+    // MARK: BCL functions
+    
+    /**
+     Function is called from protocol in PathTableViewController
+     Setup the cursor position
+     - parameter beacons: [BCLBeacon],
+     - parameter position: Estimate
+     - returns: call to setCursorPosition
+     */
     func afterBeacon(beacons: [BCLBeacon]!, position: Estimate) {
-        
         DispatchQueue.main.async {
-            self.Location_X.text = String(describing:position.x)
-            self.Location_Y.text = String(describing:position.y)
-            
             let x = Double(String(describing:position.x))!
             let y = Double(String(describing:position.y))!
-            
             self.setCursorPosition(x:x, y:y)
         }
-        
     }
     
     
     //MARK: IB functions
-    
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         if let owningNavigationController = navigationController{owningNavigationController.popViewController(animated: true)
@@ -123,21 +114,11 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         }
     }
     
+    
     //MARK: Private Methods
     
     private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    
-    private func indent(string: String) -> NSAttributedString {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.firstLineHeadIndent = 20
-        let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
-        
-        return NSMutableAttributedString(
-            string: string ,
-            attributes: attributes)
     }
     
     
@@ -251,10 +232,10 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         }}
     
     
-    // MARK: load functions
+    // MARK: Load functions
     
     private func loadMap(beacon_id: String) {
-            Api.shared.get(for: MapData.self, path: "/map/current/\(beacon_id)"){(res) in
+        Api.shared.get(for: MapData.self, path: "/map/current/\(beacon_id)"){(res) in
             switch res {
             case .failure(let err):
                 print(err)
@@ -262,8 +243,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                 self.map = map_data.map
                 self.downloadImage(from: map_data.map.image)
                 DispatchQueue.main.async {
-                    self.mapName.attributedText = self.indent(string: "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)")
-                   
+                    self.mapName.attributedText = self.mapName.text!.indent(string: "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)")
                     self.beacons = map_data.beacons
                     self.nodes = map_data.nodes
                     self.edges = map_data.edges
@@ -274,14 +254,12 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         }
     }
     
-
-  
+    
+    // MARK: Segue
+    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         return identifier == "seguetoPathView" && self.current_beacon_id != "" || identifier == "segueToEmergency"
     }
-    
-    
-    // MARK: Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "seguetoPathView" {
@@ -294,25 +272,11 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
             pathTableView.map = self.map
             pathTableView.current_beacon_id = self.current_beacon_id
             pathTableView.tableView.reloadData()
-            
         } else {
             let emergencyView = segue.destination as! EmergencyViewController
             emergencyView.current_table = self.current_table
         }
-        
     }
-    
 }
-
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destination.
- // Pass the selected object to the new view controller.
- }
- */
 
 

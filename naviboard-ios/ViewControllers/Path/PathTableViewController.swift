@@ -24,9 +24,9 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
 //    var paths = [Path]()
     var destination_name:String = String()
     var current_table = String()
-    var pathData = [PathData]()
+    var pathData = [Path]()
     var timer_count = 3
-    var pathMemory = [PathData]()
+    var pathMemory = [Path]()
     var selectedDestination: Destination? = nil
     var alreadySent = [PostSocket]()
     var beacon_ids = [String]()
@@ -56,7 +56,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             
             let json: PostPath = PostPath(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
             
-            Api.shared.post(for: PathData.self, path: "/getPath",  postData: json) {(res) in
+            Api.shared.post(for: Path.self, path: "/getPath",  postData: json) {(res) in
                 switch res {
                 case.failure(let error):
                     print(error)
