@@ -93,12 +93,11 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                 alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
                 
                 
-                // if path has first_beacon_id (mean edge/path has display)
-                // if this beacon is in range
-                // if not already sent
-                if path_item_with_display.first_beacon_id != nil
-                    && path_item_with_display.first_beacon_id == beacon.beaconId
-                    && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == path_item_with_display.first_beacon_id } ) {
+                
+                // Check if the path item meets all the conditions to be sent to the display
+                let condition_to_send_is_met = checkShouldSendItem(path_item_with_display: path_item_with_display, beacon: beacon)
+                
+                if condition_to_send_is_met {
                     do {
                         
                         // Check if display has a second beacon id.
@@ -147,6 +146,21 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         }
     }
     
+    /**
+     Check if path item meets the condition to be sent
+     - path has first_beacon_id (mean path has display)
+     - beacon related to this display is in range
+     - path item has not already sent
+     - display is close to the device (rssi > -70) to avoid sending to second display too soon if it is close
+     */
+    private func checkShouldSendItem(path_item_with_display: Path, beacon: BCLBeacon) -> Bool {
+        return (
+            path_item_with_display.first_beacon_id != nil
+                && path_item_with_display.first_beacon_id == beacon.beaconId
+                && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == path_item_with_display.first_beacon_id } )
+                && beacon.rssi > -70
+        )
+    }
     
     /**
      Build the path item to send to the socket server
