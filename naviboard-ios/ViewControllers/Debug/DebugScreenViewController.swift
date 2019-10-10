@@ -82,6 +82,10 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
         // prevent from calling loadmap every second on get beacon signal
         if(self.mapIsLoaded == false && !beacons.isEmpty) {
             self.loadMap(beacon_id: beacons.first!.beaconId)
+            print(beacons.filter({$0.rssi > -80}).count)
+        } else if beacons.isEmpty || !(beacons.filter({$0.rssi > -80}).count > 0) {
+            // Reset map when switching floor - if beacons becomes empty or no beacon with rssi close
+            self.mapIsLoaded = true
         }
     }
     
