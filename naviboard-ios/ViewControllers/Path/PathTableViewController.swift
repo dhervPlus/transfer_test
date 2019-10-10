@@ -19,12 +19,17 @@ protocol UpdatePathTable {
 
 class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
+    
+    // MARK: variables
+    
+    // from segue
     var delegate: UpdatePathTable?
     var map: Map? = nil
 //    var paths = [Path]()
     var destination_name:String = String()
     var current_table = String()
     var pathData = [Path]()
+    
     var timer_count = 3
     var pathMemory = [Path]()
     var selectedDestination: Destination? = nil
@@ -50,7 +55,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     func getPath(position: Estimate, beacons: [BCLBeacon]!) {
         
-        if(self.current_beacon_id != "") {
+//        if(self.current_beacon_id != "") {
             let decimal_x = round(Double(truncating: position.x as NSNumber))
             let decimal_y = round(Double(truncating:position.y as NSNumber))
             
@@ -87,7 +92,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                     }
                 }
             }
-        }
+//        }
     }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
