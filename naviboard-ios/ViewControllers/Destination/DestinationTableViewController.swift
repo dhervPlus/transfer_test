@@ -49,7 +49,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         super.viewDidLoad()
 
         //MARK: UI Setup
-          showActivityIndicatory()
+        self.view.showActivityIndicatory()
         
         navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(), comment: "navigation-title")
         tableSearch.delegate = self
@@ -65,21 +65,6 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
                 
             }
         }
-    }
-    
-    func showActivityIndicatory() {
-        actInd.center = self.view.center
-        actInd.hidesWhenStopped = true
-        actInd.style =
-            UIActivityIndicatorView.Style.gray
-        self.view.addSubview(actInd)
-        actInd.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-    }
-    
-    func stopActivityIndicator() {
-        actInd.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -344,7 +329,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
                 return self.getTypes(destinations: map_data.destinations)
             }
         }
-        self.stopActivityIndicator()
+        self.view.stopActivityIndicator()
     }
     
     

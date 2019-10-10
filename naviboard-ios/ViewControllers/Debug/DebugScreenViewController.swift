@@ -9,20 +9,24 @@
 import UIKit
 import BeacrewLoco
 
+
 class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePathTable {
-    var map: Map?
+    
+    // MARK: variables
     var beacons = [Beacon]()
-    var nodes = [Node]()
     var edges = [Edge]()
-     var path = [Path]()
+    var map: Map?
+    var nodes = [Node]()
+    var path = [Path]()
     
-    var destination_name = String()
+    var current_beacon_id = String()
     var current_table = String()
-   
-    var selectedDestination: Destination? = nil
-    var current_beacon_id = ""
-    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+    var destination_name = String()
     
+    var selectedDestination: Destination? = nil
+    
+    
+    // MARK: IBOutlet
     @IBOutlet weak var mapName: UILabel!
     @IBOutlet weak var destinationName: UILabel!
     @IBOutlet weak var navigation: UINavigationItem!
@@ -53,13 +57,16 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
         destinationName.attributedText = destinationName.text!.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(destination_name)")
         
-        showActivityIndicatory()
+        self.view.showActivityIndicatory()
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         //MARK: Beacrew Manager
-        BCLManager.shared()?.delegate = self
+        BCLManager.shared()?.delegate? = self
+        
+        
     }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
@@ -68,22 +75,6 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
             self.current_beacon_id = beacons.first!.beaconId
             self.loadMap(beacon_id: beacons.first!.beaconId)
         }
-    }
-    
-    
-    func showActivityIndicatory() {
-        actInd.center = self.view.center
-        actInd.hidesWhenStopped = true
-        actInd.style =
-            UIActivityIndicatorView.Style.gray
-        self.view.addSubview(actInd)
-        actInd.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-    }
-    
-    func stopActivityIndicator() {
-        actInd.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
     }
     
     
@@ -168,7 +159,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, UpdatePat
                     imageView.alpha = 1
                 })
             }
-            stopActivityIndicator()
+            self.view.stopActivityIndicator()
         } else {
             return
         }

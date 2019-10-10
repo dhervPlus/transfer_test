@@ -42,6 +42,7 @@
 		6DDB29E2234EB6F800E6D39C /* PositionEstimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29E1234EB6F800E6D39C /* PositionEstimate.swift */; };
 		6DDB29ED234EC95D00E6D39C /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29EC234EC95D00E6D39C /* CALayer.swift */; };
 		6DDB29EF234EC97500E6D39C /* NSString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29EE234EC97500E6D39C /* NSString.swift */; };
+		6DDB29F2234ECE7000E6D39C /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29F1234ECE7000E6D39C /* UIView.swift */; };
 		6DEF880C230FDA1100D5FF9A /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF880B230FDA1100D5FF9A /* Destination.swift */; };
 		6DEF880E230FDFD000D5FF9A /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF880D230FDFD000D5FF9A /* DestinationTableViewCell.swift */; };
 		6DEF88102310A12500D5FF9A /* DestinationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF880F2310A12500D5FF9A /* DestinationTableViewController.swift */; };
@@ -111,6 +112,7 @@
 		6DDB29E1234EB6F800E6D39C /* PositionEstimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionEstimate.swift; sourceTree = "<group>"; };
 		6DDB29EC234EC95D00E6D39C /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CALayer.swift; path = ../../../../.Trash/CALayer.swift; sourceTree = "<group>"; };
 		6DDB29EE234EC97500E6D39C /* NSString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSString.swift; sourceTree = "<group>"; };
+		6DDB29F1234ECE7000E6D39C /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		6DEF880B230FDA1100D5FF9A /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		6DEF880D230FDFD000D5FF9A /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
 		6DEF880F2310A12500D5FF9A /* DestinationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -281,6 +283,7 @@
 			children = (
 				6DDB29EC234EC95D00E6D39C /* CALayer.swift */,
 				6DDB29EE234EC97500E6D39C /* NSString.swift */,
+				6DDB29F1234ECE7000E6D39C /* UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				6DDB29E0234EB6D000E6D39C /* PositionCluster.swift in Sources */,
 				6DDB29BA234D679400E6D39C /* Socket.swift in Sources */,
 				6DDB29D2234DCA4B00E6D39C /* Position.swift in Sources */,
+				6DDB29F2234ECE7000E6D39C /* UIView.swift in Sources */,
 				6DDB29E2234EB6F800E6D39C /* PositionEstimate.swift in Sources */,
 				6D027E74230FAF7B00A9B412 /* AppDelegate.swift in Sources */,
 				6DD3A48123345BF300671478 /* Spring.swift in Sources */,
