@@ -25,7 +25,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var pathPositionDelegate: PathPositionDelegate?
     var map: Map? = nil
     var destination_name:String = String()
-    var current_table = String()
+    var current_language_table = String()
     var pathData = [Path]()
     
     // from controller
@@ -329,8 +329,8 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         // path icon depends on destination type
         cell.iconImage.image =  UIImage(named: self.getIcon(type: selectedDestination!.type_id))
         cell.labelTitle.text = self.destination_name
-        cell.cellText.text = "\(path.distance)m \(NSLocalizedString(path.direction, tableName: current_table, comment: "path"))"
-        cell.informationBoard.text = NSLocalizedString("Information board ID:", tableName: current_table, comment: "page-debug")
+        cell.cellText.text = "\(path.distance)m \(NSLocalizedString(path.direction, tableName: current_language_table, comment: "path"))"
+        cell.informationBoard.text = NSLocalizedString("Information board ID:", tableName: current_language_table, comment: "page-debug")
         
         return cell
     }

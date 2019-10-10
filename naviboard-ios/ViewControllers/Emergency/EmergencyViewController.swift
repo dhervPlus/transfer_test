@@ -14,14 +14,14 @@ class EmergencyViewController: UIViewController {
     @IBOutlet weak var emergencyTitle: UILabel!
     @IBOutlet weak var emergencyText: UILabel!
     
-    var current_table = String();
+    var current_language_table = String();
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.drawCircle()
         
-        emergencyTitle.text = NSLocalizedString("Emergency guide settings", tableName: current_table, comment: "emergency")
-        emergencyText.text = NSLocalizedString("Press the button to switch the screen to emergency mode.", tableName: current_table, comment: "emergency")
+        emergencyTitle.text = NSLocalizedString("Emergency guide settings", tableName: current_language_table, comment: "emergency")
+        emergencyText.text = NSLocalizedString("Press the button to switch the screen to emergency mode.", tableName: current_language_table, comment: "emergency")
         
     }
     

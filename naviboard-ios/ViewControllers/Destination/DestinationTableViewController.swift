@@ -29,7 +29,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     var language_current = Language.english
     
-    var current_table = String();
+    var current_language_table = String();
     var selectedDestination: Destination? = nil
     
      var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -267,14 +267,14 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     func getTableName() -> String {
         switch language_current {
         case .english:
-            self.current_table = "LocalizedEnglish"
+            self.current_language_table = "LocalizedEnglish"
             return "LocalizedEnglish"
         case .chinese:
             return "LocalizedChinese"
         case .korean:
             return "LocalizedKorean"
         default:
-            self.current_table = "LocalizedJapanese"
+            self.current_language_table = "LocalizedJapanese"
             return "LocalizedJapanese"
         }
     }
@@ -463,7 +463,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         let iconController = segue.destination as! IconPageController
         iconController.destination_name = self.selectedCellLabel
         iconController.language_current = self.language_current
-        iconController.current_table = self.current_table
+        iconController.current_language_table = self.current_language_table
         iconController.destination_order_number = self.destination_order_number
         iconController.selectedDestination = self.selectedDestination
     }

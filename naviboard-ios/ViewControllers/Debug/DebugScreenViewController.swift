@@ -20,7 +20,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
     var nodes = [Node]()
     var path = [Path]()
     var mapIsLoaded = false
-    var current_table = String()
+    var current_language_table = String()
     var destination_name = String()
     var selectedDestination: Destination? = nil
     
@@ -42,24 +42,24 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
         // MARK: UI setup
         
         // Nav
-        NavLeftButton.title = NSLocalizedString("Back", tableName: current_table, comment: "navigation-item")
-        navigation.title = NSLocalizedString("Debug", tableName: current_table, comment: "navigation-title")
+        NavLeftButton.title = NSLocalizedString("Back", tableName: current_language_table, comment: "navigation-item")
+        navigation.title = NSLocalizedString("Debug", tableName: current_language_table, comment: "navigation-title")
         
         
         // Guide board
         guideBoard.layer.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0).cgColor
-        guideBoard.attributedText = guideBoard.text!.indent(string: NSLocalizedString("Guide board display information", tableName:current_table, comment: "page-debug"))
+        guideBoard.attributedText = guideBoard.text!.indent(string: NSLocalizedString("Guide board display information", tableName:current_language_table, comment: "page-debug"))
         
         
         // Map name
         // - Placeholder. Replaced with the actual map name one loadMap finish executing.
-        self.mapName.attributedText = self.mapName.text!.indent(string: NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug"))
+        self.mapName.attributedText = self.mapName.text!.indent(string: NSLocalizedString("Current Floor:", tableName: self.current_language_table, comment: "page-debug"))
         self.mapName.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
         
         
         // Destination name
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
-        destinationName.attributedText = destinationName.text!.indent( string: "\(NSLocalizedString("Destination:", tableName: current_table, comment: "global")) \(destination_name)")
+        destinationName.attributedText = destinationName.text!.indent( string: "\(NSLocalizedString("Destination:", tableName: current_language_table, comment: "global")) \(destination_name)")
         
         
         // Loader start
@@ -277,7 +277,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
                 self.downloadImage(from: map_data.map.image)
                 self.mapIsLoaded = true
                 DispatchQueue.main.async {
-                    self.mapName.attributedText = self.mapName.text!.indent(string: "\(NSLocalizedString("Current Floor:", tableName: self.current_table, comment: "page-debug")) \(map_data.map.name)")
+                    self.mapName.attributedText = self.mapName.text!.indent(string: "\(NSLocalizedString("Current Floor:", tableName: self.current_language_table, comment: "page-debug")) \(map_data.map.name)")
                     self.beacons = map_data.beacons
                     self.nodes = map_data.nodes
                     self.edges = map_data.edges
@@ -303,13 +303,13 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
             let pathTableView = segue.destination as! PathTableViewController
             pathTableView.pathPositionDelegate = self
             pathTableView.destination_name = self.destination_name
-            pathTableView.current_table = self.current_table
+            pathTableView.current_language_table = self.current_language_table
             pathTableView.selectedDestination = self.selectedDestination
             pathTableView.map = self.map
             pathTableView.tableView.reloadData()
         } else {
             let emergencyView = segue.destination as! EmergencyViewController
-            emergencyView.current_table = self.current_table
+            emergencyView.current_language_table = self.current_language_table
         }
     }
 }

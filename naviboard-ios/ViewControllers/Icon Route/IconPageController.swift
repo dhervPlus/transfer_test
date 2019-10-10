@@ -27,7 +27,7 @@ class IconPageController: UIViewController {
     
     @IBOutlet weak var imageContainer: UIView!
     var language_current = Language.english
-    var current_table = String()
+    var current_language_table = String()
     var destination_name:String = String()
     var destination_order_number = Int()
     var selectedDestination: Destination? = nil
@@ -104,7 +104,7 @@ class IconPageController: UIViewController {
         let debugScreenController = segue.destination as! DebugScreenViewController
         debugScreenController.selectedDestination = self.selectedDestination
         debugScreenController.destination_name = self.destination_name
-        debugScreenController.current_table = self.current_table
+        debugScreenController.current_language_table = self.current_language_table
     }
     
     

@@ -18,7 +18,7 @@ class PathTableViewCell: UITableViewCell {
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var informationBoard: UILabel!
     
-    var current_table = String()
+    var current_language_table = String()
     
     override func awakeFromNib() {
         super.awakeFromNib()
