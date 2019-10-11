@@ -12,14 +12,8 @@ import BeacrewLoco
 
 struct EstimationService {
     var radiationService: RadiationService = RadiationService();
-    var cluster: Cluster = Cluster(cm_per_pixel: 3.46875);
     var userHeightCM:Double = 120.0;
-    var CM2M = 0.01;
-    var VERSION = 15.1;
-    var PX2M: Double {
-        return cluster.cm_per_pixel * CM2M;
-    }
-    
+
     /**
      Calculate the current position of the iphone depending of the beacon logs
      - parameter beacons: [BCLBeacon]

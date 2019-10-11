@@ -12,7 +12,7 @@ struct Path: Codable {
     var node_start_id: Int
     var node_end_id: Int
     var distance: Double
-    var z: String
+    var z: Int?
     var direction: String
     var first_beacon_id: String?
     var second_beacon_id: String?

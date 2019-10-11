@@ -38,7 +38,6 @@
 		6DDB29D0234DC94200E6D39C /* Emergency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29CF234DC94200E6D39C /* Emergency.swift */; };
 		6DDB29D2234DCA4B00E6D39C /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29D1234DCA4B00E6D39C /* Position.swift */; };
 		6DDB29D4234DCA6A00E6D39C /* PostSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29D3234DCA6A00E6D39C /* PostSocket.swift */; };
-		6DDB29E0234EB6D000E6D39C /* PositionCluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29DF234EB6D000E6D39C /* PositionCluster.swift */; };
 		6DDB29E2234EB6F800E6D39C /* PositionEstimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29E1234EB6F800E6D39C /* PositionEstimate.swift */; };
 		6DDB29ED234EC95D00E6D39C /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29EC234EC95D00E6D39C /* CALayer.swift */; };
 		6DDB29EF234EC97500E6D39C /* NSString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB29EE234EC97500E6D39C /* NSString.swift */; };
@@ -109,7 +108,6 @@
 		6DDB29CF234DC94200E6D39C /* Emergency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emergency.swift; sourceTree = "<group>"; };
 		6DDB29D1234DCA4B00E6D39C /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		6DDB29D3234DCA6A00E6D39C /* PostSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSocket.swift; sourceTree = "<group>"; };
-		6DDB29DF234EB6D000E6D39C /* PositionCluster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionCluster.swift; sourceTree = "<group>"; };
 		6DDB29E1234EB6F800E6D39C /* PositionEstimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionEstimate.swift; sourceTree = "<group>"; };
 		6DDB29EC234EC95D00E6D39C /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CALayer.swift; path = ../../../../.Trash/CALayer.swift; sourceTree = "<group>"; };
 		6DDB29EE234EC97500E6D39C /* NSString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSString.swift; sourceTree = "<group>"; };
@@ -319,7 +317,6 @@
 			children = (
 				6DC366772334986E00B73E00 /* Cursor.swift */,
 				6DDB29D1234DCA4B00E6D39C /* Position.swift */,
-				6DDB29DF234EB6D000E6D39C /* PositionCluster.swift */,
 				6DDB29E1234EB6F800E6D39C /* PositionEstimate.swift */,
 				6DDB29CD234DC8B600E6D39C /* PostPath.swift */,
 				6DDB29D3234DCA6A00E6D39C /* PostSocket.swift */,
@@ -594,7 +591,6 @@
 				6DC366782334986E00B73E00 /* Cursor.swift in Sources */,
 				6DC366762334985D00B73E00 /* Path.swift in Sources */,
 				6DC366722334983200B73E00 /* Beacon.swift in Sources */,
-				6DDB29E0234EB6D000E6D39C /* PositionCluster.swift in Sources */,
 				6DDB29BA234D679400E6D39C /* Socket.swift in Sources */,
 				6DDB29D2234DCA4B00E6D39C /* Position.swift in Sources */,
 				6DDB29F2234ECE7000E6D39C /* UIView.swift in Sources */,
