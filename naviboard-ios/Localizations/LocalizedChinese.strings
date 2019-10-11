@@ -1,7 +1,48 @@
 /* 
-  LocalizedChinese.strings
-  naviboard-ios
+ LocalizedChinese.strings
+ naviboard-ios
+ 
+ Created by damien on 2019/09/09.
+ Copyright © 2019 beacrew. All rights reserved.
+ */
 
-  Created by damien on 2019/09/09.
-  Copyright © 2019 beacrew. All rights reserved.
-*/
+
+/* navigation-title */
+"Destinations" = "目的地";
+"Routes" = "路线";
+"Debug" = "调试";
+
+/* navigation-item */
+"Back" = "返回";
+
+/* navigation-search */
+"Enter a destination..." = "请输入目的地";
+
+/* global */
+"cancel" = "取消";
+"start guidance" = "开始导航";
+"Destination:" = "目的地：";
+
+/* alert */
+"translation" = "请选择语言";
+"Do you want to set the selected location as the destination?" = "您是否要将所选位置设置为目的地？";
+
+
+/* page-route */
+"This icon is displayed on the information board. Please walk along the arrow with this icon during guidance." = "此图标将显示在信息板上。导航期间，请沿着带有此图标的箭头走。";
+"Walking with a smartphone is dangerous!" = "使用智能手机走路很危险！";
+"As you approach the next guide, you will be notified by sound and vibration." = "当您接近下一个指南时，您会收到声音和振动的通知。";
+
+
+/* page-debug */
+"Current Floor:" = "现在的楼层：";
+"Guide board display information" = "信息板信息";
+"Information board ID:" = "信息板ID:";
+"Emergency guide settings" = "紧急模式设置";
+"Press the button to switch the screen to emergency mode." = "按下按钮将切换到紧急模式。";
+
+/* path */
+"straight" = "直行";
+"right" = "向右转";
+"left" = "向左转";
+"back" = "向后转";

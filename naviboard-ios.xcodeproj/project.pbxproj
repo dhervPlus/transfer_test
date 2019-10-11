@@ -17,11 +17,11 @@
 		6D03240B231F99A500531279 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D03240A231F99A500531279 /* Language.swift */; };
 		6D0324212325C53E00531279 /* LocalizedJapanese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D0324202325C53E00531279 /* LocalizedJapanese.strings */; };
 		6D0324232325C64900531279 /* LocalizedEnglish.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D0324222325C64900531279 /* LocalizedEnglish.strings */; };
-		6D0324252325C65700531279 /* LocalizedChinese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D0324242325C65700531279 /* LocalizedChinese.strings */; };
 		6D0324272325C66000531279 /* LocalizedKorean.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D0324262325C66000531279 /* LocalizedKorean.strings */; };
 		6D03242923262BAA00531279 /* EmergencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D03242823262BAA00531279 /* EmergencyViewController.swift */; };
 		6D9B5355231CE84600FC2D54 /* PathTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9B5354231CE84600FC2D54 /* PathTableViewController.swift */; };
 		6D9B5357231CE89A00FC2D54 /* PathTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D9B5356231CE89A00FC2D54 /* PathTableViewCell.swift */; };
+		6DBB670A23503ACE005786E5 /* LocalizedChinese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6DBB670923503ACE005786E5 /* LocalizedChinese.strings */; };
 		6DC3666C2334979C00B73E00 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC3666B2334979C00B73E00 /* Node.swift */; };
 		6DC3666E233497BA00B73E00 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC3666D233497BA00B73E00 /* Map.swift */; };
 		6DC36670233497D800B73E00 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC3666F233497D800B73E00 /* Edge.swift */; };
@@ -88,11 +88,11 @@
 		6D03240A231F99A500531279 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		6D0324202325C53E00531279 /* LocalizedJapanese.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizedJapanese.strings; sourceTree = "<group>"; };
 		6D0324222325C64900531279 /* LocalizedEnglish.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizedEnglish.strings; sourceTree = "<group>"; };
-		6D0324242325C65700531279 /* LocalizedChinese.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizedChinese.strings; sourceTree = "<group>"; };
 		6D0324262325C66000531279 /* LocalizedKorean.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizedKorean.strings; sourceTree = "<group>"; };
 		6D03242823262BAA00531279 /* EmergencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyViewController.swift; sourceTree = "<group>"; };
 		6D9B5354231CE84600FC2D54 /* PathTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTableViewController.swift; sourceTree = "<group>"; };
 		6D9B5356231CE89A00FC2D54 /* PathTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathTableViewCell.swift; sourceTree = "<group>"; };
+		6DBB670923503ACE005786E5 /* LocalizedChinese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = LocalizedChinese.strings; sourceTree = "<group>"; };
 		6DC3666B2334979C00B73E00 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		6DC3666D233497BA00B73E00 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		6DC3666F233497D800B73E00 /* Edge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
@@ -225,9 +225,9 @@
 			isa = PBXGroup;
 			children = (
 				6D0324222325C64900531279 /* LocalizedEnglish.strings */,
-				6D0324242325C65700531279 /* LocalizedChinese.strings */,
 				6D0324262325C66000531279 /* LocalizedKorean.strings */,
 				6D0324202325C53E00531279 /* LocalizedJapanese.strings */,
+				6DBB670923503ACE005786E5 /* LocalizedChinese.strings */,
 			);
 			path = Localizations;
 			sourceTree = "<group>";
@@ -507,10 +507,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DBB670A23503ACE005786E5 /* LocalizedChinese.strings in Resources */,
 				6D027E7E230FAF7C00A9B412 /* LaunchScreen.storyboard in Resources */,
 				6D027E7B230FAF7C00A9B412 /* Assets.xcassets in Resources */,
 				6D0324272325C66000531279 /* LocalizedKorean.strings in Resources */,
-				6D0324252325C65700531279 /* LocalizedChinese.strings in Resources */,
 				6D027E79230FAF7B00A9B412 /* Main.storyboard in Resources */,
 				6D0324232325C64900531279 /* LocalizedEnglish.strings in Resources */,
 				6D0324212325C53E00531279 /* LocalizedJapanese.strings in Resources */,

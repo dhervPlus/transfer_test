@@ -1,10 +1,10 @@
 /* 
-  LocalizedJapanese.strings
-  naviboard-ios
-
-  Created by damien on 2019/09/09.
-  Copyright © 2019 beacrew. All rights reserved.
-*/
+ LocalizedJapanese.strings
+ naviboard-ios
+ 
+ Created by damien on 2019/09/09.
+ Copyright © 2019 beacrew. All rights reserved.
+ */
 
 
 
@@ -43,7 +43,7 @@
 "Press the button to switch the screen to emergency mode." = "ボタンをおすと、画面が非常事態モードに切り替わります。";
 
 /* path */
-"straight" = "Go straight";
-"right" = "Turn right";
-"left" = "Turn left";
-"back" = "U-turn";
+"straight" = "真っ直ぐ進んで下さい";
+"right" = "右に曲がる";
+"left" = "左に曲がる";
+"back" = "後ろに進んで下さい";

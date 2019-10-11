@@ -1,10 +1,11 @@
 /* 
-  LocalizedEnglish.strings
-  naviboard-ios
+ LocalizedEnglish.strings
+ naviboard-ios
+ 
+ Created by damien on 2019/09/09.
+ Copyright © 2019 beacrew. All rights reserved.
+ */
 
-  Created by damien on 2019/09/09.
-  Copyright © 2019 beacrew. All rights reserved.
-*/
 
 /* navigation-title */
 "Destinations" = "Destinations";
@@ -26,12 +27,10 @@
 "Translation" = "Translation";
 "Do you want to set the selected location as the destination?" = "Do you want to set the selected location as the destination?";
 
-
 /* page-route */
 "This icon is displayed on the information board. Please walk along the arrow with this icon during guidance." = "This icon is displayed on the information board. Please walk along the arrow with this icon during guidance.";
 "Walking with a smartphone is dangerous!" = "Walking with a smartphone is dangerous!";
 "As you approach the next guide, you will be notified by sound and vibration." = "As you approach the next guide, you will be notified by sound and vibration.";
-
 
 /* page-debug */
 "Current Floor:" = "Current Floor:";
@@ -39,7 +38,6 @@
 "Information board ID:" = "Information board ID:";
 "Emergency guide settings" = "Emergency guide settings";
 "Press the button to switch the screen to emergency mode." = "Press the button to switch the screen to emergency mode.";
-
 
 /* path */
 "straight" = "go straight";

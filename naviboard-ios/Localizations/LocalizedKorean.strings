@@ -1,7 +1,45 @@
 /* 
-  LocalizedKorean.strings
-  naviboard-ios
+ LocalizedKorean.strings
+ naviboard-ios
+ 
+ Created by damien on 2019/09/09.
+ Copyright © 2019 beacrew. All rights reserved.
+ */
 
-  Created by damien on 2019/09/09.
-  Copyright © 2019 beacrew. All rights reserved.
-*/
+/* navigation-title */
+"Destinations" = "목적지 선택";
+"Routes" = "루트 안내중";
+"Debug" = "디버그";
+
+/* navigation-item */
+"Back" = "뒤로";
+
+/* navigation-search */
+"Enter a destination..." = "목적지를 입력 ...";
+
+/* global */
+"cancel" = "취소";
+"start guidance" = "안내를 시작";
+"Destination:" = "목적지 :";
+
+/* alert */
+"translation" = "언어 선택";
+"Do you want to set the selected location as the destination?" = "선택한 위치를 목적지로 설정 하시겠습니까?";
+
+/* page-route */
+"This icon is displayed on the information board. Please walk along the arrow with this icon during guidance." = "안내판에 이 아이콘이 표시됩니다. 안내판에 표시되는 이 아이콘의 화살표를 따라 걸어가 주세요. ";
+"Walking with a smartphone is dangerous!" = "보행중 스마트 폰 사용은 위험합니다!";
+"As you approach the next guide, you will be notified by sound and vibration." = "다음 안내판에 가까워지면 소리와 진동으로 알려드립니다.";
+
+/* page-debug */
+"Current Floor:" = "현위치 :";
+"Guide board display information" = "안내판 표시 정보";
+"Information board ID:" = "안내판 ID :";
+"Emergency guide settings" = "비상 안내 설정";
+"Press the button to switch the screen to emergency mode." = "버튼을 누르면 화면이 비상 모드로 전환됩니다.";
+
+/* path */
+"straight"= "직진하세요";
+"right"= "우회전";
+"left"= "좌회전";
+"back"= "뒤로 가십시오";
