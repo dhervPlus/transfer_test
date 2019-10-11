@@ -25,7 +25,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     var pathPositionDelegate: PathPositionDelegate?
     var map: Map? = nil
     var destination_name:String = String()
-    var current_language_table = String()
+    var current_language_table = Globals.current_language_table
     var pathData = [Path]()
     
     // from controller

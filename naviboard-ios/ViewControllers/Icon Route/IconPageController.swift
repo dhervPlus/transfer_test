@@ -26,8 +26,8 @@ class IconPageController: UIViewController {
     
     
     @IBOutlet weak var imageContainer: UIView!
-    var language_current = Language.english
-    var current_language_table = String()
+    
+    var current_language_table = Globals.current_language_table
     var destination_name:String = String()
     var destination_order_number = Int()
     var selectedDestination: Destination? = nil
@@ -44,8 +44,8 @@ class IconPageController: UIViewController {
         super.viewDidLoad()
         
         // NAV
-        navigation.title = NSLocalizedString("Routes", tableName: self.getTableName(), comment: "navigation-title")
-        NavLeftItem.title = NSLocalizedString("Back", tableName: self.getTableName(), comment: "navigation-item")
+        navigation.title = NSLocalizedString("Routes", tableName: current_language_table, comment: "navigation-title")
+        NavLeftItem.title = NSLocalizedString("Back", tableName: current_language_table, comment: "navigation-item")
         
         // PAGE
         
@@ -55,7 +55,7 @@ class IconPageController: UIViewController {
         let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
         
         let myMutableString = NSMutableAttributedString(
-            string: "\(NSLocalizedString("Destination:", tableName: self.getTableName(), comment: "global")) \(destination_name)",
+            string: "\(NSLocalizedString("Destination:", tableName: current_language_table, comment: "global")) \(destination_name)",
             attributes: attributes)
         
         
@@ -66,27 +66,27 @@ class IconPageController: UIViewController {
         imageContainer.layer.borderColor = UIColor(red:0.77, green:0.77, blue:0.77, alpha:1.0).cgColor
         imageContainer.layer.cornerRadius = 4
         
-        firstParagraph.text = NSLocalizedString("This icon is displayed on the information board. Please walk along the arrow with this icon during guidance.", tableName: self.getTableName(), comment: "page-route")
-        secondParagraph.text = NSLocalizedString("As you approach the next guide, you will be notified by sound and vibration.",  tableName: self.getTableName(), comment: "page-route")
-        dangerMessage.text = NSLocalizedString("Walking with a smartphone is dangerous!", tableName: self.getTableName(), comment: "page-route")
+        firstParagraph.text = NSLocalizedString("This icon is displayed on the information board. Please walk along the arrow with this icon during guidance.", tableName: current_language_table, comment: "page-route")
+        secondParagraph.text = NSLocalizedString("As you approach the next guide, you will be notified by sound and vibration.",  tableName: current_language_table, comment: "page-route")
+        dangerMessage.text = NSLocalizedString("Walking with a smartphone is dangerous!", tableName: current_language_table, comment: "page-route")
         
         
         // Do any additional setup after loading the view.
     }
-    
-    func getTableName() -> String {
-        switch language_current {
-        case .english:
-            return "LocalizedEnglish"
-        case .chinese:
-            return "LocalizedChinese"
-        case .korean:
-            return "LocalizedKorean"
-        default:
-            return "LocalizedJapanese"
-        }
-    }
-    
+//
+//    func getTableName() -> String {
+//        switch language_current {
+//        case .english:
+//            return "LocalizedEnglish"
+//        case .chinese:
+//            return "LocalizedChinese"
+//        case .korean:
+//            return "LocalizedKorean"
+//        default:
+//            return "LocalizedJapanese"
+//        }
+//    }
+//
     
     
     // MARK: - Navigation
@@ -104,7 +104,7 @@ class IconPageController: UIViewController {
         let debugScreenController = segue.destination as! DebugScreenViewController
         debugScreenController.selectedDestination = self.selectedDestination
         debugScreenController.destination_name = self.destination_name
-        debugScreenController.current_language_table = self.current_language_table
+        
     }
     
     

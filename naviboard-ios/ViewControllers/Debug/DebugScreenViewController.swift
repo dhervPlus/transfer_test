@@ -20,7 +20,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
     var nodes = [Node]()
     var path = [Path]()
     var mapIsLoaded = false
-    var current_language_table = String()
+    var current_language_table = Globals.current_language_table
     var destination_name = String()
     var selectedDestination: Destination? = nil
     
@@ -307,13 +307,9 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
             let pathTableView = segue.destination as! PathTableViewController
             pathTableView.pathPositionDelegate = self
             pathTableView.destination_name = self.destination_name
-            pathTableView.current_language_table = self.current_language_table
             pathTableView.selectedDestination = self.selectedDestination
             pathTableView.map = self.map
             pathTableView.tableView.reloadData()
-        } else {
-            let emergencyView = segue.destination as! EmergencyViewController
-            emergencyView.current_language_table = self.current_language_table
         }
     }
 }

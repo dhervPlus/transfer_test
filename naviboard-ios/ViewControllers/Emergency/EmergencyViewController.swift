@@ -14,7 +14,7 @@ class EmergencyViewController: UIViewController {
     @IBOutlet weak var emergencyTitle: UILabel!
     @IBOutlet weak var emergencyText: UILabel!
     
-    var current_language_table = String();
+    var current_language_table = Globals.current_language_table;
     
     override func viewDidLoad() {
         super.viewDidLoad()

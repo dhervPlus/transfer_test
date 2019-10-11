@@ -29,10 +29,14 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     var language_current = Language.english
     
-    var current_language_table = String();
+    
+    
+    
+    
+    //    var current_language_table = String();
     var selectedDestination: Destination? = nil
     
-     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     
     var loaded = false
     
@@ -47,15 +51,20 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        Globals.current_language_table = language_current.rawValue
         //MARK: UI Setup
         self.view.showActivityIndicatory()
         
-        navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(), comment: "navigation-title")
+        navigation.title = NSLocalizedString("Destinations", tableName: Globals.current_language_table, comment: "navigation-title")
         tableSearch.delegate = self
         
-        tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: self.getTableName(), comment: "navigation-search");
+        tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: Globals.current_language_table, comment: "navigation-search");
         tableSearch.backgroundColor = UIColor.white
+        
+        
+        //        navigation.title = NSLocalizedString("Destinations", tableName: Globals.current_language_table,comment: "navigation-title")
+        //        tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: Globals.current_language_table, comment: "navigation-search");
         
         for s in tableSearch.subviews[0].subviews {
             if s is UITextField {
@@ -70,89 +79,110 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     override func viewWillAppear(_ animated: Bool) {
         //MARK: Beacrew Manager
         BCLManager.shared()?.delegate = self
-      
+        
     }
     
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
         let first_beacon_id = beacons.first?.beaconId
         if(!self.loaded) {
-             self.loadDestinations(beacon_id: first_beacon_id!)
+            self.loadDestinations(beacon_id: first_beacon_id!)
         }
     }
     
-    private func switchLanguage(language: String) {
-        switch language {
-        case "japanese":
-            self.language_current = .japanese
-        case "english":
-            self.language_current = .english
-        case "chinese":
-            self.language_current = .chinese
-        case "korean":
-            self.language_current = .korean
-        default:
-            self.language_current = .japanese
-        }
-        navigation.title = NSLocalizedString("Destinations", tableName: self.getTableName(),comment: "navigation-title")
-        tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: self.getTableName(), comment: "navigation-search");
-        
-    }
+    
+    // MARK: private
     
     
-    @IBAction func openLanguageAlert(_ sender: Any) {
+    // MARK: Alert
+    
+    @IBAction func openLanguageAlert(_ sender: UIBarButtonItem) {
         self.alertLanguage()
     }
     
+    /**
+     Display confirmation alert after clicking table cell
+     - parameter title: string
+     - parameter message: string
+     - parameter completion: callback called with a boolean. boolean is used to trigger action in the callback
+     */
     
-    //MARK: private
+    private func alert (title: String, message: String, completion:  @escaping ((Bool) -> Void)) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("start guidance", tableName: Globals.current_language_table, comment: "global"), style: .default, handler: { (action) in
+            alertController.dismiss(animated: true, completion: nil)
+            completion(true) // true signals "YES"
+        }))
+        
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", tableName: Globals.current_language_table, comment: "global"), style: UIAlertAction.Style.default, handler: { (action) in
+            alertController.dismiss(animated: true, completion: nil)
+            completion(false) // false singals "NO"
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     
     private func alertLanguage() {
         // set the alert controller
         let alert = UIAlertController(title:  NSLocalizedString("translation", tableName: "Main", comment: "alert"), message: "", preferredStyle: .alert)
-        
-        // set action for each language
+        self.alertAddButtonsActions(alert: alert)
+    }
+    
+    
+    private func alertAddButtonsActions(alert: UIAlertController) {
         let japanese_action = UIAlertAction(title: "日本語", style: .default, handler: { (_) in
-            self.switchLanguage(language: "japanese")
-            
-            self.tableView.reloadData()
+            self.language_current = .japanese
+            Globals.current_language_table = Language.japanese.rawValue
+            self.updateLanguageView()
         })
-        
         let english_action = UIAlertAction(title: "English", style: .default, handler: { (_) in
-            self.switchLanguage(language:"english")
-            self.tableView.reloadData()
+            self.language_current = .english
+            Globals.current_language_table = Language.english.rawValue
+            self.updateLanguageView()
         })
         let chinese_action = UIAlertAction(title: "中文", style: .default, handler: { (_) in
-            self.switchLanguage(language:"chinese")
-            self.tableView.reloadData()
+            self.language_current = .chinese
+            Globals.current_language_table = Language.chinese.rawValue
+            self.updateLanguageView()
         })
         let korean_action = UIAlertAction(title: "한국어", style: .default, handler: { (_) in
-            self.switchLanguage(language:"korean")
-            self.tableView.reloadData()
+            self.language_current = .korean
+            Globals.current_language_table = Language.korean.rawValue
+            self.updateLanguageView()
         })
         
-        // update default color to black
+        // Update default color to black
         japanese_action.setValue(UIColor.black, forKey: "titleTextColor")
         english_action.setValue(UIColor.black, forKey: "titleTextColor")
         chinese_action.setValue(UIColor.black, forKey: "titleTextColor")
         korean_action.setValue(UIColor.black, forKey: "titleTextColor")
         
-        // add each action to the aler
+        // Add each action to the aler
         alert.addAction(japanese_action)
-        
         alert.addAction(english_action)
-        
         alert.addAction(chinese_action)
-        
         alert.addAction(korean_action)
         
-        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", tableName: "Main", comment: "global"), style: UIAlertAction.Style.cancel , handler: {(_: UIAlertAction!) in
+        // Add cancel action
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", tableName: "Main", comment: "global"), style: UIAlertAction.Style.cancel , handler: {(_: UIAlertAction!) in
             //Sign out action
         }))
         
         // show alert
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    private func updateLanguageView() {
+        navigation.title = NSLocalizedString("Destinations", tableName: Globals.current_language_table,comment: "navigation-title")
+        tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: Globals.current_language_table, comment: "navigation-search");
+        self.tableView.reloadData()
         
     }
+    
+
     
     // MARK: - Table view data source
     
@@ -219,13 +249,12 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         } else {
             label = self.getCurrentLanguageLabel(destination: destinations[indexPath.section][indexPath.row])
         }
-        //        destination_order_number =
         
         self.selectedCellLabel = label
         self.selectedDestination = destinations[indexPath.section][indexPath.row] as Destination
         self.destination_order_number = destinations[indexPath.section][indexPath.row].order!
         
-        self.alert(title: NSLocalizedString("Do you want to set the selected location as the destination?", tableName: self.getTableName(), comment: "alert"), message: label, completion: { result in
+        self.alert(title: NSLocalizedString("Do you want to set the selected location as the destination?", tableName: Globals.current_language_table, comment: "alert"), message: label, completion: { result in
             if result {
                 if self.selectedCellLabel != "" {
                     self.performSegue(withIdentifier: "Segue", sender: self)
@@ -260,46 +289,10 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
             return destination.label_japanese
         }
     }
+
     
-    //MARK: Alert
-    
-    
-    func getTableName() -> String {
-        switch language_current {
-        case .english:
-            self.current_language_table = "LocalizedEnglish"
-            return "LocalizedEnglish"
-        case .chinese:
-            return "LocalizedChinese"
-        case .korean:
-            return "LocalizedKorean"
-        default:
-            self.current_language_table = "LocalizedJapanese"
-            return "LocalizedJapanese"
-        }
-    }
-    
-    /**
-     Display confirmation alert after clicking table cell
-     - parameter title: string
-     - parameter message: string
-     - parameter completion: callback called with a boolean. boolean is used to trigger action in the callback
-     */
-    
-    func alert (title: String, message: String, completion:  @escaping ((Bool) -> Void)) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("start guidance", tableName: self.getTableName(), comment: "global"), style: .default, handler: { (action) in
-            alertController.dismiss(animated: true, completion: nil)
-            completion(true) // true signals "YES"
-        }))
-        
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", tableName: self.getTableName(), comment: "global"), style: UIAlertAction.Style.default, handler: { (action) in
-            alertController.dismiss(animated: true, completion: nil)
-            completion(false) // false singals "NO"
-        }))
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
+
+
     
     //MARK: Load Destinations
     
@@ -310,6 +303,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
      */
     
     private func loadDestinations(beacon_id: String) {
+        
         Api.shared.get(for: MapData.self, path: "/map/current/\(beacon_id)"){(res) in
             switch res {
             case .failure(let err):
@@ -462,8 +456,6 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let iconController = segue.destination as! IconPageController
         iconController.destination_name = self.selectedCellLabel
-        iconController.language_current = self.language_current
-        iconController.current_language_table = self.current_language_table
         iconController.destination_order_number = self.destination_order_number
         iconController.selectedDestination = self.selectedDestination
     }
