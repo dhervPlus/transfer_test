@@ -22,7 +22,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
     var mapIsLoaded = false
     var current_language_table = Globals.current_language_table
     var selected_destination: Destination? = nil
-     var selected_destination_name = String()
+    var selected_destination_name = String()
     
     // MARK: IBOutlet
     
