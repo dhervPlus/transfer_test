@@ -19,10 +19,8 @@ class EmergencyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.drawCircle()
-        
         emergencyTitle.text = NSLocalizedString("Emergency guide settings", tableName: current_language_table, comment: "emergency")
         emergencyText.text = NSLocalizedString("Press the button to switch the screen to emergency mode.", tableName: current_language_table, comment: "emergency")
-        
     }
     
     private func drawCircle() {
@@ -43,21 +41,16 @@ class EmergencyViewController: UIViewController {
         circleContainer.layer.shadowOpacity = 10
         circleContainer.layer.shadowOffset = .zero
         circleContainer.layer.shadowRadius = 2
-        
         circleContainer.layer.addSublayer(shapeLayer)
-        
     }
     
-    
     @IBAction func postEmergency(_ sender: UIButton) {
-        
         circleContainer.layer.shadowColor = UIColor.black.cgColor
         circleContainer.layer.shadowOpacity = 0
         circleContainer.layer.shadowOffset = .zero
         circleContainer.layer.shadowRadius = 0
         
-        self.setEmergency()
-        
+        self.emergencyTrigger()
     }
     
     @IBAction func postEmergencyFinish(_ sender: UIButton) {
@@ -67,27 +60,14 @@ class EmergencyViewController: UIViewController {
         circleContainer.layer.shadowRadius = 2
     }
     
-    
     @IBAction func postEmergencyFinishOut(_ sender: UIButton) {
-        
         circleContainer.layer.shadowColor = UIColor.black.cgColor
         circleContainer.layer.shadowOpacity = 10
         circleContainer.layer.shadowOffset = .zero
         circleContainer.layer.shadowRadius = 2
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
-    func setEmergency() {
+    func emergencyTrigger() {
         Api.shared.put(for: Emergency.self, path: "/emergency"){(res) in
             switch res {
             case .failure(let err):
@@ -100,5 +80,4 @@ class EmergencyViewController: UIViewController {
             }}
         
     }
-    
 }
