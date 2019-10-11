@@ -28,7 +28,7 @@ class Destination: Codable {
     var updated_at: String
     
     
-    //MARK: Initialization
+    // MARK: Initialization
     
     init?(id: Int, node_id: Int, type_id: Int, label_japanese: String, label_english: String, label_korean: String, label_chinese: String, type_label_japanese: String, type_label_english: String,
           type_label_chinese: String,

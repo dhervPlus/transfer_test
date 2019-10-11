@@ -8,9 +8,10 @@
 
 import Foundation
 
-enum Language {
-    case japanese
-    case english
-    case chinese
-    case korean
+enum Language: String {
+    case japanese = "LocalizedJapanese"
+    case english = "LocalizedEnglish"
+    case chinese = "LocalizedChinese"
+    case korean = "LocalizedKorean"
 }
+

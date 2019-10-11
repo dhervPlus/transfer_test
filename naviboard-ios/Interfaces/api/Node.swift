@@ -1,5 +1,5 @@
 //
-//  Cursor.swift
+//  Node.swift
 //  naviboard-ios
 //
 //  Created by damien on 2019/09/20.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-class Cursor {
+struct Node: Decodable {
+    var id: Int
     var x: Double
     var y: Double
-    
-    init?(x: Double, y: Double) {
-        self.x = x
-        self.y = y
-    }
+    var z: Double
+    var map_id: Int
+    var created_at: String
+    var updated_at: String
 }
