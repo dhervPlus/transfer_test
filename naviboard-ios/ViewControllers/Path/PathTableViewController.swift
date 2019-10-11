@@ -21,20 +21,22 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
     
     // MARK: variables
     
-    // from segue
     var pathPositionDelegate: PathPositionDelegate?
+    
     var map: Map? = nil
-    var destination_name:String = String()
     var current_language_table = Globals.current_language_table
     var pathData = [Path]()
     
     // from controller
-    var get_path_timer_count = 3
-    var displayMemory = [Path]()
-    var selectedDestination: Destination? = nil
-    var alreadySent = [PostSocket]()
+    
+    var already_sent = [PostSocket]()
     var beacon_ids = [String]()
-    var secondBeaconIdsStore = [String]()
+    var display_memory = [Path]()
+    var get_path_timer_count = 3
+    var second_beacon_ids_store = [String]()
+    var selected_destination: Destination? = nil
+    var selected_destination_name = String()
+    
     
     var socket:SocketIOClient!
     
@@ -76,7 +78,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
             
             // check if beacon received from bluetooth is in the list of path items
             // If it is already stored, it means we found the display from bluetooth and should send path item
-            for path_item_with_display in self.displayMemory {
+            for path_item_with_display in self.display_memory {
                 
                 
                 // check for second beacon ids and store if beacon is in range
@@ -84,13 +86,13 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                     
                     
                     // check if beacon is in range and is not already stored in secondBeaconIds array
-                    if beacon_ids.contains(path_item_with_display.second_beacon_id!) && !self.secondBeaconIdsStore.contains(path_item_with_display.second_beacon_id!) {
-                        self.secondBeaconIdsStore.append(path_item_with_display.second_beacon_id!)
+                    if beacon_ids.contains(path_item_with_display.second_beacon_id!) && !self.second_beacon_ids_store.contains(path_item_with_display.second_beacon_id!) {
+                        self.second_beacon_ids_store.append(path_item_with_display.second_beacon_id!)
                     }
                 }
                 
-                // RESET alreadySent when beacon signal disappear
-                alreadySent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
+                // RESET already_sent when beacon signal disappear
+                already_sent.removeAll(where: { !beacon_ids.contains($0.display_id) } )
                 
                 
                 
@@ -104,12 +106,12 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                         // Second beacon id means the display is visible only when you arrived from the second beacon id position.
                         // And if this id has not already been stored, return.
                         // It means the application should have reach the second beacon first but did not.
-                        if (path_item_with_display.second_beacon_id != nil && !self.secondBeaconIdsStore.contains(path_item_with_display.second_beacon_id!)) {
+                        if (path_item_with_display.second_beacon_id != nil && !self.second_beacon_ids_store.contains(path_item_with_display.second_beacon_id!)) {
                             return
                         }
                         
                         // Store the item as already sent
-                        self.alreadySent.append(PostSocket(destination_id: self.selectedDestination!.id, display_id: beacon.beaconId))
+                        self.already_sent.append(PostSocket(destination_id: self.selected_destination!.id, display_id: beacon.beaconId))
                         
                         
                         // Build the path item to send
@@ -127,9 +129,9 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                         
                         // Filter out the path item second beacon if stored
                         // The user needs to reach the second beacon again to be able to send the item.
-                        if path_item.second_beacon_id != nil && self.secondBeaconIdsStore.contains(path_item.second_beacon_id!) {
-                            let secondBeaconIdsStore = self.secondBeaconIdsStore.filter { $0 != path_item.second_beacon_id }
-                            self.secondBeaconIdsStore = secondBeaconIdsStore
+                        if path_item.second_beacon_id != nil && self.second_beacon_ids_store.contains(path_item.second_beacon_id!) {
+                            let second_beacon_ids_store = self.second_beacon_ids_store.filter { $0 != path_item.second_beacon_id }
+                            self.second_beacon_ids_store = second_beacon_ids_store
                         }
                     } catch {
                         print(error)
@@ -157,7 +159,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         return (
             path_item_with_display.first_beacon_id != nil
                 && path_item_with_display.first_beacon_id == beacon.beaconId
-                && !alreadySent.contains(where: { $0.destination_id == self.selectedDestination!.id && $0.display_id == path_item_with_display.first_beacon_id } )
+                && !already_sent.contains(where: { $0.destination_id == self.selected_destination!.id && $0.display_id == path_item_with_display.first_beacon_id } )
                 && beacon.rssi > -70
         )
     }
@@ -169,8 +171,8 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
      */
     private func buildPathItemToSend(path_item: Path) -> Path {
         var path_item = path_item
-        path_item.destination_id = self.selectedDestination!.id
-        path_item.destination = self.selectedDestination
+        path_item.destination_id = self.selected_destination!.id
+        path_item.destination = self.selected_destination
         return path_item
     }
     
@@ -265,7 +267,7 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         let decimal_x = round(Double(truncating: position.x as NSNumber))
         let decimal_y = round(Double(truncating:position.y as NSNumber))
         
-        let json: PostPath = PostPath(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selectedDestination!.id)
+        let json: PostPath = PostPath(map_id: self.map!.id, x_pixel: decimal_x, y_pixel: decimal_y, destination_id: self.selected_destination!.id)
         
         Api.shared.post(for: Path.self, path: "/getPath",  postData: json) {(res) in
             switch res {
@@ -278,14 +280,14 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
                     self.pathData = data
                     
                     // display memory will store only the paths which have a first_beacon_id meaning a display
-                    self.displayMemory = []
+                    self.display_memory = []
                     
                     
                     for path in data {
                         // Store all beacon id from path
                         // Those beacon ids represent one display each
                         if(path.first_beacon_id != nil) {
-                            self.displayMemory.append(path)
+                            self.display_memory.append(path)
                         }
                     }
                     
@@ -341,8 +343,8 @@ class PathTableViewController: UITableViewController, BCLManagerDelegate {
         // path arrow depends on direction
         cell.arrowImage.image = UIImage(named: self.getArrow(direction: path.direction))
         // path icon depends on destination type
-        cell.iconImage.image =  UIImage(named: self.getIcon(type: selectedDestination!.type_id))
-        cell.labelTitle.text = self.destination_name
+        cell.iconImage.image =  UIImage(named: self.getIcon(type: selected_destination!.type_id))
+        cell.labelTitle.text = self.selected_destination_name
         cell.cellText.text = "\(path.distance)m \(NSLocalizedString(path.direction, tableName: current_language_table, comment: "path"))"
         cell.informationBoard.text = NSLocalizedString("Information board ID:", tableName: current_language_table, comment: "page-debug")
         

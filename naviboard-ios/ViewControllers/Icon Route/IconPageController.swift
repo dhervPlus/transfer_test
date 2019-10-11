@@ -28,17 +28,9 @@ class IconPageController: UIViewController {
     @IBOutlet weak var imageContainer: UIView!
     
     var current_language_table = Globals.current_language_table
-    var destination_name:String = String()
-    var destination_order_number = Int()
-    var selectedDestination: Destination? = nil
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if self.destination_order_number > 0 && self.destination_order_number < 12 {
-            let image_name = "destination_\(self.destination_order_number)"
-            let image = UIImage(named: image_name)
-            mainImageView.image = image
-        }
-    }
+    var selected_destination: Destination? = nil
+    var selected_destination_name = String()
+    var selected_destination_order = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +47,7 @@ class IconPageController: UIViewController {
         let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
         
         let myMutableString = NSMutableAttributedString(
-            string: "\(NSLocalizedString("Destination:", tableName: current_language_table, comment: "global")) \(destination_name)",
+            string: "\(NSLocalizedString("Destination:", tableName: current_language_table, comment: "global")) \(selected_destination_name)",
             attributes: attributes)
         
         
@@ -69,24 +61,17 @@ class IconPageController: UIViewController {
         firstParagraph.text = NSLocalizedString("This icon is displayed on the information board. Please walk along the arrow with this icon during guidance.", tableName: current_language_table, comment: "page-route")
         secondParagraph.text = NSLocalizedString("As you approach the next guide, you will be notified by sound and vibration.",  tableName: current_language_table, comment: "page-route")
         dangerMessage.text = NSLocalizedString("Walking with a smartphone is dangerous!", tableName: current_language_table, comment: "page-route")
-        
-        
-        // Do any additional setup after loading the view.
+    
     }
-//
-//    func getTableName() -> String {
-//        switch language_current {
-//        case .english:
-//            return "LocalizedEnglish"
-//        case .chinese:
-//            return "LocalizedChinese"
-//        case .korean:
-//            return "LocalizedKorean"
-//        default:
-//            return "LocalizedJapanese"
-//        }
-//    }
-//
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if selected_destination_order > 0 && selected_destination_order < 12 {
+            let image_name = "destination_\(String(describing: selected_destination_order))"
+            let image = UIImage(named: image_name)
+            mainImageView.image = image
+        }
+    }
     
     
     // MARK: - Navigation
@@ -102,8 +87,9 @@ class IconPageController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let debugScreenController = segue.destination as! DebugScreenViewController
-        debugScreenController.selectedDestination = self.selectedDestination
-        debugScreenController.destination_name = self.destination_name
+        debugScreenController.selected_destination = self.selected_destination
+            debugScreenController.selected_destination_name = self.selected_destination_name
+           
         
     }
     

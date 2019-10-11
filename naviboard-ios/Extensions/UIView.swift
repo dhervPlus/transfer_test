@@ -26,6 +26,12 @@ extension UIView {
         activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
     }
+    
+    func addBorder(width: CGFloat, cornerRadius: CGFloat, color: CGColor) {
+         self.layer.borderWidth = width
+         self.layer.cornerRadius = cornerRadius
+         self.layer.borderColor = color
+     }
 }
 
 

@@ -14,47 +14,28 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     //MARK: Variables
     
-    // destinations
     var destinations = [[Destination]]()
     var destinations_initial = [Destination]()
     var destinations_filtered = [[Destination]]()
-    var destination_order_number = Int()
-    // table
-    var selectedCellLabel = String()
-    // search
-    var searchString = String()
-    var searchActive : Bool = false
+    var language_current = Language.english
+    var loaded = false
+    var selected_destination: Destination? = nil
+    var selected_destination_name = String()
+    var selected_destination_order = Int()
     var searchFocus : Bool = false
     let searchController = UISearchController(searchResultsController: nil)
     
-    var language_current = Language.english
-    
-    
-    
-    
-    
-    //    var current_language_table = String();
-    var selectedDestination: Destination? = nil
-    
-    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-    
-    var loaded = false
-    
     //MARK: IBOutlet
-    
-    
-    @IBOutlet weak var buttonLeftSettings: UIBarButtonItem!
     @IBOutlet weak var tableSearch: UISearchBar!
     @IBOutlet weak var navigation: UINavigationItem!
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set language table globally
         Globals.current_language_table = language_current.rawValue
+        
         //MARK: UI Setup
-        self.view.showActivityIndicatory()
         
         navigation.title = NSLocalizedString("Destinations", tableName: Globals.current_language_table, comment: "navigation-title")
         tableSearch.delegate = self
@@ -62,16 +43,14 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: Globals.current_language_table, comment: "navigation-search");
         tableSearch.backgroundColor = UIColor.white
         
+        // Loader
+        self.view.showActivityIndicatory()
         
-        //        navigation.title = NSLocalizedString("Destinations", tableName: Globals.current_language_table,comment: "navigation-title")
-        //        tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: Globals.current_language_table, comment: "navigation-search");
-        
-        for s in tableSearch.subviews[0].subviews {
-            if s is UITextField {
-                s.layer.borderWidth = 1.0
-                s.layer.cornerRadius = 4.0
-                s.layer.borderColor = UIColor(red:0.00, green:0.40, blue:0.69, alpha:1.0).cgColor
-                
+        // Search
+        for textfield in tableSearch.subviews[0].subviews {
+            if textfield is UITextField {
+                let color = UIColor(red:0.00, green:0.40, blue:0.69, alpha:1.0).cgColor
+                textfield.addBorder(width: 1.0, cornerRadius: 4.0, color: color)
             }
         }
     }
@@ -82,6 +61,8 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         
     }
     
+    // MARK: BCL functions
+    
     func didRangeBeacons(_ beacons: [BCLBeacon]!) {
         let first_beacon_id = beacons.first?.beaconId
         if(!self.loaded) {
@@ -89,12 +70,11 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         }
     }
     
-    
-    // MARK: private
-    
-    
     // MARK: Alert
     
+    /**
+     Open language alert on navigation button click
+     */
     @IBAction func openLanguageAlert(_ sender: UIBarButtonItem) {
         self.alertLanguage()
     }
@@ -124,13 +104,18 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     
+    /**
+     Display alert language selection
+     */
     private func alertLanguage() {
-        // set the alert controller
         let alert = UIAlertController(title:  NSLocalizedString("translation", tableName: "Main", comment: "alert"), message: "", preferredStyle: .alert)
         self.alertAddButtonsActions(alert: alert)
     }
     
-    
+    /**
+     Add actions to each one of the language alert button
+     - parameter alert: UIAlertController
+     */
     private func alertAddButtonsActions(alert: UIAlertController) {
         let japanese_action = UIAlertAction(title: "日本語", style: .default, handler: { (_) in
             self.language_current = .japanese
@@ -175,21 +160,20 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     
+    /**
+     Update the view with new selected language
+     */
     private func updateLanguageView() {
         navigation.title = NSLocalizedString("Destinations", tableName: Globals.current_language_table,comment: "navigation-title")
         tableSearch.placeholder = NSLocalizedString("Enter a destination...", tableName: Globals.current_language_table, comment: "navigation-search");
         self.tableView.reloadData()
-        
     }
     
-
+    
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if searchActive {
-            return destinations_filtered.count
-        }
         return destinations.count
     }
     
@@ -198,23 +182,21 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
+        
+        let sectionView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         
         let label = UILabel()
-        label.frame = CGRect.init(x: 16, y: 0, width: headerView.frame.width, height: headerView.frame.height)
+        label.frame = CGRect.init(x: 16, y: 0, width: sectionView.frame.width, height: sectionView.frame.height)
         label.text = String(self.getCurrentLanguageTypeLabel(element: destinations[section][0]))
         label.textColor = UIColor.black // my custom colour
-        headerView.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0)
         
-        headerView.addSubview(label)
         
-        return headerView
+        sectionView.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0)
+        sectionView.addSubview(label)
+        return sectionView
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchActive {
-            return destinations_filtered[section].count
-        }
         return destinations[section].count
     }
     
@@ -227,11 +209,7 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
             fatalError("The dequeued cell is not an instance of DestinationTableViewCell.")
         }
         
-        if searchActive {
-            destination = destinations_filtered[indexPath.section][indexPath.row]
-        } else {
-            destination = destinations[indexPath.section][indexPath.row]
-        }
+        destination = destinations[indexPath.section][indexPath.row]
         
         let text = self.getCurrentLanguageLabel(destination: destination)
         
@@ -244,19 +222,15 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         var label = String()
         _ = Int()
         
-        if searchActive {
-            label = self.getCurrentLanguageLabel(destination: destinations_filtered[indexPath.section][indexPath.row])
-        } else {
-            label = self.getCurrentLanguageLabel(destination: destinations[indexPath.section][indexPath.row])
-        }
+        label = self.getCurrentLanguageLabel(destination: destinations[indexPath.section][indexPath.row])
         
-        self.selectedCellLabel = label
-        self.selectedDestination = destinations[indexPath.section][indexPath.row] as Destination
-        self.destination_order_number = destinations[indexPath.section][indexPath.row].order!
+        self.selected_destination_name = label
+        self.selected_destination = destinations[indexPath.section][indexPath.row] as Destination
+        self.selected_destination_order = destinations[indexPath.section][indexPath.row].order!
         
         self.alert(title: NSLocalizedString("Do you want to set the selected location as the destination?", tableName: Globals.current_language_table, comment: "alert"), message: label, completion: { result in
             if result {
-                if self.selectedCellLabel != "" {
+                if self.selected_destination_name != "" {
                     self.performSegue(withIdentifier: "Segue", sender: self)
                 }
             }
@@ -289,13 +263,9 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
             return destination.label_japanese
         }
     }
-
     
-
-
     
     //MARK: Load Destinations
-    
     
     /**
      Api call to get the destinations from the current map
@@ -345,13 +315,10 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
             destinations.append(value)
         }
         
+        // Always sort destinations in the same order
         destinations = destinations.sorted(by: {$0.first!.type_label_english < $1.first!.type_label_english})
         
-        if searchActive {
-            self.destinations_filtered = destinations
-        } else {
-            self.destinations = destinations
-        }
+        self.destinations = destinations
         
         DispatchQueue.main.async {
             return self.tableView.reloadData()
@@ -359,9 +326,47 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     
+    // MARK: - Search
     
-    // MARK: - Segue Icon Controller
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchFocus = true;
+    }
     
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchFocus = false;
+    }
+    
+    /**
+     Filter destinations depending on the current search text in the search bar
+     - parameter searchText: string in search bar
+     - returns: [Destination] filtered by type_label or label
+     */
+    
+    func searchFilter(searchText: String) -> [Destination] {
+        return self.destinations_initial.filter({( destination : Destination) -> Bool in
+            return self.getCurrentLanguageLabel(destination: destination).lowercased().contains(searchText.lowercased()) || self.getCurrentLanguageTypeLabel(element: destination).lowercased().contains(searchText.lowercased())
+        })
+    }
+    
+    /**
+     Called when user is typing in the search bar.
+     - parameter searchBar: UISearchBar
+     - parameter searchText: String
+     - returns: call getTypes with the initial destination array or the filtered one if search is active
+     */
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let searchActive = searchText.count > 0
+        if searchFocus && searchActive {
+            let filtered = self.searchFilter(searchText: searchText)
+            return self.getTypes(destinations: filtered)
+        } else {
+            return self.getTypes(destinations: destinations_initial)
+        }
+    }
+    
+    
+    // MARK: Segue
     
     /**
      Prevent segue to happen automatically. Use to show confirmation alert
@@ -376,77 +381,6 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
         return true
     }
     
-    
-    /**
-     Set current selected row title. WIll be passed to Icon Controller
-     - parameter label: title of selected row
-     */
-    
-    private func openIconPage(label: String) {
-        self.selectedCellLabel = label
-    }
-    
-    
-    
-    
-    
-    // MARK: - Search
-    
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchFocus = true;
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchFocus = false;
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false;
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false;
-    }
-    
-    
-    /**
-     Filter destinations depending on the current search text in the search bar
-     - parameter searchText: string in search bar
-     - returns: [Destination] filtered by type_label or label
-     */
-    
-    func searchFilter(searchText: String) -> [Destination] {
-        return self.destinations_initial.filter({( destination : Destination) -> Bool in
-            return self.getCurrentLanguageLabel(destination: destination).lowercased().contains(searchText.lowercased()) || self.getCurrentLanguageTypeLabel(element: destination).lowercased().contains(searchText.lowercased())
-        })
-    }
-    
-    
-    /**
-     Called when user is typing in the search bar.
-     Will set searchActive depending on the searchText parameter string  is empty or not
-     - parameter searchBar: UISearchBar tableSearch
-     - parameter searchText: string in the search bar
-     - returns:
-     getTypes(destinations)  with fitered destination if searchActive = true (searchText.count > 0) or with destinations_initial  if searchActive = false (searchText.count == 0)
-     */
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count == 0 {
-            searchActive = false;
-        } else {
-            searchActive = true;
-        }
-        
-        if searchText.count > 0 && searchFocus {
-            let filtered = self.searchFilter(searchText: searchText)
-            return self.getTypes(destinations: filtered)
-        } else {
-            return self.getTypes(destinations: destinations_initial)
-        }
-    }
-    
     /**
      Prepare the segue for the Icon Page
      - parameter segue: use to get the destination segue from this controller
@@ -455,9 +389,9 @@ class DestinationTableViewController: UITableViewController, UISearchBarDelegate
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let iconController = segue.destination as! IconPageController
-        iconController.destination_name = self.selectedCellLabel
-        iconController.destination_order_number = self.destination_order_number
-        iconController.selectedDestination = self.selectedDestination
+        iconController.selected_destination_name = self.selected_destination_name
+        iconController.selected_destination_order = self.selected_destination_order
+        iconController.selected_destination = self.selected_destination
     }
 }
 

@@ -21,9 +21,8 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
     var path = [Path]()
     var mapIsLoaded = false
     var current_language_table = Globals.current_language_table
-    var destination_name = String()
-    var selectedDestination: Destination? = nil
-    
+    var selected_destination: Destination? = nil
+     var selected_destination_name = String()
     
     // MARK: IBOutlet
     
@@ -59,7 +58,7 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
         
         // Destination name
         destinationName.layer.addBorder(edge: UIRectEdge.top, color: UIColor.lightGray, thickness: 0.5)
-        destinationName.attributedText = destinationName.text!.indent( string: "\(NSLocalizedString("Destination:", tableName: current_language_table, comment: "global")) \(destination_name)")
+        destinationName.attributedText = destinationName.text!.indent( string: "\(NSLocalizedString("Destination:", tableName: current_language_table, comment: "global")) \(selected_destination_name)")
         
         
         // Loader start
@@ -306,8 +305,8 @@ class DebugScreenViewController: UIViewController, BCLManagerDelegate, PathPosit
         if segue.identifier == "seguetoPathView" {
             let pathTableView = segue.destination as! PathTableViewController
             pathTableView.pathPositionDelegate = self
-            pathTableView.destination_name = self.destination_name
-            pathTableView.selectedDestination = self.selectedDestination
+            pathTableView.selected_destination_name = self.selected_destination_name
+            pathTableView.selected_destination = self.selected_destination
             pathTableView.map = self.map
             pathTableView.tableView.reloadData()
         }
